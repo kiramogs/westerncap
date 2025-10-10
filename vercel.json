@@ -1,5 +1,7 @@
 {
   "version": 2,
+  "cleanUrls": true,
+  "trailingSlash": false,
   "rewrites": [
     { "source": "/send-contact-mail.php", "destination": "/api/send-contact-mail" },
     { "source": "/pages/send-contact-mail.php", "destination": "/api/send-contact-mail" },
@@ -9,7 +11,6 @@
     { "source": "/promoters", "destination": "/promoters/index.html" },
     { "source": "/partners", "destination": "/partners/index.html" },
     { "source": "/investors", "destination": "/investors/index.html" },
-    { "source": "/branches", "destination": "/branches/index.html" },
     { "source": "/annual-return", "destination": "/annual-return/index.html" },
     { "source": "/policies", "destination": "/policies/index.html" },
     { "source": "/notices", "destination": "/notices/index.html" },
