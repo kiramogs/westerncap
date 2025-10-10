@@ -1,0 +1,16 @@
+# macOS
+__MACOSX/
+.DS_Store
+
+# Archives
+*.zip
+
+# IDE
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.bak
+*~
+
