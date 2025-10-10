@@ -1,0 +1,8 @@
+{
+  "name": "western-capital-website",
+  "version": "1.0.0",
+  "description": "Western Capital Advisors - Official Website",
+  "private": true,
+  "type": "module"
+}
+
