@@ -206,17 +206,21 @@
                     }
 
                     $.ajax({
-                        url: "/pages/send-contact-mail.php",
+                        url: "/api/send-contact-mail",
                         type: "post",
-                        data: requestValues ,
+                        dataType: "json",
+                        data: requestValues,
                         success: function (response) {
-                            response = JSON.parse(response)
-                            if(response.success == true){
-                              $('.success-message').text('We have received your response and will get back to you shortly.').removeClass('d-none');
-                              $(".input-txt").val('')
+                            // Handle both JSON object and string for safety
+                            try {
+                                if (typeof response === 'string') {
+                                    response = JSON.parse(response);
+                                }
+                            } catch (_) {}
+                            if (response && response.success === true) {
+                                $('.success-message').text('We have received your response and will get back to you shortly.').removeClass('d-none');
+                                $(".input-txt").val('')
                             }
-                            
-                           // You will get response from your PHP page (what you echo or print)
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
                            console.log(textStatus, errorThrown);
