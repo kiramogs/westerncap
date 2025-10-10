@@ -1,41 +1,106 @@
 {
   "version": 2,
-  "cleanUrls": true,
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/$1" },
-    { "source": "/send-contact-mail.php", "destination": "/api/send-contact-mail" },
-    { "source": "/pages/send-contact-mail.php", "destination": "/api/send-contact-mail" },
-    { "source": "/aboutus/(.*)", "destination": "/aboutus/$1" },
-    { "source": "/contactus/(.*)", "destination": "/contactus/$1" },
-    { "source": "/advisors/(.*)", "destination": "/advisors/$1" },
-    { "source": "/promoters/(.*)", "destination": "/promoters/$1" },
-    { "source": "/partners/(.*)", "destination": "/partners/$1" },
-    { "source": "/investors/(.*)", "destination": "/investors/$1" },
-    { "source": "/annual-return/(.*)", "destination": "/annual-return/$1" },
-    { "source": "/policies/(.*)", "destination": "/policies/$1" },
-    { "source": "/notices/(.*)", "destination": "/notices/$1" },
-    { "source": "/other-disclosures/(.*)", "destination": "/other-disclosures/$1" },
-    { "source": "/liquidity-risk-management-disclosure/(.*)", "destination": "/liquidity-risk-management-disclosure/$1" },
-    { "source": "/customer-education-literature/(.*)", "destination": "/customer-education-literature/$1" },
-    { "source": "/terms-and-condition/(.*)", "destination": "/terms-and-condition/$1" },
-    { "source": "/regulatory/(.*)", "destination": "/regulatory/$1" }
+  "builds": [
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
+    }
   ],
-  "redirects": [
-    { "source": "/home.html", "destination": "/", "permanent": true }
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/send-contact-mail.php",
+      "dest": "/api/send-contact-mail"
+    },
+    {
+      "src": "/pages/send-contact-mail.php",
+      "dest": "/api/send-contact-mail"
+    },
+    {
+      "src": "/aboutus",
+      "dest": "/aboutus/index.html"
+    },
+    {
+      "src": "/contactus",
+      "dest": "/contactus/index.html"
+    },
+    {
+      "src": "/advisors",
+      "dest": "/advisors/index.html"
+    },
+    {
+      "src": "/promoters",
+      "dest": "/promoters/index.html"
+    },
+    {
+      "src": "/partners",
+      "dest": "/partners/index.html"
+    },
+    {
+      "src": "/investors",
+      "dest": "/investors/index.html"
+    },
+    {
+      "src": "/annual-return",
+      "dest": "/annual-return/index.html"
+    },
+    {
+      "src": "/policies",
+      "dest": "/policies/index.html"
+    },
+    {
+      "src": "/notices",
+      "dest": "/notices/index.html"
+    },
+    {
+      "src": "/other-disclosures",
+      "dest": "/other-disclosures/index.html"
+    },
+    {
+      "src": "/liquidity-risk-management-disclosure",
+      "dest": "/liquidity-risk-management-disclosure/index.html"
+    },
+    {
+      "src": "/customer-education-literature",
+      "dest": "/customer-education-literature/index.html"
+    },
+    {
+      "src": "/terms-and-condition",
+      "dest": "/terms-and-condition/index.html"
+    },
+    {
+      "src": "/regulatory",
+      "dest": "/regulatory/index.html"
+    },
+    {
+      "src": "/home.html",
+      "status": 301,
+      "headers": { "Location": "/" }
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
   ],
   "headers": [
     {
-      "source": "/api/(.*)",
-      "headers": [
-        { "key": "Cache-Control", "value": "s-maxage=0" }
-      ]
-    },
-    {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "DENY" },
-        { "key": "X-XSS-Protection", "value": "1; mode=block" }
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        }
       ]
     }
   ]
