@@ -21,7 +21,12 @@
     { "source": "/liquidity-risk-management-disclosure", "destination": "/liquidity-risk-management-disclosure/index.html" },
     { "source": "/customer-education-literature", "destination": "/customer-education-literature/index.html" },
     { "source": "/terms-and-condition", "destination": "/terms-and-condition/index.html" },
-    { "source": "/regulatory", "destination": "/regulatory/index.html" }
+    { "source": "/regulatory", "destination": "/regulatory/index.html" },
+    { "source": "/financial-results", "destination": "/financial-results/index.html" },
+    { "source": "/annual-report", "destination": "/annual-report/index.html" },
+    { "source": "/corp-announcements", "destination": "/corp-announcements/index.html" },
+    { "source": "/annual-return-ir", "destination": "/annual-return-ir/index.html" },
+    { "source": "/credit-rating", "destination": "/credit-rating/index.html" }
   ],
   "redirects": [
     { "source": "/home.html", "destination": "/", "permanent": true }
