@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found | Western Capital Advisors</title>
+    <meta name="description" content="The page you are looking for cannot be found.">
+    <link href="/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="https://westerncap.in/img/favicon.png">
+    <style>
+        body {
+            font-family: "Helvetica Neue", "Segoe UI", Segoe, Helvetica, Arial, "Lucida Grande", sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .error-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .error-content {
+            max-width: 600px;
+            background: white;
+            padding: 60px 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .error-icon {
+            margin-bottom: 30px;
+        }
+
+        .error-icon svg {
+            width: 120px;
+            height: 120px;
+        }
+
+        h1 {
+            font-size: 72px;
+            font-weight: 700;
+            margin: 0 0 10px 0;
+            color: #02478c;
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: 400;
+            margin: 0 0 20px 0;
+            color: #333;
+        }
+
+        .error-message {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .btn-home {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: #02478c;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+
+        .btn-home:hover {
+            background-color: #033d75;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(2, 71, 140, 0.3);
+            color: white;
+        }
+
+        .btn-contact {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: #ff8a00;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+
+        .btn-contact:hover {
+            background-color: #e67a00;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 138, 0, 0.3);
+            color: white;
+        }
+
+        .logo-container {
+            margin-bottom: 30px;
+        }
+
+        .logo-container img {
+            max-width: 250px;
+            height: auto;
+        }
+
+        @media (max-width: 768px) {
+            .error-content {
+                padding: 40px 20px;
+            }
+
+            h1 {
+                font-size: 48px;
+            }
+
+            h2 {
+                font-size: 22px;
+            }
+
+            .error-message {
+                font-size: 16px;
+            }
+
+            .btn-home, .btn-contact {
+                display: block;
+                margin: 10px auto;
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-content">
+            <div class="logo-container">
+                <a href="/">
+                    <img src="https://westerncap.in/img/LOGO1.png" alt="Western Capital Advisors">
+                </a>
+            </div>
+            
+            <div class="error-icon">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="#ff8a00" stroke-width="4"/>
+                    <text x="50" y="70" font-size="60" font-weight="bold" fill="#ff8a00" text-anchor="middle" font-family="Arial, sans-serif">!</text>
+                </svg>
+            </div>
+
+            <h1>404</h1>
+            <h2>Page Not Found</h2>
+            
+            <p class="error-message">
+                The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
+            </p>
+
+            <div>
+                <a href="/" class="btn-home">Go to Homepage</a>
+                <a href="/contactus" class="btn-contact">Contact Us</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
