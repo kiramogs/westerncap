@@ -152,6 +152,31 @@
         .navbar .dropdown-menu.show li:nth-child(3) { transition-delay: 0.15s; }
         .navbar .dropdown-menu.show li:nth-child(4) { transition-delay: 0.2s; }
         .navbar .dropdown-menu.show li:nth-child(5) { transition-delay: 0.25s; }
+        
+        /* Fix for IR pages - ensure nav and dropdowns are above content */
+        #content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header-2 {
+            position: relative;
+            z-index: 1000 !important;
+        }
+        
+        .navbar-collapse {
+            position: relative;
+            z-index: 1001 !important;
+        }
+        
+        /* Ensure dropdowns work on scrolled header */
+        .scrolled-down .dropdown-menu {
+            z-index: 9999 !important;
+        }
+        
+        .scrolled-down .navbar {
+            z-index: 1000 !important;
+        }
     </style>
 </head>
 <body>
@@ -423,6 +448,7 @@ $(document).ready(function() {
 </script>
 </body>
 </html>
+
 
 
 
