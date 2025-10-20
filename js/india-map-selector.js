@@ -130,8 +130,20 @@ class IndiaMapSelector {
                     
                     if (isOperational) {
                         d3.select(event.currentTarget)
+                            .transition()
+                            .duration(200)
                             .attr('fill', '#ff8a00')
                             .attr('stroke-width', 2);
+                        
+                        // Animate corresponding label
+                        this.mapGroup.selectAll('text')
+                            .filter(function() {
+                                return d3.select(this).text() === stateName;
+                            })
+                            .transition()
+                            .duration(200)
+                            .style('font-size', '14px')
+                            .style('fill', '#ffffff');
                         
                         const branchCount = this.operationalStates[stateName].length;
                         this.tooltip
@@ -139,6 +151,8 @@ class IndiaMapSelector {
                             .html(`<strong>${stateName}</strong><br/>${branchCount} branches available<br/><small>Click to view branches</small>`);
                     } else {
                         d3.select(event.currentTarget)
+                            .transition()
+                            .duration(200)
                             .attr('fill', '#999999');
                         
                         this.tooltip
@@ -156,8 +170,20 @@ class IndiaMapSelector {
                     const isOperational = this.operationalStates.hasOwnProperty(stateName);
                     
                     d3.select(event.currentTarget)
+                        .transition()
+                        .duration(200)
                         .attr('fill', isOperational ? '#4CAF50' : '#cccccc')
                         .attr('stroke-width', 1.5);
+                    
+                    // Reset corresponding label
+                    this.mapGroup.selectAll('text')
+                        .filter(function() {
+                            return d3.select(this).text() === stateName;
+                        })
+                        .transition()
+                        .duration(200)
+                        .style('font-size', '12px')
+                        .style('fill', '#ffffff');
                     
                     this.tooltip.style('display', 'none');
                 })
@@ -169,6 +195,31 @@ class IndiaMapSelector {
                         this.selectState(stateName);
                     }
                 });
+            
+            // Add state name labels for operational states
+            this.mapGroup.selectAll('text')
+                .data(geojson.features.filter(d => {
+                    const stateName = d.properties.ST_NM || d.properties.NAME_1 || 'Unknown';
+                    return this.operationalStates.hasOwnProperty(stateName);
+                }))
+                .enter()
+                .append('text')
+                .attr('x', d => path.centroid(d)[0])
+                .attr('y', d => path.centroid(d)[1])
+                .attr('text-anchor', 'middle')
+                .attr('dominant-baseline', 'middle')
+                .attr('class', 'state-label')
+                .style('font-size', '12px')
+                .style('font-weight', 'bold')
+                .style('fill', '#ffffff')
+                .style('text-shadow', '1px 1px 2px rgba(0,0,0,0.7), -1px -1px 2px rgba(0,0,0,0.7), 1px -1px 2px rgba(0,0,0,0.7), -1px 1px 2px rgba(0,0,0,0.7)')
+                .style('pointer-events', 'none')
+                .style('opacity', 0)
+                .text(d => d.properties.ST_NM || d.properties.NAME_1)
+                .transition()
+                .duration(800)
+                .delay((d, i) => i * 100)
+                .style('opacity', 1);
             
             this.currentView = 'india';
             this.backButton.style('display', 'none');
@@ -343,6 +394,18 @@ class IndiaMapSelector {
     showIndiaMap() {
         this.selectedState = null;
         this.selectedDistrict = null;
+        
+        // Clear everything including foreign objects and revert to map
+        this.svg.selectAll('*').remove();
+        this.mapGroup = this.svg.append('g');
+        
+        // Reset the selection display text
+        const locationText = document.getElementById('selected-location-text');
+        if (locationText) {
+            locationText.innerHTML = 'Click on a green state to select your branch';
+        }
+        
+        // Reload the India map
         this.loadIndiaMap();
     }
     
