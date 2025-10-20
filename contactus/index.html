@@ -68,28 +68,6 @@
         }
     </style>
 </head><body>
-
-<script>
-// Ensure only one dropdown is open at a time
-document.addEventListener('DOMContentLoaded', function() {
-    const dropdowns = document.querySelectorAll('.navbar .dropdown');
-    
-    dropdowns.forEach(dropdown => {
-        dropdown.addEventListener('show.bs.dropdown', function () {
-            // Close all other dropdowns
-            dropdowns.forEach(otherDropdown => {
-                if (otherDropdown !== dropdown) {
-                    const bsDropdown = bootstrap.Dropdown.getInstance(otherDropdown.querySelector('[data-bs-toggle="dropdown"]'));
-                    if (bsDropdown) {
-                        bsDropdown.hide();
-                    }
-                }
-            });
-        });
-    });
-});
-</script>
-
         <div id="content"><nav class="navbar navbar-expand-lg border-bottom scrolled-down header-2">
     <div class="container justify-content-start justify-content-md-between">
         <img alt="" src="/img/bars-invert.png" class="navbar-toggler bg-transparent"  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse">
@@ -534,6 +512,46 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
                 document.querySelector('.contact').scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 500);
+        }
+    });
+});
+</script>
+
+<script>
+// Ensure only one dropdown is open at a time - using jQuery
+$(document).ready(function() {
+    $('.navbar .dropdown').on('show.bs.dropdown', function () {
+        // Close all other open dropdowns
+        $('.navbar .dropdown').not(this).each(function() {
+            $(this).find('.dropdown-menu').removeClass('show');
+            $(this).find('.dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
+        });
+    });
+    
+    // Also handle click events on dropdown toggles
+    $('.navbar .dropdown-toggle').on('click', function(e) {
+        var $dropdown = $(this).closest('.dropdown');
+        var isOpen = $dropdown.find('.dropdown-menu').hasClass('show');
+        
+        // Close all dropdowns first
+        $('.navbar .dropdown-menu').removeClass('show');
+        $('.navbar .dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
+        
+        // If this dropdown wasn't open, open it
+        if (!isOpen) {
+            $dropdown.find('.dropdown-menu').addClass('show');
+            $(this).addClass('show').attr('aria-expanded', 'true');
+        }
+        
+        e.preventDefault();
+        e.stopPropagation();
+    });
+    
+    // Close dropdown when clicking outside
+    $(document).on('click', function(e) {
+        if (!$(e.target).closest('.navbar .dropdown').length) {
+            $('.navbar .dropdown-menu').removeClass('show');
+            $('.navbar .dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
         }
     });
 });
