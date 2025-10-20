@@ -23,13 +23,17 @@ class IndiaMapSelector {
     }
     
     async init() {
+        // Show loading message
+        this.container.innerHTML = '<div style="text-align: center; padding: 50px; color: #02478c; font-size: 18px;">Loading interactive map...</div>';
+        
         // Create SVG container
         this.svg = d3.select(this.container)
             .append('svg')
             .attr('width', '100%')
             .attr('height', this.options.height)
             .attr('viewBox', `0 0 ${this.options.width} ${this.options.height}`)
-            .attr('preserveAspectRatio', 'xMidYMid meet');
+            .attr('preserveAspectRatio', 'xMidYMid meet')
+            .style('background', '#f0f8ff');
             
         this.mapGroup = this.svg.append('g');
         
@@ -73,10 +77,13 @@ class IndiaMapSelector {
     async loadIndiaMap() {
         try {
             const response = await fetch('/js/topojsons/india.json');
+            if (!response.ok) {
+                throw new Error(`Failed to load India map: ${response.statusText}`);
+            }
             const topology = await response.json();
             
-            // Convert TopoJSON to GeoJSON
-            const geojson = topojson.feature(topology, topology.objects.IND_adm1);
+            // Convert TopoJSON to GeoJSON - use correct object name
+            const geojson = topojson.feature(topology, topology.objects['India-States']);
             
             // Create projection
             const projection = d3.geoMercator()
@@ -102,9 +109,10 @@ class IndiaMapSelector {
                     d3.select(event.currentTarget)
                         .attr('fill', '#ff8a00');
                     
+                    const stateName = d.properties.ST_NM || d.properties.NAME_1 || 'Unknown';
                     this.tooltip
                         .style('display', 'block')
-                        .html(d.properties.NAME_1 || d.properties.ST_NM);
+                        .html(stateName);
                 })
                 .on('mousemove', (event) => {
                     this.tooltip
@@ -118,7 +126,7 @@ class IndiaMapSelector {
                     this.tooltip.style('display', 'none');
                 })
                 .on('click', (event, d) => {
-                    const stateName = d.properties.NAME_1 || d.properties.ST_NM;
+                    const stateName = d.properties.ST_NM || d.properties.NAME_1 || 'Unknown';
                     this.selectState(stateName);
                 });
             
@@ -127,7 +135,19 @@ class IndiaMapSelector {
             
         } catch (error) {
             console.error('Error loading India map:', error);
-            this.container.innerHTML = '<p style="color: red;">Error loading map. Please refresh the page.</p>';
+            this.container.innerHTML = `
+                <div style="text-align: center; padding: 40px;">
+                    <p style="color: #d32f2f; font-size: 18px; margin-bottom: 15px;">
+                        ⚠️ Unable to load map
+                    </p>
+                    <p style="color: #666; font-size: 14px;">
+                        ${error.message || 'Please refresh the page to try again.'}
+                    </p>
+                    <button onclick="location.reload()" style="margin-top: 20px; padding: 10px 20px; background: #02478c; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                        Reload Page
+                    </button>
+                </div>
+            `;
         }
     }
     
