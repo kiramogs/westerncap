@@ -163,6 +163,24 @@
         <div class="subtitle text-center w-md-75 mx-auto">
             We are happy to answer your questions. Please submit your queries below and we will get in touch with you.
         </div>
+        
+        <!-- Interactive India Map -->
+        <div class="row justify-content-md-center mt-4" data-aos="fade-up" data-aos-duration="1000">
+            <div class="col-md-10 col-lg-8">
+                <div class="india-map-container" style="background: #f8f9fa; border-radius: 8px; padding: 20px; margin-bottom: 30px;">
+                    <h4 style="text-align: center; color: #02478c; margin-bottom: 15px;">Select Your Location</h4>
+                    <p style="text-align: center; font-size: 14px; color: #666; margin-bottom: 20px;">Click on a state to view districts, then click on your district</p>
+                    <div id="india-map-selector" style="position: relative; min-height: 500px;"></div>
+                    <div class="selected-region-display" style="margin-top: 15px; padding: 15px; background: white; border-radius: 4px; border: 2px solid #02478c;">
+                        <strong style="color: #02478c;">Selected Location:</strong>
+                        <div id="selected-location-text" style="margin-top: 8px; font-size: 16px; color: #333;">
+                            Click on the map to select your state and district
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <div class="row justify-content-md-center mt-lg-5" data-aos="fade-up" data-aos-duration="1000">
             <div class="col-md-10 col-lg-6">
                 <form class="contact">
@@ -182,6 +200,25 @@
                         <input placeholder="" type="email" name="email" id="email" class="input-txt">
                         <span class="input-error email-error text-red"></span>
 
+                    </fieldset>
+                    <fieldset>
+                        <label>State <span class="text-orange">*</span></label>
+                        <select name="state" id="state" class="input-txt">
+                            <option value="">Select State</option>
+                        </select>
+                        <span class="input-error state-error text-red"></span>
+                    </fieldset>
+                    <fieldset>
+                        <label>District <span class="text-orange">*</span></label>
+                        <select name="district" id="district" class="input-txt" disabled>
+                            <option value="">Select State First</option>
+                        </select>
+                        <span class="input-error district-error text-red"></span>
+                    </fieldset>
+                    <fieldset>
+                        <label>City</label>
+                        <input placeholder="" type="text" name="city" id="city" class="input-txt">
+                        <span class="input-error city-error text-red"></span>
                     </fieldset>
                     <fieldset>
                         <label>message <span class="text-orange">*</span></label>
@@ -343,5 +380,48 @@
 
 
 <script src="https://www.google.com/recaptcha/api.js"></script>
+
+<!-- D3.js and TopoJSON libraries for interactive map -->
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://unpkg.com/topojson@3"></script>
+<script src="/js/india-map-selector.js"></script>
+
+<script>
+// Initialize India Map Selector
+document.addEventListener('DOMContentLoaded', function() {
+    // Hide the dropdowns since we're using the map
+    const stateFieldset = document.querySelector('fieldset:has(#state)');
+    const districtFieldset = document.querySelector('fieldset:has(#district)');
+    const cityFieldset = document.querySelector('fieldset:has(#city)');
+    
+    if (stateFieldset) stateFieldset.style.display = 'none';
+    if (districtFieldset) districtFieldset.style.display = 'none';
+    if (cityFieldset) cityFieldset.style.display = 'none';
+    
+    // Initialize the map
+    const mapSelector = new IndiaMapSelector('india-map-selector', {
+        width: 700,
+        height: 600,
+        onStateSelect: function(stateName) {
+            console.log('State selected:', stateName);
+            document.getElementById('state').value = stateName;
+            document.getElementById('selected-location-text').innerHTML = 
+                `<span style="color: #02478c; font-weight: bold;">State:</span> ${stateName}<br><span style="color: #666; font-size: 14px;">Now click on a district</span>`;
+        },
+        onDistrictSelect: function(stateName, districtName) {
+            console.log('District selected:', stateName, districtName);
+            document.getElementById('state').value = stateName;
+            document.getElementById('district').value = districtName;
+            document.getElementById('selected-location-text').innerHTML = 
+                `<span style="color: #02478c; font-weight: bold;">State:</span> ${stateName}<br><span style="color: #02478c; font-weight: bold;">District:</span> ${districtName}`;
+            
+            // Scroll to form
+            setTimeout(() => {
+                document.querySelector('.contact').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 500);
+        }
+    });
+});
+</script>
 </body>
 </html>
