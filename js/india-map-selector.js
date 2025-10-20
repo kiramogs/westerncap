@@ -19,6 +19,16 @@ class IndiaMapSelector {
         this.selectedDistrict = null;
         this.currentView = 'india'; // 'india' or 'state'
         
+        // Western Capital operational states and their branches
+        this.operationalStates = {
+            'Rajasthan': ['Ajmer', 'Chittorgarh', 'Chomu', 'Fatehnagar', 'Gulabpura', 'Jhunjhunu', 'Beawar', 'Kotputli', 'Rajsamand', 'Kuchaman', 'Sojat', 'Neem Ka Thana', 'Sujangarh', 'Jaipur', 'Sikar', 'Kekri', 'Nimbahera', 'Udaipur', 'Sumerpur', 'Ratangarh', 'Nokha', 'Phalodi'],
+            'Maharashtra': ['Akola', 'Baramati', 'Dhule', 'Buldhana', 'Karad', 'Nagpur', 'Jalgaon', 'Kalyan', 'Kolhapur', 'Nashik', 'Pune', 'Sangli', 'Satara', 'Yavatmal', 'Sangamner', 'HO - Maharashtra ISD', 'OPS HUB - Maharashtra ISD'],
+            'Madhya Pradesh': ['Dewas', 'Dhamnod', 'Indore', 'Khargone', 'Jaora', 'Sehore', 'Ujjain', 'Hoshangabad', 'Mandsaur', 'Shamgarh', 'Manasa', 'Shujalpur', 'Khandwa', 'Khategaon'],
+            'Tamil Nadu': ['Nagarcoil', 'Madurai', 'Theni', 'Tirunelveli', 'Sivakasi', 'Thoothukudi', 'Karaikudi', 'Namakkal', 'Salem', 'Krishnagiri', 'Erode', 'Viluppuram', 'Kallakurichi', 'Dharmapuri'],
+            'Telangana': ['Medchal', 'Ibrahimpatnam', 'Siddipet', 'Jangaon', 'Kamareddy', 'Jagtial', 'Karimnagar'],
+            'Karnataka': ['Belgaum', 'Davanagere', 'Haveri', 'Chitradurga', 'Hospet', 'Shimoga', 'Gadag']
+        };
+        
         this.init();
     }
     
@@ -100,34 +110,64 @@ class IndiaMapSelector {
                 .enter()
                 .append('path')
                 .attr('d', path)
-                .attr('fill', '#4CAF50')
-                .attr('stroke', '#ffffff')
-                .attr('stroke-width', 1)
-                .style('cursor', 'pointer')
-                .style('transition', 'all 0.3s ease')
-                .on('mouseover', (event, d) => {
-                    d3.select(event.currentTarget)
-                        .attr('fill', '#ff8a00');
-                    
+                .attr('fill', (d) => {
                     const stateName = d.properties.ST_NM || d.properties.NAME_1 || 'Unknown';
-                    this.tooltip
-                        .style('display', 'block')
-                        .html(stateName);
+                    const isOperational = this.operationalStates.hasOwnProperty(stateName);
+                    return isOperational ? '#4CAF50' : '#cccccc'; // Green for operational, gray for non-operational
+                })
+                .attr('stroke', '#ffffff')
+                .attr('stroke-width', 1.5)
+                .style('cursor', (d) => {
+                    const stateName = d.properties.ST_NM || d.properties.NAME_1 || 'Unknown';
+                    const isOperational = this.operationalStates.hasOwnProperty(stateName);
+                    return isOperational ? 'pointer' : 'not-allowed';
+                })
+                .style('transition', 'all 0.3s ease')
+                .attr('data-state', (d) => d.properties.ST_NM || d.properties.NAME_1 || 'Unknown')
+                .on('mouseover', (event, d) => {
+                    const stateName = d.properties.ST_NM || d.properties.NAME_1 || 'Unknown';
+                    const isOperational = this.operationalStates.hasOwnProperty(stateName);
+                    
+                    if (isOperational) {
+                        d3.select(event.currentTarget)
+                            .attr('fill', '#ff8a00')
+                            .attr('stroke-width', 2);
+                        
+                        const branchCount = this.operationalStates[stateName].length;
+                        this.tooltip
+                            .style('display', 'block')
+                            .html(`<strong>${stateName}</strong><br/>${branchCount} branches available<br/><small>Click to view branches</small>`);
+                    } else {
+                        d3.select(event.currentTarget)
+                            .attr('fill', '#999999');
+                        
+                        this.tooltip
+                            .style('display', 'block')
+                            .html(`<strong>${stateName}</strong><br/><small style="color: #ff8a00;">No branches available</small>`);
+                    }
                 })
                 .on('mousemove', (event) => {
                     this.tooltip
                         .style('left', (event.pageX + 10) + 'px')
                         .style('top', (event.pageY - 20) + 'px');
                 })
-                .on('mouseout', (event) => {
+                .on('mouseout', (event, d) => {
+                    const stateName = d.properties.ST_NM || d.properties.NAME_1 || 'Unknown';
+                    const isOperational = this.operationalStates.hasOwnProperty(stateName);
+                    
                     d3.select(event.currentTarget)
-                        .attr('fill', '#4CAF50');
+                        .attr('fill', isOperational ? '#4CAF50' : '#cccccc')
+                        .attr('stroke-width', 1.5);
                     
                     this.tooltip.style('display', 'none');
                 })
                 .on('click', (event, d) => {
                     const stateName = d.properties.ST_NM || d.properties.NAME_1 || 'Unknown';
-                    this.selectState(stateName);
+                    const isOperational = this.operationalStates.hasOwnProperty(stateName);
+                    
+                    if (isOperational) {
+                        this.selectState(stateName);
+                    }
                 });
             
             this.currentView = 'india';
@@ -155,15 +195,80 @@ class IndiaMapSelector {
         this.selectedState = stateName;
         this.options.onStateSelect(stateName);
         
-        // Convert state name to filename format
-        const stateFile = this.getStateFileName(stateName);
+        // Show branch list instead of district map
+        this.showBranchList(stateName);
+    }
+    
+    showBranchList(stateName) {
+        const branches = this.operationalStates[stateName];
         
-        try {
-            await this.loadStateMap(stateFile, stateName);
-        } catch (error) {
-            console.error('Error loading state map:', error);
-            alert('District map not available for ' + stateName);
-        }
+        // Clear the map
+        this.mapGroup.selectAll('*').remove();
+        
+        // Create branch selection interface
+        const foreignObject = this.svg.append('foreignObject')
+            .attr('width', this.options.width)
+            .attr('height', this.options.height)
+            .attr('x', 0)
+            .attr('y', 0);
+        
+        const branchHTML = `
+            <div style="padding: 20px; height: 100%; overflow-y: auto; background: white;">
+                <h3 style="color: #02478c; margin-bottom: 20px; text-align: center; font-size: 24px;">
+                    ${stateName} - Select Your Branch
+                </h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin-bottom: 20px;">
+                    ${branches.map(branch => `
+                        <button 
+                            onclick="window.indiaMapSelectorInstance.selectBranch('${stateName}', '${branch}')"
+                            style="
+                                padding: 15px 10px;
+                                background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+                                color: white;
+                                border: none;
+                                border-radius: 8px;
+                                cursor: pointer;
+                                font-size: 14px;
+                                font-weight: 500;
+                                transition: all 0.3s ease;
+                                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                                text-align: center;
+                            "
+                            onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(76, 175, 80, 0.4)'; this.style.background='linear-gradient(135deg, #ff8a00 0%, #e67a00 100%)';"
+                            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 5px rgba(0,0,0,0.1)'; this.style.background='linear-gradient(135deg, #4CAF50 0%, #45a049 100%)';"
+                        >
+                            ${branch}
+                        </button>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+        
+        foreignObject.append('xhtml:div')
+            .html(branchHTML);
+        
+        this.currentView = 'branches';
+        this.backButton.style('display', 'block');
+    }
+    
+    selectBranch(stateName, branchName) {
+        this.selectedDistrict = branchName;
+        this.options.onDistrictSelect(stateName, branchName);
+        
+        // Update the visual feedback
+        this.highlightSelectedBranch(branchName);
+    }
+    
+    highlightSelectedBranch(branchName) {
+        // Add visual feedback for selected branch
+        const buttons = this.svg.selectAll('button');
+        buttons.each(function() {
+            const button = this;
+            if (button.textContent.trim() === branchName) {
+                button.style.background = 'linear-gradient(135deg, #02478c 0%, #024070 100%)';
+                button.style.boxShadow = '0 4px 12px rgba(2, 71, 140, 0.5)';
+            }
+        });
     }
     
     async loadStateMap(stateFile, stateName) {

@@ -168,13 +168,32 @@
         <div class="row justify-content-md-center mt-4" data-aos="fade-up" data-aos-duration="1000">
             <div class="col-md-10 col-lg-8">
                 <div class="india-map-container" style="background: #f8f9fa; border-radius: 8px; padding: 20px; margin-bottom: 30px;">
-                    <h4 style="text-align: center; color: #02478c; margin-bottom: 15px;">Select Your Location</h4>
-                    <p style="text-align: center; font-size: 14px; color: #666; margin-bottom: 20px;">Click on a state to view districts, then click on your district</p>
+                    <h4 style="text-align: center; color: #02478c; margin-bottom: 10px;">Select Your Location</h4>
+                    <p style="text-align: center; font-size: 14px; color: #666; margin-bottom: 10px;">We currently serve customers in 6 states across India</p>
+                    
+                    <!-- Legend -->
+                    <div style="display: flex; justify-content: center; align-items: center; gap: 20px; margin-bottom: 15px; flex-wrap: wrap;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <div style="width: 20px; height: 20px; background: #4CAF50; border: 2px solid white; border-radius: 3px;"></div>
+                            <span style="font-size: 13px; color: #333;">Available States</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <div style="width: 20px; height: 20px; background: #cccccc; border: 2px solid white; border-radius: 3px;"></div>
+                            <span style="font-size: 13px; color: #666;">Coming Soon</span>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-bottom: 15px; padding: 10px; background: #e8f5e9; border-radius: 6px; border-left: 4px solid #4CAF50;">
+                        <span style="color: #2e7d32; font-size: 13px; font-weight: 500;">
+                            ✓ Rajasthan • Maharashtra • Madhya Pradesh • Tamil Nadu • Telangana • Karnataka
+                        </span>
+                    </div>
+                    
                     <div id="india-map-selector" style="position: relative; min-height: 500px;"></div>
                     <div class="selected-region-display" style="margin-top: 15px; padding: 15px; background: white; border-radius: 4px; border: 2px solid #02478c;">
                         <strong style="color: #02478c;">Selected Location:</strong>
                         <div id="selected-location-text" style="margin-top: 8px; font-size: 16px; color: #333;">
-                            Click on the map to select your state and district
+                            Click on a green state to select your branch
                         </div>
                     </div>
                 </div>
@@ -398,22 +417,22 @@ document.addEventListener('DOMContentLoaded', function() {
     if (districtFieldset) districtFieldset.style.display = 'none';
     if (cityFieldset) cityFieldset.style.display = 'none';
     
-    // Initialize the map
-    const mapSelector = new IndiaMapSelector('india-map-selector', {
+    // Initialize the map and store globally
+    window.indiaMapSelectorInstance = new IndiaMapSelector('india-map-selector', {
         width: 700,
         height: 600,
         onStateSelect: function(stateName) {
             console.log('State selected:', stateName);
             document.getElementById('state').value = stateName;
             document.getElementById('selected-location-text').innerHTML = 
-                `<span style="color: #02478c; font-weight: bold;">State:</span> ${stateName}<br><span style="color: #666; font-size: 14px;">Now click on a district</span>`;
+                `<span style="color: #02478c; font-weight: bold;">State:</span> ${stateName}<br><span style="color: #666; font-size: 14px;">Now select your branch</span>`;
         },
-        onDistrictSelect: function(stateName, districtName) {
-            console.log('District selected:', stateName, districtName);
+        onDistrictSelect: function(stateName, branchName) {
+            console.log('Branch selected:', stateName, branchName);
             document.getElementById('state').value = stateName;
-            document.getElementById('district').value = districtName;
+            document.getElementById('district').value = branchName;
             document.getElementById('selected-location-text').innerHTML = 
-                `<span style="color: #02478c; font-weight: bold;">State:</span> ${stateName}<br><span style="color: #02478c; font-weight: bold;">District:</span> ${districtName}`;
+                `<span style="color: #02478c; font-weight: bold;">State:</span> ${stateName}<br><span style="color: #02478c; font-weight: bold;">Branch:</span> ${branchName}<br><span style="color: #4CAF50; font-size: 14px;">✓ Location selected successfully!</span>`;
             
             // Scroll to form
             setTimeout(() => {
