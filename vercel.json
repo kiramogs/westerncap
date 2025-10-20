@@ -1,10 +1,6 @@
 {
-  "buildCommand": null,
-  "devCommand": null,
-  "installCommand": null,
-  "framework": null,
-  "outputDirectory": null,
   "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" },
     { "source": "/send-contact-mail.php", "destination": "/api/send-contact-mail" },
     { "source": "/pages/send-contact-mail.php", "destination": "/api/send-contact-mail" },
     { "source": "/aboutus", "destination": "/aboutus/index.html" },
