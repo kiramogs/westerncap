@@ -79,6 +79,19 @@
             top: 100%;
             left: 0;
             z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: 0;
+            overflow: hidden;
+        }
+        
+        .navbar .dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            max-height: 500px;
         }
         
         /* Adjust Company dropdown positioning */
@@ -86,10 +99,44 @@
             left: -35px;
         }
         
-        /* Adjust Investor Relations dropdown positioning */
-        .dropdown-menu-investor {
-            left: -50px !important;
+        /* Investor Relations - rightmost positioning */
+        .dropdown-investor-relations {
+            margin-left: auto !important;
         }
+        
+        .dropdown-menu-investor {
+            right: 0 !important;
+            left: auto !important;
+        }
+        
+        /* Extend hover area for better UX */
+        .navbar .dropdown::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -10px;
+            right: -10px;
+            bottom: -20px;
+            z-index: -1;
+        }
+        
+        /* Smooth animation for dropdown items */
+        .navbar .dropdown-menu li {
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.2s ease;
+        }
+        
+        .navbar .dropdown-menu.show li {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .navbar .dropdown-menu.show li:nth-child(1) { transition-delay: 0.05s; }
+        .navbar .dropdown-menu.show li:nth-child(2) { transition-delay: 0.1s; }
+        .navbar .dropdown-menu.show li:nth-child(3) { transition-delay: 0.15s; }
+        .navbar .dropdown-menu.show li:nth-child(4) { transition-delay: 0.2s; }
+        .navbar .dropdown-menu.show li:nth-child(5) { transition-delay: 0.25s; }
     </style>
 </head><body>
 
@@ -127,7 +174,10 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item">
+                    <a class="nav-link" href="/contactus">contact us</a>
+                </li>
+                <li class="nav-item dropdown dropdown-investor-relations">
                     <a aria-expanded="false" class="nav-link  dropdown-toggle" data-bs-toggle="dropdown" href="#" id="navbarDropdownInvestor" role="button" disabled>investor relations</a>
                     <ul aria-labelledby="navbarDropdownInvestor" class="dropdown-menu dropdown-menu-investor px-2">
                         <li class="">
@@ -146,9 +196,6 @@
                             <a class="dropdown-item" href="/credit-rating">credit rating</a>
                         </li>
                     </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/contactus">contact us</a>
                 </li>
                 
             </ul>
@@ -1124,29 +1171,39 @@
 <script src="https://www.google.com/recaptcha/api.js"></script>
 
 <script>
-// Ensure only one dropdown is open at a time
+// Enhanced dropdown with smooth animations and proper hotspot detection
 $(document).ready(function() {
     // Disable Bootstrap's default dropdown behavior
     $('.navbar .dropdown-toggle').attr('data-bs-toggle', '').attr('data-toggle', '');
     
-    // Handle hover events
-    $('.navbar .dropdown').hover(
+    var closeTimer;
+    
+    // Handle hover events with extended hotspot
+    $('.navbar .dropdown, .navbar .dropdown-menu').hover(
         function() {
-            // Mouse enter
-            var $this = $(this);
+            // Mouse enter - clear any pending close timers
+            clearTimeout(closeTimer);
             
-            // Close all other dropdowns
-            $('.navbar .dropdown').not($this).each(function() {
+            var $dropdown = $(this).closest('.dropdown');
+            
+            // Close all other dropdowns with animation
+            $('.navbar .dropdown').not($dropdown).each(function() {
                 $(this).find('.dropdown-menu').removeClass('show');
                 $(this).find('.dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
             });
             
-            // Open this dropdown
-            $this.find('.dropdown-menu').addClass('show');
-            $this.find('.dropdown-toggle').addClass('show').attr('aria-expanded', 'true');
+            // Open this dropdown with animation
+            $dropdown.find('.dropdown-menu').addClass('show');
+            $dropdown.find('.dropdown-toggle').addClass('show').attr('aria-expanded', 'true');
         },
         function() {
-            // Mouse leave - keep open
+            // Mouse leave - close after delay for smooth UX
+            var $dropdown = $(this).closest('.dropdown');
+            
+            closeTimer = setTimeout(function() {
+                $dropdown.find('.dropdown-menu').removeClass('show');
+                $dropdown.find('.dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
+            }, 300); // 300ms delay before closing
         }
     );
     
