@@ -66,6 +66,26 @@
             }
         }
     </style>
+<script>
+// Ensure only one dropdown is open at a time
+document.addEventListener(''DOMContentLoaded'', function() {
+    const dropdowns = document.querySelectorAll(''.navbar .dropdown'');
+    
+    dropdowns.forEach(dropdown => {
+        dropdown.addEventListener(''show.bs.dropdown'', function () {
+            // Close all other dropdowns
+            dropdowns.forEach(otherDropdown => {
+                if (otherDropdown !== dropdown) {
+                    const bsDropdown = bootstrap.Dropdown.getInstance(otherDropdown.querySelector(''[data-bs-toggle="dropdown"]''));
+                    if (bsDropdown) {
+                        bsDropdown.hide();
+                    }
+                }
+            });
+        });
+    });
+});
+</script>
 </head>
 <body>
     <div id="content">
@@ -87,8 +107,7 @@
                         <li class="nav-item dropdown">
                             <a aria-expanded="false" class="nav-link  dropdown-toggle" data-bs-toggle="dropdown" href="#" id="navbarDropdown" role="button" disabled>company</a>
                             <ul aria-labelledby="navbarDropdown" class="dropdown-menu dropdown-menu-investor px-2">
-                                <li class="">
-                                    <a class="dropdown-item" href="/advisors">our advisors</a>
+                                <li class="">`n                            <a class="dropdown-item" href="/aboutus">about us</a>`n                        </li>`n                        <li class="">`n                            <a class="dropdown-item" href="/advisors">our advisors</a>
                                 </li>
                                 <li class="">
                                     <a class="dropdown-item" href="/promoters">our promoters</a>
@@ -219,5 +238,6 @@
     </script>
 </body>
 </html>
+
 
 

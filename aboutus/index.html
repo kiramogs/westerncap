@@ -68,6 +68,28 @@
         }
     </style>
 </head><body>
+
+<script>
+// Ensure only one dropdown is open at a time
+document.addEventListener('DOMContentLoaded', function() {
+    const dropdowns = document.querySelectorAll('.navbar .dropdown');
+    
+    dropdowns.forEach(dropdown => {
+        dropdown.addEventListener('show.bs.dropdown', function () {
+            // Close all other dropdowns
+            dropdowns.forEach(otherDropdown => {
+                if (otherDropdown !== dropdown) {
+                    const bsDropdown = bootstrap.Dropdown.getInstance(otherDropdown.querySelector('[data-bs-toggle="dropdown"]'));
+                    if (bsDropdown) {
+                        bsDropdown.hide();
+                    }
+                }
+            });
+        });
+    });
+});
+</script>
+
         <div id="content"><nav class="navbar navbar-expand-lg  header-1">
     <div class="container justify-content-start justify-content-md-between">
         <img alt="" src="/img/bars-invert.png" class="navbar-toggler bg-transparent d-none blue" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse">
@@ -83,14 +105,14 @@
                     <a aria-current="page" class="nav-link " href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="/aboutus">about us</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link " href="/#services">services</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a aria-expanded="false" class="nav-link  dropdown-toggle" data-bs-toggle="dropdown" href="#" id="navbarDropdown" role="button" disabled>company</a>
                     <ul aria-labelledby="navbarDropdown" class="dropdown-menu px-2">
+                        <li class="">
+                            <a class="dropdown-item active" href="/aboutus">about us</a>
+                        </li>
                         <li class="">
                             <a class="dropdown-item" href="/advisors">our advisors</a>
                         </li>
