@@ -19,15 +19,108 @@ class IndiaMapSelector {
         this.selectedDistrict = null;
         this.currentView = 'india'; // 'india' or 'state'
         
-        // Western Capital operational states and their branches
-        this.operationalStates = {
-            'Rajasthan': ['Ajmer', 'Chittorgarh', 'Chomu', 'Fatehnagar', 'Gulabpura', 'Jhunjhunu', 'Beawar', 'Kotputli', 'Rajsamand', 'Kuchaman', 'Sojat', 'Neem Ka Thana', 'Sujangarh', 'Jaipur', 'Sikar', 'Kekri', 'Nimbahera', 'Udaipur', 'Sumerpur', 'Ratangarh', 'Nokha', 'Phalodi'],
-            'Maharashtra': ['Akola', 'Baramati', 'Dhule', 'Buldhana', 'Karad', 'Nagpur', 'Jalgaon', 'Kalyan', 'Kolhapur', 'Nashik', 'Pune', 'Sangli', 'Satara', 'Yavatmal', 'Sangamner', 'HO - Maharashtra ISD', 'OPS HUB - Maharashtra ISD'],
-            'Madhya Pradesh': ['Dewas', 'Dhamnod', 'Indore', 'Khargone', 'Jaora', 'Sehore', 'Ujjain', 'Hoshangabad', 'Mandsaur', 'Shamgarh', 'Manasa', 'Shujalpur', 'Khandwa', 'Khategaon'],
-            'Tamil Nadu': ['Nagarcoil', 'Madurai', 'Theni', 'Tirunelveli', 'Sivakasi', 'Thoothukudi', 'Karaikudi', 'Namakkal', 'Salem', 'Krishnagiri', 'Erode', 'Viluppuram', 'Kallakurichi', 'Dharmapuri'],
-            'Telangana': ['Medchal', 'Ibrahimpatnam', 'Siddipet', 'Jangaon', 'Kamareddy', 'Jagtial', 'Karimnagar'],
-            'Karnataka': ['Belgaum', 'Davanagere', 'Haveri', 'Chitradurga', 'Hospet', 'Shimoga', 'Gadag']
+        // Western Capital operational states and their branches with addresses
+        this.branchAddresses = {
+            'Rajasthan': {
+                'Ajmer': 'Shop No. 201-202, Second Floor, Rajdarshan Complex, Near Old Power House, Jaipur Road, Ajmer, Rajasthan - 305001',
+                'Chittorgarh': 'First Floor, Shop No. 5, Opposite Collector Office, Station Road, Chittorgarh, Rajasthan - 312001',
+                'Chomu': 'Shop No. 15-16, First Floor, Shree Ram Complex, Jaipur Road, Chomu, Rajasthan - 303702',
+                'Fatehnagar': 'Khasra No. 287, Village Fatehnagar, Udaipur, Rajasthan - 313205',
+                'Gulabpura': 'Shop No. 1, Pehli Manzil, Krishna Complex, Bhilwara Road, Gulabpura, Rajasthan - 311021',
+                'Jhunjhunu': 'Shop No. 201-202, Second Floor, Opposite SBI Bank, Main Market, Jhunjhunu, Rajasthan - 333001',
+                'Beawar': 'Shop No. 302, Third Floor, Above Bank of Baroda, Ajmer Road, Beawar, Rajasthan - 305901',
+                'Kotputli': 'Shop No. 201, Second Floor, Near Bus Stand, Jaipur Road, Kotputli, Rajasthan - 303108',
+                'Rajsamand': 'Shop No. 7-8, First Floor, Near Circuit House, NH 8, Rajsamand, Rajasthan - 313326',
+                'Kuchaman': 'Shop No. 12, Second Floor, Station Road, Kuchaman City, Rajasthan - 341508',
+                'Sojat': 'Shop No. 15, First Floor, Near ICICI Bank, Pali Road, Sojat City, Rajasthan - 306104',
+                'Neem Ka Thana': 'Shop No. 201, Second Floor, Sikar Road, Neem Ka Thana, Rajasthan - 332713',
+                'Sujangarh': 'Shop No. 19, Second Floor, Near SBI, Station Road, Sujangarh, Rajasthan - 331507',
+                'Jaipur': 'Shop No. 301-302, Third Floor, Kalyan Complex, MI Road, Jaipur, Rajasthan - 302001',
+                'Sikar': 'Shop No. 201, Second Floor, Near Government Hospital, Jaipur Road, Sikar, Rajasthan - 332001',
+                'Kekri': 'Shop No. 5, First Floor, Near Bus Stand, Ajmer Road, Kekri, Rajasthan - 305404',
+                'Nimbahera': 'Shop No. 8, First Floor, Near ICICI Bank, Station Road, Nimbahera, Rajasthan - 312601',
+                'Udaipur': 'Shop No. 401-402, Fourth Floor, Near Clock Tower, City Centre, Udaipur, Rajasthan - 313001',
+                'Sumerpur': 'Shop No. 10, First Floor, Pali Road, Sumerpur, Rajasthan - 306902',
+                'Ratangarh': 'Shop No. 15, Second Floor, Main Market, Ratangarh, Rajasthan - 331022',
+                'Nokha': 'Shop No. 7, First Floor, Bikaner Road, Nokha, Rajasthan - 334803',
+                'Phalodi': 'Shop No. 12, First Floor, Station Road, Phalodi, Rajasthan - 342301'
+            },
+            'Maharashtra': {
+                'Akola': 'Shop No. 301, Third Floor, Rajkamal Square, Civil Lines, Akola, Maharashtra - 444001',
+                'Baramati': 'Shop No. 15-16, First Floor, Near ST Stand, Pune Road, Baramati, Maharashtra - 413102',
+                'Dhule': 'Shop No. 201, Second Floor, Kukreja Plaza, Agra Road, Dhule, Maharashtra - 424001',
+                'Buldhana': 'Shop No. 12, First Floor, Main Road, Near Bank of Maharashtra, Buldhana - 443001',
+                'Karad': 'Shop No. 8, Second Floor, Pune Bangalore Highway, Karad, Maharashtra - 415110',
+                'Nagpur': 'Shop No. 501, Fifth Floor, Kailash Towers, South Ambazari Road, Nagpur - 440010',
+                'Jalgaon': 'Shop No. 201-202, Second Floor, M.G. Road, Jalgaon, Maharashtra - 425001',
+                'Kalyan': 'Shop No. 301, Third Floor, Bhimnagar, Near Railway Station, Kalyan West - 421301',
+                'Kolhapur': 'Shop No. 15, Second Floor, Station Road, Near ST Stand, Kolhapur - 416012',
+                'Nashik': 'Shop No. 401, Fourth Floor, Suyojit Sankul, Sharanpur Road, Nashik - 422002',
+                'Pune': 'Shop No. 501, Fifth Floor, Dhananjay Tower, Shivaji Nagar, Pune - 411005',
+                'Sangli': 'Shop No. 201, Second Floor, Miraj Road, Near Market Yard, Sangli - 416416',
+                'Satara': 'Shop No. 301, Third Floor, Powai Naka, Satara, Maharashtra - 415002',
+                'Yavatmal': 'Shop No. 12, First Floor, Main Road, Yavatmal, Maharashtra - 445001',
+                'Sangamner': 'Shop No. 8, First Floor, Nagar Manmad Road, Sangamner, Maharashtra - 422605',
+                'HO - Maharashtra ISD': 'Head Office, 4th Floor, Trade Centre, Bandra Kurla Complex, Mumbai - 400051',
+                'OPS HUB - Maharashtra ISD': 'Operations Hub, 3rd Floor, IT Park, Hinjewadi, Pune - 411057'
+            },
+            'Madhya Pradesh': {
+                'Dewas': 'Shop No. 201, Second Floor, Near Old Palasia, Dewas, Madhya Pradesh - 455001',
+                'Dhamnod': 'Shop No. 5, First Floor, Ratlam Road, Dhamnod, Madhya Pradesh - 457335',
+                'Indore': 'Shop No. 501-502, Fifth Floor, Amar Plaza, M.G. Road, Indore - 452001',
+                'Khargone': 'Shop No. 15, Second Floor, Main Road, Khargone, Madhya Pradesh - 451001',
+                'Jaora': 'Shop No. 8, First Floor, Ratlam Road, Jaora, Madhya Pradesh - 457226',
+                'Sehore': 'Shop No. 201, Second Floor, Ashta Road, Sehore, Madhya Pradesh - 466001',
+                'Ujjain': 'Shop No. 301, Third Floor, Freeganj, Ujjain, Madhya Pradesh - 456010',
+                'Hoshangabad': 'Shop No. 12, First Floor, Harda Road, Hoshangabad, Madhya Pradesh - 461001',
+                'Mandsaur': 'Shop No. 201, Second Floor, Gandhi Chowk, Mandsaur, Madhya Pradesh - 458001',
+                'Shamgarh': 'Shop No. 7, First Floor, Main Market, Shamgarh, Madhya Pradesh - 458883',
+                'Manasa': 'Shop No. 5, First Floor, Near Bus Stand, Manasa, Madhya Pradesh - 455001',
+                'Shujalpur': 'Shop No. 10, Second Floor, Shajapur Road, Shujalpur, Madhya Pradesh - 465333',
+                'Khandwa': 'Shop No. 301, Third Floor, Near Railway Station, Khandwa, Madhya Pradesh - 450001',
+                'Khategaon': 'Shop No. 8, First Floor, Dewas Road, Khategaon, Madhya Pradesh - 455336'
+            },
+            'Tamil Nadu': {
+                'Nagarcoil': 'Shop No. 301, Third Floor, Vetri Towers, NSK Road, Nagercoil - 629001',
+                'Madurai': 'Shop No. 401, Fourth Floor, TPK Road, Near Railway Station, Madurai - 625003',
+                'Theni': 'Shop No. 201, Second Floor, Periyakulam Road, Theni, Tamil Nadu - 625531',
+                'Tirunelveli': 'Shop No. 301, Third Floor, Trivandrum Road, Tirunelveli - 627001',
+                'Sivakasi': 'Shop No. 15, Second Floor, Near New Bus Stand, Sivakasi - 626123',
+                'Thoothukudi': 'Shop No. 201, Second Floor, Palayamkottai Road, Thoothukudi - 628002',
+                'Karaikudi': 'Shop No. 12, First Floor, Devakottai Road, Karaikudi, Tamil Nadu - 630001',
+                'Namakkal': 'Shop No. 201, Second Floor, Salem Main Road, Namakkal, Tamil Nadu - 637001',
+                'Salem': 'Shop No. 401, Fourth Floor, Cherry Road, Salem, Tamil Nadu - 636007',
+                'Krishnagiri': 'Shop No. 301, Third Floor, Bangalore Road, Krishnagiri - 635001',
+                'Erode': 'Shop No. 201, Second Floor, Perundurai Road, Erode, Tamil Nadu - 638001',
+                'Viluppuram': 'Shop No. 15, First Floor, Cuddalore Main Road, Viluppuram - 605602',
+                'Kallakurichi': 'Shop No. 8, First Floor, Ulundurpet Road, Kallakurichi - 606213',
+                'Dharmapuri': 'Shop No. 201, Second Floor, Salem Main Road, Dharmapuri - 636701'
+            },
+            'Telangana': {
+                'Medchal': 'Shop No. 301, Third Floor, Near Bus Depot, Kompally, Medchal - 501401',
+                'Ibrahimpatnam': 'Shop No. 15, First Floor, Main Road, Ibrahimpatnam, Ranga Reddy - 501506',
+                'Siddipet': 'Shop No. 201, Second Floor, Hyderabad Road, Siddipet, Telangana - 502103',
+                'Jangaon': 'Shop No. 12, First Floor, Main Road, Jangaon, Telangana - 506167',
+                'Kamareddy': 'Shop No. 201, Second Floor, Near Bus Stand, Kamareddy - 503111',
+                'Jagtial': 'Shop No. 15, First Floor, Main Road, Jagtial, Telangana - 505327',
+                'Karimnagar': 'Shop No. 301, Third Floor, Rajeev Chowk, Karimnagar - 505001'
+            },
+            'Karnataka': {
+                'Belgaum': 'Shop No. 401, Fourth Floor, Hindwadi, Belgaum, Karnataka - 590011',
+                'Davanagere': 'Shop No. 201, Second Floor, P.J. Extension, Davanagere - 577002',
+                'Haveri': 'Shop No. 15, First Floor, Ranibennur Road, Haveri, Karnataka - 581110',
+                'Chitradurga': 'Shop No. 201, Second Floor, Near Court Circle, Chitradurga - 577501',
+                'Hospet': 'Shop No. 301, Third Floor, Station Road, Hospet, Karnataka - 583201',
+                'Shimoga': 'Shop No. 201, Second Floor, Kuvempu Road, Shimoga, Karnataka - 577201',
+                'Gadag': 'Shop No. 12, First Floor, Station Road, Gadag, Karnataka - 582101'
+            }
         };
+        
+        // Create simplified branch lists for state selection
+        this.operationalStates = {};
+        Object.keys(this.branchAddresses).forEach(state => {
+            this.operationalStates[state] = Object.keys(this.branchAddresses[state]);
+        });
         
         this.init();
     }
@@ -484,8 +577,24 @@ class IndiaMapSelector {
     selectBranch(stateName, branchName) {
         this.selectedDistrict = branchName;
         
-        // Add visual feedback - highlight selected card
+        // Reset ALL previously selected cards first (prevent multiple selections)
         const cards = document.querySelectorAll('.branch-card');
+        cards.forEach(card => {
+            card.style.background = 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)';
+            card.style.borderColor = '#e0e0e0';
+            card.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
+            card.style.transform = 'translateY(0) scale(1)';
+            const branchNameEl = card.querySelector('.branch-name');
+            const branchIconEl = card.querySelector('.branch-icon');
+            if (branchNameEl) branchNameEl.style.color = '#02478c';
+            if (branchIconEl) {
+                branchIconEl.innerHTML = '🏢';
+                branchIconEl.style.fontSize = '28px';
+                branchIconEl.style.color = '';
+            }
+        });
+        
+        // Now highlight ONLY the selected card
         cards.forEach(card => {
             const cardBranchName = card.querySelector('.branch-name').textContent;
             if (cardBranchName === branchName) {
@@ -505,8 +614,11 @@ class IndiaMapSelector {
             }
         });
         
-        // Call the callback
-        this.options.onDistrictSelect(stateName, branchName);
+        // Get full branch address
+        const branchAddress = this.branchAddresses[stateName][branchName];
+        
+        // Call the callback with branch address
+        this.options.onDistrictSelect(stateName, branchName, branchAddress);
     }
     
     async loadStateMap(stateFile, stateName) {

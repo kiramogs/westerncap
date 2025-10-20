@@ -427,12 +427,22 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('selected-location-text').innerHTML = 
                 `<span style="color: #02478c; font-weight: bold;">State:</span> ${stateName}<br><span style="color: #666; font-size: 14px;">Now select your branch</span>`;
         },
-        onDistrictSelect: function(stateName, branchName) {
-            console.log('Branch selected:', stateName, branchName);
+        onDistrictSelect: function(stateName, branchName, branchAddress) {
+            console.log('Branch selected:', stateName, branchName, branchAddress);
             document.getElementById('state').value = stateName;
             document.getElementById('district').value = branchName;
             document.getElementById('selected-location-text').innerHTML = 
-                `<span style="color: #02478c; font-weight: bold;">State:</span> ${stateName}<br><span style="color: #02478c; font-weight: bold;">Branch:</span> ${branchName}<br><span style="color: #4CAF50; font-size: 14px;">✓ Location selected successfully!</span>`;
+                `<div style="margin-bottom: 10px;">
+                    <span style="color: #02478c; font-weight: bold; font-size: 16px;">📍 ${branchName}, ${stateName}</span>
+                </div>
+                <div style="padding: 12px; background: #f0f8ff; border-radius: 6px; border-left: 4px solid #02478c; margin-bottom: 10px;">
+                    <div style="color: #555; font-size: 14px; line-height: 1.6;">
+                        ${branchAddress}
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <span style="color: #4CAF50; font-size: 14px; font-weight: 600;">✓ Branch selected successfully! Fill the form below.</span>
+                </div>`;
             
             // Scroll to form
             setTimeout(() => {
