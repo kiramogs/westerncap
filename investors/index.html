@@ -1,4 +1,4 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1.0, user-scalable=no">
@@ -470,6 +470,72 @@
             }
         }
     </style>
+    <style>
+        /* Dropdown Animation CSS */
+        .navbar .dropdown {
+            position: relative;
+        }
+        
+        .navbar .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: 0;
+            overflow: hidden;
+        }
+        
+        .navbar .dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            max-height: 500px;
+        }
+        
+        .navbar .dropdown:nth-child(3) .dropdown-menu {
+            left: -35px;
+        }
+        
+        .dropdown-investor-relations {
+            margin-left: auto !important;
+        }
+        
+        .dropdown-menu-investor {
+            right: 0 !important;
+            left: auto !important;
+        }
+        
+        .navbar .dropdown::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -10px;
+            right: -10px;
+            bottom: -20px;
+            z-index: -1;
+        }
+        
+        .navbar .dropdown-menu li {
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.2s ease;
+        }
+        
+        .navbar .dropdown-menu.show li {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .navbar .dropdown-menu.show li:nth-child(1) { transition-delay: 0.05s; }
+        .navbar .dropdown-menu.show li:nth-child(2) { transition-delay: 0.1s; }
+        .navbar .dropdown-menu.show li:nth-child(3) { transition-delay: 0.15s; }
+        .navbar .dropdown-menu.show li:nth-child(4) { transition-delay: 0.2s; }
+        .navbar .dropdown-menu.show li:nth-child(5) { transition-delay: 0.25s; }
+    </style>
 </head>
 <body>
     <div id="content">
@@ -478,29 +544,55 @@
                 <img alt="" src="/img/bars-invert.png" class="navbar-toggler bg-transparent"  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse">
                 <a class="navbar-brand" href="/"><img alt="" src="/img/onscroll.png" class="logo"></a>
                 <div class="collapse navbar-collapse justify-content-md-end" id="navbarSupportedContent">
-                    <ul class="navbar-nav text-capitalize mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a aria-current="page" class="nav-link" href="/">Home</a>
+                                        <ul class="navbar-nav text-capitalize mb-2 mb-lg-0">
+                        <li class="nav-item ">
+                            <a aria-current="page" class="nav-link " href="/">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/aboutus">about us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/#services">services</a>
+                            <a class="nav-link " href="/#services">services</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="navbarDropdown" role="button" disabled>company</a>
+                            <a aria-expanded="false" class="nav-link  dropdown-toggle" data-bs-toggle="dropdown" href="#" id="navbarDropdown" role="button" disabled>company</a>
                             <ul aria-labelledby="navbarDropdown" class="dropdown-menu px-2">
+                                <li class="">
+                                    <a class="dropdown-item" href="/aboutus">about us</a>
+                                </li>
                                 <li class="">
                                     <a class="dropdown-item" href="/advisors">our advisors</a>
                                 </li>
                                 <li class="">
                                     <a class="dropdown-item" href="/promoters">our promoters</a>
                                 </li>
-                                <li class="">
-                                    <a class="dropdown-item" href="/partners">our partners</a>
+                                 <li class="">
+                                   <a class="dropdown-item" href="/partners">our partners</a>
                                 </li>
                             </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/contactus">contact us</a>
+                        </li>
+                        <li class="nav-item dropdown dropdown-investor-relations">
+                            <a aria-expanded="false" class="nav-link  dropdown-toggle" data-bs-toggle="dropdown" href="#" id="navbarDropdownInvestor" role="button" disabled>investor relations</a>
+                            <ul aria-labelledby="navbarDropdownInvestor" class="dropdown-menu dropdown-menu-investor px-2">
+                                <li class="">
+                                    <a class="dropdown-item" href="/financial-results">financial results</a>
+                                </li>
+                                <li class="">
+                                    <a class="dropdown-item" href="/annual-report">annual report</a>
+                                </li>
+                                <li class="">
+                                    <a class="dropdown-item" href="/corp-announcements">corp announcements</a>
+                                </li>
+                                <li class="">
+                                    <a class="dropdown-item" href="/annual-return-ir">annual return</a>
+                                </li>
+                                <li class="">
+                                    <a class="dropdown-item" href="/credit-rating">credit rating</a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                    </ul>
                         </li>
                     </ul>
                 </div>
@@ -597,7 +689,7 @@
                             <p class="Relationship">Relationship start date : <span class="Relationship_date">May 2024
                                 </span></p>
                             <button type="button" class="madal_close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">Ã—</span>
+                                <span aria-hidden="true">×</span>
                             </button>
                         </div>
                     </div>
@@ -625,15 +717,15 @@
                                 <p>Grievance redressal officer details are as follows:</p>
                             </div>
                             <div class="Grievance_contant_box">
-                                <p>Email us at â€“ rushabh.chheda@saswatfinance.com </p>
+                                <p>Email us at – rushabh.chheda@saswatfinance.com </p>
                                 <p>Name - Rushabh Chheda</p>
                             </div>
                             <div class="Grievance_contant_box">
-                                <p>Write to us at â€“  SASWAT Financial Technologies, Office no 509-510-511, Rajhans Helix III, LBS Rd, Ghatkopar West, Location: Mumbai 400086 </p>
+                                <p>Write to us at –  SASWAT Financial Technologies, Office no 509-510-511, Rajhans Helix III, LBS Rd, Ghatkopar West, Location: Mumbai 400086 </p>
                                 <p>Email Id - rushabh.chheda@saswatf inance.com </p>
                             </div>
                             <div class="Grievance_contant_box">
-                                <p>Visit our website â€“ https://www.saswatfinance.com/</p>
+                                <p>Visit our website – https://www.saswatfinance.com/</p>
                                 <p>Contact Details - +91 9833343623 </p>
                             </div>
 
@@ -658,7 +750,7 @@
                             <p class="Relationship">Relationship start date : <span class="Relationship_date">August 2022
                                 </span></p>
                             <button type="button" class="madal_close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">Ã—</span>
+                                <span aria-hidden="true">×</span>
                             </button>
                         </div>
                     </div>
@@ -686,15 +778,15 @@
                                 <p>Grievance redressal officer details are as follows:</p>
                             </div>
                             <div class="Grievance_contant_box">
-                                <p>Email us at â€“ yogesh@khatabook.com </p>
+                                <p>Email us at – yogesh@khatabook.com </p>
                                 <p>Name -  Yogesh Pawde</p>
                             </div>
                             <div class="Grievance_contant_box">
-                                <p>Write to us at â€“ 1539, 18th Cross Rd, Sector 3, HSR Layout, Bengaluru, Karnataka 560102  </p>
+                                <p>Write to us at – 1539, 18th Cross Rd, Sector 3, HSR Layout, Bengaluru, Karnataka 560102  </p>
                                 <p>Email Id - yogesh@khatabook.com </p>
                             </div>
                             <div class="Grievance_contant_box">
-                                <p>Visit our website â€“ https://khatabook.com/</p>
+                                <p>Visit our website – https://khatabook.com/</p>
                                 <p>Contact Details - +91 9606500500 </p>
                             </div>
 
@@ -720,7 +812,7 @@
                             <p class="Relationship">Relationship start date : <span class="Relationship_date">Feb 2021
                                 </span></p>
                             <button type="button" class="madal_close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">Ã—</span>
+                                <span aria-hidden="true">×</span>
                             </button>
                         </div>
                     </div>
@@ -749,15 +841,15 @@
                                 <p>Grievance redressal officer details are as follows:</p>
                             </div>
                             <div class="Grievance_contant_box">
-                                <p>Email us at â€“ nodalofficer@grayquest.com  </p>
+                                <p>Email us at – nodalofficer@grayquest.com  </p>
                                 <p>Name -  Ranjeet Rawat/ Garvit Mathur/ Bhavik Ajugiya </p>
                             </div>
                             <div class="Grievance_contant_box">
-                                <p>Write to us at â€“  Grayquest, 2nd Floor, Office no. 202, Center Point Bldg, Parel, Mumbai - 400 012</p>
+                                <p>Write to us at –  Grayquest, 2nd Floor, Office no. 202, Center Point Bldg, Parel, Mumbai - 400 012</p>
                                 <p>Email Id - nodalofficer@grayquest.com </p>
                             </div>
                             <div class="Grievance_contant_box">
-                                <p>Visit our website â€“ https://www.grayquest.com/</p>
+                                <p>Visit our website – https://www.grayquest.com/</p>
                                 <p>Contact Details -  +91 8356843634</p>
                             </div>
 
@@ -782,7 +874,7 @@
                             <p class="Relationship">Relationship start date : <span class="Relationship_date">May 2025
                                 </span></p>
                             <button type="button" class="madal_close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">Ã—</span>
+                                <span aria-hidden="true">×</span>
                             </button>
                         </div>
                     </div>
@@ -810,7 +902,7 @@
                                 <p>Grievance redressal officer details are as follows:</p>
                             </div>
                             <div class="Grievance_contant_box">
-                                <p>Email us at â€“ contactus@credrightfinance.com</p>
+                                <p>Email us at – contactus@credrightfinance.com</p>
                                 <p>Level 1 - grievance@credright.com <br>
                                 Level 2 - Name: Manish Muralidharan <br>
                                 Designation: Executive Director<br>
@@ -818,11 +910,11 @@
                                 </p>
                             </div>
                             <div class="Grievance_contant_box">
-                                <p>Write to us at â€“ CredRight Finance Pvt Ltd, 8th Floor, Krishe Sapphire Building, Hitec City Road, Madhapur, Hyderabad - 500081 </p>
+                                <p>Write to us at – CredRight Finance Pvt Ltd, 8th Floor, Krishe Sapphire Building, Hitec City Road, Madhapur, Hyderabad - 500081 </p>
                                 
                             </div>
                             <div class="Grievance_contant_box">
-                                <p>Visit our website â€“ https://www.credrightfinance.com</p>
+                                <p>Visit our website – https://www.credrightfinance.com</p>
                                 
                             </div>
 
@@ -847,7 +939,7 @@
                             <p class="Relationship">Relationship start date : <span class="Relationship_date">November 2024
                                 </span></p>
                             <button type="button" class="madal_close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">Ã—</span>
+                                <span aria-hidden="true">×</span>
                             </button>
                         </div>
                     </div>
@@ -875,15 +967,15 @@
                                 <p>Grievance redressal officer details are as follows:</p>
                             </div>
                             <div class="Grievance_contant_box">
-                                <p>Email us at â€“ Grievances@choiceindia.com </p>
+                                <p>Email us at – Grievances@choiceindia.com </p>
                                 <p>Name - Mr. Himanshu Rajawat </p>
                             </div>
                             <div class="Grievance_contant_box">
-                                <p>Write to us at â€“ : 1st Floor, Plot no 25, Sunder Nagar, Girdhar Marg, Malviya Nagar, Jaipur, Rajasthan 302017  </p>
+                                <p>Write to us at – : 1st Floor, Plot no 25, Sunder Nagar, Girdhar Marg, Malviya Nagar, Jaipur, Rajasthan 302017  </p>
                                 <p>Email Id - Grievances@choiceindia.com </p>
                             </div>
                             <div class="Grievance_contant_box">
-                                <p>Visit our website â€“ https://choiceindia.com</p>
+                                <p>Visit our website – https://choiceindia.com</p>
                                 <p>Contact Details - 18002035193 </p>
                             </div>
 
@@ -908,7 +1000,7 @@
                             <p class="Relationship">Relationship start date : <span class="Relationship_date">January 2025
                                 </span></p>
                             <button type="button" class="madal_close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">Ã—</span>
+                                <span aria-hidden="true">×</span>
                             </button>
                         </div>
                     </div>
@@ -937,15 +1029,15 @@
                                 <p>Grievance redressal officer details are as follows:</p>
                             </div>
                             <div class="Grievance_contant_box">
-                                <p>Email us at â€“ Pankajmohata@sdal.in </p>
+                                <p>Email us at – Pankajmohata@sdal.in </p>
                                 <p>Name - Mr.  Pankaj mohta </p>
                             </div>
                             <div class="Grievance_contant_box">
-                                <p>Write to us at â€“ : Plot No, 344, Queens Road, 3, near BP petrol Pump, D - Block, Vaishali Nagar, Jaipur, Rajasthan 302021 </p>
+                                <p>Write to us at – : Plot No, 344, Queens Road, 3, near BP petrol Pump, D - Block, Vaishali Nagar, Jaipur, Rajasthan 302021 </p>
                                 <p>Email Id - Pankajmohata@sdal.in </p>
                             </div>
                             <div class="Grievance_contant_box">
-                                <p>Visit our website â€“ http://sdal.in/</p>
+                                <p>Visit our website – http://sdal.in/</p>
                                 <p>Contact Details -  +91 77421 27239  </p>
                             </div>
 
@@ -970,7 +1062,7 @@
                             <p class="Relationship">Relationship start date : <span class="Relationship_date">
                                 </span></p>
                             <button type="button" class="madal_close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">Ã—</span>
+                                <span aria-hidden="true">×</span>
                             </button>
                         </div>
                     </div>
@@ -999,12 +1091,12 @@
                                 <p>Grievance redressal officer details are as follows:</p>
                             </div>
                             <div class="Grievance_contant_box">
-                                <p>Email us at â€“ grievance.officer@akaracap.com </p>
+                                <p>Email us at – grievance.officer@akaracap.com </p>
                                 <p>Name - Mr. Aditya Verma <br>
                                 Email Id - grievance.officer@akaracap.com<br>Contact Details : 01246981222</p><br>
                             </div>
                             <div class="Grievance_contant_box">
-                                <p>Write to us at â€“ : Unit Nos.18011805,1806A,1806B,1807A , 1807B and 1815 18th Floor, Magnum Global Park 2 Golf Course Ext Road Sector 58, Gurgaon -122011  </p>
+                                <p>Write to us at – : Unit Nos.18011805,1806A,1806B,1807A , 1807B and 1815 18th Floor, Magnum Global Park 2 Golf Course Ext Road Sector 58, Gurgaon -122011  </p>
                                 <p>Nodal Officer <br>
                                 Name - Mr. Amarjeet Singh <br>
                                 Contact number:  +91-7065254281 Or 0124-6981223<br>
@@ -1012,7 +1104,7 @@
                                 </p>
                             </div>
                             <div class="Grievance_contant_box">
-                                <p>Visit our website â€“ https://www.akaracap.com</p>
+                                <p>Visit our website – https://www.akaracap.com</p>
                                 <p></p>
                             </div>
 
@@ -1037,7 +1129,7 @@
                             <p class="Relationship">Relationship start date : <span class="Relationship_date">
                                 </span></p>
                             <button type="button" class="madal_close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">Ã—</span>
+                                <span aria-hidden="true">×</span>
                             </button>
                         </div>
                     </div>
@@ -1066,15 +1158,15 @@
                                 <p>Grievance redressal officer details are as follows:</p>
                             </div>
                             <div class="Grievance_contant_box">
-                                <p>Email us at â€“ legal@werize.com </p>
+                                <p>Email us at – legal@werize.com </p>
                                 <p>Name - Mr. Himanshu Gupta </p>
                             </div>
                             <div class="Grievance_contant_box">
-                                <p>Write to us at â€“ : Wortgage Technologies Private Limited Ground and First floor, No.251, 17th cross, 5th main road,  6th sector, HSR Layout, BENGALURU- 560 102, KARNATAKA, India </p>
+                                <p>Write to us at – : Wortgage Technologies Private Limited Ground and First floor, No.251, 17th cross, 5th main road,  6th sector, HSR Layout, BENGALURU- 560 102, KARNATAKA, India </p>
                                 <p>Email Id - legal@werize.com </p>
                             </div>
                             <div class="Grievance_contant_box">
-                                <p>Visit our website â€“ https://www.werize.com/</p>
+                                <p>Visit our website – https://www.werize.com/</p>
                                 <p>Contact Details -  : 08046972336/ 9513912936 </p>
                             </div>
 
@@ -1099,7 +1191,7 @@
                             <p class="Relationship">Relationship start date : <span class="Relationship_date">
                                 </span></p>
                             <button type="button" class="madal_close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">Ã—</span>
+                                <span aria-hidden="true">×</span>
                             </button>
                         </div>
                     </div>
@@ -1131,15 +1223,15 @@
                                 <p>Grievance redressal officer and Principal Nodal Officer details are as follows:</p>
                             </div>
                             <div class="Grievance_contant_box">
-                                <p>Email us at â€“ gro@otocapital.in </p>
+                                <p>Email us at – gro@otocapital.in </p>
                                 <p>Name - Mr. Panchdeo Pandey </p>
                             </div>
                             <div class="Grievance_contant_box">
-                                <p>Write to us at â€“ :</p>
+                                <p>Write to us at – :</p>
                                 <p>Email Id - legal@otocapital.in </p>
                             </div>
                             <div class="Grievance_contant_box">
-                                <p>Visit our website â€“ https://www.otocapital.in/</p>
+                                <p>Visit our website – https://www.otocapital.in/</p>
                                 <p>Contact Details -  : +91 9372081131 </p>
                             </div>
 
@@ -1164,7 +1256,7 @@ function toggleList() {
         icon.textContent = '+';
     } else {
         list.style.display = 'block';
-        icon.textContent = 'âˆ’';
+        icon.textContent = '-';
     }
 }
 </script>
@@ -1236,3 +1328,4 @@ function toggleList() {
     </script>
 </body>
 </html>
+
