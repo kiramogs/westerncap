@@ -282,7 +282,7 @@ class IndiaMapSelector {
             .attr('y', 0);
         
         const branchHTML = `
-            <div style="padding: 20px; height: 100%; overflow-y: auto; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 30%); font-family: Arial, sans-serif;">
+            <div style="padding: 20px; height: ${this.options.height}px; overflow-y: auto; overflow-x: hidden; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 30%); font-family: Arial, sans-serif; box-sizing: border-box; -webkit-overflow-scrolling: touch;">
                 <!-- Header -->
                 <div style="text-align: center; margin-bottom: 25px;">
                     <h3 style="color: #02478c; margin: 0 0 10px 0; font-size: 26px; font-weight: 700; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">
@@ -328,7 +328,8 @@ class IndiaMapSelector {
                     display: grid; 
                     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); 
                     gap: 15px; 
-                    margin-bottom: 20px;
+                    margin-bottom: 40px;
+                    padding-bottom: 20px;
                     animation: fadeIn 0.5s ease-in;
                 ">
                     ${branches.map((branch, index) => `
@@ -418,6 +419,22 @@ class IndiaMapSelector {
                             opacity: 1;
                             transform: translateY(0);
                         }
+                    }
+                    /* Custom Scrollbar */
+                    ::-webkit-scrollbar {
+                        width: 10px;
+                    }
+                    ::-webkit-scrollbar-track {
+                        background: rgba(255, 255, 255, 0.5);
+                        border-radius: 10px;
+                    }
+                    ::-webkit-scrollbar-thumb {
+                        background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+                        border-radius: 10px;
+                        border: 2px solid rgba(255, 255, 255, 0.5);
+                    }
+                    ::-webkit-scrollbar-thumb:hover {
+                        background: linear-gradient(135deg, #ff8a00 0%, #e67a00 100%);
                     }
                 </style>
             </div>
