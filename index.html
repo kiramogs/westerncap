@@ -68,6 +68,28 @@
                 color: #243a5a;
             }
         }
+        
+        /* Fix dropdown positioning to prevent overlap */
+        .navbar .dropdown {
+            position: relative;
+        }
+        
+        .navbar .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+        }
+        
+        /* Adjust Company dropdown positioning */
+        .navbar .dropdown:nth-child(3) .dropdown-menu {
+            left: -35px;
+        }
+        
+        /* Adjust Investor Relations dropdown positioning */
+        .dropdown-menu-investor {
+            left: -50px !important;
+        }
     </style>
 </head><body>
 
@@ -1102,34 +1124,31 @@
 <script src="https://www.google.com/recaptcha/api.js"></script>
 
 <script>
-// Ensure only one dropdown is open at a time - using jQuery
+// Ensure only one dropdown is open at a time
 $(document).ready(function() {
-    $('.navbar .dropdown').on('show.bs.dropdown', function () {
-        // Close all other open dropdowns
-        $('.navbar .dropdown').not(this).each(function() {
-            $(this).find('.dropdown-menu').removeClass('show');
-            $(this).find('.dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
-        });
-    });
+    // Disable Bootstrap's default dropdown behavior
+    $('.navbar .dropdown-toggle').attr('data-bs-toggle', '').attr('data-toggle', '');
     
-    // Also handle click events on dropdown toggles
-    $('.navbar .dropdown-toggle').on('click', function(e) {
-        var $dropdown = $(this).closest('.dropdown');
-        var isOpen = $dropdown.find('.dropdown-menu').hasClass('show');
-        
-        // Close all dropdowns first
-        $('.navbar .dropdown-menu').removeClass('show');
-        $('.navbar .dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
-        
-        // If this dropdown wasn't open, open it
-        if (!isOpen) {
-            $dropdown.find('.dropdown-menu').addClass('show');
-            $(this).addClass('show').attr('aria-expanded', 'true');
+    // Handle hover events
+    $('.navbar .dropdown').hover(
+        function() {
+            // Mouse enter
+            var $this = $(this);
+            
+            // Close all other dropdowns
+            $('.navbar .dropdown').not($this).each(function() {
+                $(this).find('.dropdown-menu').removeClass('show');
+                $(this).find('.dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
+            });
+            
+            // Open this dropdown
+            $this.find('.dropdown-menu').addClass('show');
+            $this.find('.dropdown-toggle').addClass('show').attr('aria-expanded', 'true');
+        },
+        function() {
+            // Mouse leave - keep open
         }
-        
-        e.preventDefault();
-        e.stopPropagation();
-    });
+    );
     
     // Close dropdown when clicking outside
     $(document).on('click', function(e) {
@@ -1137,6 +1156,11 @@ $(document).ready(function() {
             $('.navbar .dropdown-menu').removeClass('show');
             $('.navbar .dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
         }
+    });
+    
+    // Prevent dropdown from closing when clicking inside
+    $('.navbar .dropdown-menu').on('click', function(e) {
+        e.stopPropagation();
     });
 });
 </script>
