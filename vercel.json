@@ -1,6 +1,9 @@
 {
+  "buildCommand": "echo 'Static site - no build needed'",
+  "outputDirectory": ".",
   "cleanUrls": true,
   "trailingSlash": false,
+  "public": true,
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },
     { "source": "/send-contact-mail.php", "destination": "/api/send-contact-mail" },
