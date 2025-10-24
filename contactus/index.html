@@ -645,13 +645,16 @@
 
 <script src="https://www.google.com/recaptcha/api.js"></script>
 
-<!-- D3.js and TopoJSON libraries for interactive map -->
-<script src="https://d3js.org/d3.v7.min.js"></script>
-<script src="https://unpkg.com/topojson@3"></script>
-<script src="/js/india-map-selector.js"></script>
+    <!-- Leaflet.js for interactive map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
 
 <script>
-    // Initialize India Map Selector
+    // Branch Locator with Leaflet.js
     document.addEventListener('DOMContentLoaded', function() {
         // Hide the dropdowns since we're using the map
         const stateFieldset = document.querySelector('fieldset:has(#state)');
@@ -662,36 +665,126 @@
         if (districtFieldset) districtFieldset.style.display = 'none';
         if (cityFieldset) cityFieldset.style.display = 'none';
         
+        // Define branch coordinates (approximate locations based on city centers)
+        const branchLocations = {
+            'Rajasthan': {
+                'Ajmer': { lat: 26.4499, lng: 74.6399, address: 'Shop No. 201-202, Second Floor, Rajdarshan Complex, Near Old Power House, Jaipur Road, Ajmer, Rajasthan - 305001' },
+                'Chittorgarh': { lat: 24.8887, lng: 74.6269, address: 'First Floor, Shop No. 5, Opposite Collector Office, Station Road, Chittorgarh, Rajasthan - 312001' },
+                'Chomu': { lat: 27.1598, lng: 75.7208, address: 'Shop No. 15-16, First Floor, Shree Ram Complex, Jaipur Road, Chomu, Rajasthan - 303702' },
+                'Fatehnagar': { lat: 24.8995, lng: 73.7381, address: 'Khasra No. 287, Village Fatehnagar, Udaipur, Rajasthan - 313205' },
+                'Gulabpura': { lat: 25.8738, lng: 74.6625, address: 'Shop No. 1, Pehli Manzil, Krishna Complex, Bhilwara Road, Gulabpura, Rajasthan - 311021' },
+                'Jhunjhunu': { lat: 28.1304, lng: 75.3976, address: 'Shop No. 201-202, Second Floor, Opposite SBI Bank, Main Market, Jhunjhunu, Rajasthan - 333001' },
+                'Beawar': { lat: 26.1014, lng: 74.3204, address: 'Shop No. 302, Third Floor, Above Bank of Baroda, Ajmer Road, Beawar, Rajasthan - 305901' },
+                'Kotputli': { lat: 27.7008, lng: 76.1982, address: 'Shop No. 201, Second Floor, Near Bus Stand, Jaipur Road, Kotputli, Rajasthan - 303108' },
+                'Rajsamand': { lat: 25.0717, lng: 73.8800, address: 'Shop No. 7-8, First Floor, Near Circuit House, NH 8, Rajsamand, Rajasthan - 313326' },
+                'Kuchaman': { lat: 27.1472, lng: 74.8587, address: 'Shop No. 12, Second Floor, Station Road, Kuchaman City, Rajasthan - 341508' },
+                'Sojat': { lat: 25.9245, lng: 73.6684, address: 'Shop No. 15, First Floor, Near ICICI Bank, Pali Road, Sojat City, Rajasthan - 306104' },
+                'Neem Ka Thana': { lat: 27.7417, lng: 75.7850, address: 'Shop No. 201, Second Floor, Sikar Road, Neem Ka Thana, Rajasthan - 332713' },
+                'Sujangarh': { lat: 27.7000, lng: 74.4667, address: 'Shop No. 19, Second Floor, Near SBI, Station Road, Sujangarh, Rajasthan - 331507' },
+                'Jaipur': { lat: 26.9124, lng: 75.7873, address: 'Shop No. 301-302, Third Floor, Kalyan Complex, MI Road, Jaipur, Rajasthan - 302001' },
+                'Sikar': { lat: 27.6119, lng: 75.1399, address: 'Shop No. 201, Second Floor, Near Government Hospital, Jaipur Road, Sikar, Rajasthan - 332001' },
+                'Kekri': { lat: 25.9767, lng: 75.1460, address: 'Shop No. 5, First Floor, Near Bus Stand, Ajmer Road, Kekri, Rajasthan - 305404' },
+                'Nimbahera': { lat: 24.6211, lng: 74.6813, address: 'Shop No. 8, First Floor, Near ICICI Bank, Station Road, Nimbahera, Rajasthan - 312601' },
+                'Udaipur': { lat: 24.5854, lng: 73.7125, address: 'Shop No. 401-402, Fourth Floor, Near Clock Tower, City Centre, Udaipur, Rajasthan - 313001' },
+                'Sumerpur': { lat: 25.1442, lng: 73.0928, address: 'Shop No. 10, First Floor, Pali Road, Sumerpur, Rajasthan - 306902' },
+                'Ratangarh': { lat: 28.0811, lng: 74.6158, address: 'Shop No. 15, Second Floor, Main Market, Ratangarh, Rajasthan - 331022' },
+                'Nokha': { lat: 27.5648, lng: 73.4723, address: 'Shop No. 7, First Floor, Bikaner Road, Nokha, Rajasthan - 334803' },
+                'Phalodi': { lat: 27.1312, lng: 72.3677, address: 'Shop No. 12, First Floor, Station Road, Phalodi, Rajasthan - 342301' }
+            },
+            'Maharashtra': {
+                'Akola': { lat: 20.7002, lng: 77.0082, address: 'Shop No. 301, Third Floor, Rajkamal Square, Civil Lines, Akola, Maharashtra - 444001' },
+                'Baramati': { lat: 18.1522, lng: 74.5775, address: 'Shop No. 15-16, First Floor, Near ST Stand, Pune Road, Baramati, Maharashtra - 413102' },
+                'Dhule': { lat: 20.9042, lng: 74.7749, address: 'Shop No. 201, Second Floor, Kukreja Plaza, Agra Road, Dhule, Maharashtra - 424001' },
+                'Buldhana': { lat: 20.5307, lng: 76.1809, address: 'Shop No. 12, First Floor, Main Road, Near Bank of Maharashtra, Buldhana - 443001' },
+                'Karad': { lat: 17.2889, lng: 74.1820, address: 'Shop No. 8, Second Floor, Pune Bangalore Highway, Karad, Maharashtra - 415110' },
+                'Nagpur': { lat: 21.1458, lng: 79.0882, address: 'Shop No. 501, Fifth Floor, Kailash Towers, South Ambazari Road, Nagpur - 440010' },
+                'Jalgaon': { lat: 21.0077, lng: 75.5626, address: 'Shop No. 201-202, Second Floor, M.G. Road, Jalgaon, Maharashtra - 425001' },
+                'Kalyan': { lat: 19.2403, lng: 73.1305, address: 'Shop No. 301, Third Floor, Bhimnagar, Near Railway Station, Kalyan West - 421301' },
+                'Kolhapur': { lat: 16.7050, lng: 74.2433, address: 'Shop No. 15, Second Floor, Station Road, Near ST Stand, Kolhapur - 416012' },
+                'Nashik': { lat: 19.9975, lng: 73.7898, address: 'Shop No. 401, Fourth Floor, Suyojit Sankul, Sharanpur Road, Nashik - 422002' },
+                'Pune': { lat: 18.5204, lng: 73.8567, address: 'Shop No. 501, Fifth Floor, Dhananjay Tower, Shivaji Nagar, Pune - 411005' },
+                'Sangli': { lat: 16.8524, lng: 74.5815, address: 'Shop No. 201, Second Floor, Miraj Road, Near Market Yard, Sangli - 416416' },
+                'Satara': { lat: 17.6869, lng: 73.9913, address: 'Shop No. 301, Third Floor, Powai Naka, Satara, Maharashtra - 415002' },
+                'Yavatmal': { lat: 20.3897, lng: 78.1308, address: 'Shop No. 12, First Floor, Main Road, Yavatmal, Maharashtra - 445001' },
+                'Sangamner': { lat: 19.5667, lng: 74.2167, address: 'Shop No. 8, First Floor, Nagar Manmad Road, Sangamner, Maharashtra - 422605' },
+                'HO - Maharashtra ISD': { lat: 19.0760, lng: 72.8777, address: 'Head Office, 4th Floor, Trade Centre, Bandra Kurla Complex, Mumbai - 400051' },
+                'OPS HUB - Maharashtra ISD': { lat: 18.5912, lng: 73.7389, address: 'Operations Hub, 3rd Floor, IT Park, Hinjewadi, Pune - 411057' }
+            },
+            'Madhya Pradesh': {
+                'Dewas': { lat: 22.9658, lng: 76.0548, address: 'Shop No. 201, Second Floor, Near Old Palasia, Dewas, Madhya Pradesh - 455001' },
+                'Dhamnod': { lat: 22.2094, lng: 75.4710, address: 'Shop No. 5, First Floor, Ratlam Road, Dhamnod, Madhya Pradesh - 457335' },
+                'Indore': { lat: 22.7196, lng: 75.8577, address: 'Shop No. 501-502, Fifth Floor, Amar Plaza, M.G. Road, Indore - 452001' },
+                'Khargone': { lat: 21.8236, lng: 75.6131, address: 'Shop No. 15, Second Floor, Main Road, Khargone, Madhya Pradesh - 451001' },
+                'Jaora': { lat: 23.6382, lng: 75.1274, address: 'Shop No. 8, First Floor, Ratlam Road, Jaora, Madhya Pradesh - 457226' },
+                'Sehore': { lat: 23.2000, lng: 77.0833, address: 'Shop No. 201, Second Floor, Ashta Road, Sehore, Madhya Pradesh - 466001' },
+                'Ujjain': { lat: 23.1765, lng: 75.7885, address: 'Shop No. 301, Third Floor, Freeganj, Ujjain, Madhya Pradesh - 456010' },
+                'Hoshangabad': { lat: 22.7500, lng: 77.7333, address: 'Shop No. 12, First Floor, Harda Road, Hoshangabad, Madhya Pradesh - 461001' },
+                'Mandsaur': { lat: 24.0733, lng: 75.0666, address: 'Shop No. 201, Second Floor, Gandhi Chowk, Mandsaur, Madhya Pradesh - 458001' },
+                'Shamgarh': { lat: 24.1895, lng: 75.6397, address: 'Shop No. 7, First Floor, Main Market, Shamgarh, Madhya Pradesh - 458883' },
+                'Manasa': { lat: 24.4770, lng: 75.1427, address: 'Shop No. 5, First Floor, Near Bus Stand, Manasa, Madhya Pradesh - 455001' },
+                'Shujalpur': { lat: 23.4080, lng: 76.7105, address: 'Shop No. 10, Second Floor, Shajapur Road, Shujalpur, Madhya Pradesh - 465333' },
+                'Khandwa': { lat: 21.8307, lng: 76.3504, address: 'Shop No. 301, Third Floor, Near Railway Station, Khandwa, Madhya Pradesh - 450001' },
+                'Khategaon': { lat: 22.5978, lng: 76.9167, address: 'Shop No. 8, First Floor, Dewas Road, Khategaon, Madhya Pradesh - 455336' }
+            },
+            'Tamil Nadu': {
+                'Nagarcoil': { lat: 8.1790, lng: 77.4068, address: 'Shop No. 301, Third Floor, Vetri Towers, NSK Road, Nagercoil - 629001' },
+                'Madurai': { lat: 9.9252, lng: 78.1198, address: 'Shop No. 401, Fourth Floor, TPK Road, Near Railway Station, Madurai - 625003' },
+                'Theni': { lat: 10.0104, lng: 77.4977, address: 'Shop No. 201, Second Floor, Periyakulam Road, Theni, Tamil Nadu - 625531' },
+                'Tirunelveli': { lat: 8.7139, lng: 77.7567, address: 'Shop No. 301, Third Floor, Trivandrum Road, Tirunelveli - 627001' },
+                'Sivakasi': { lat: 9.4532, lng: 77.8009, address: 'Shop No. 15, Second Floor, Near New Bus Stand, Sivakasi - 626123' },
+                'Thoothukudi': { lat: 8.7642, lng: 78.1348, address: 'Shop No. 201, Second Floor, Palayamkottai Road, Thoothukudi - 628002' },
+                'Karaikudi': { lat: 10.0660, lng: 78.7685, address: 'Shop No. 12, First Floor, Devakottai Road, Karaikudi, Tamil Nadu - 630001' },
+                'Namakkal': { lat: 11.2189, lng: 78.1677, address: 'Shop No. 201, Second Floor, Salem Main Road, Namakkal, Tamil Nadu - 637001' },
+                'Salem': { lat: 11.6643, lng: 78.1460, address: 'Shop No. 401, Fourth Floor, Cherry Road, Salem, Tamil Nadu - 636007' },
+                'Krishnagiri': { lat: 12.5266, lng: 78.2150, address: 'Shop No. 301, Third Floor, Bangalore Road, Krishnagiri - 635001' },
+                'Erode': { lat: 11.3410, lng: 77.7172, address: 'Shop No. 201, Second Floor, Perundurai Road, Erode, Tamil Nadu - 638001' },
+                'Viluppuram': { lat: 11.9401, lng: 79.4861, address: 'Shop No. 15, First Floor, Cuddalore Main Road, Viluppuram - 605602' },
+                'Kallakurichi': { lat: 11.7380, lng: 78.9597, address: 'Shop No. 8, First Floor, Ulundurpet Road, Kallakurichi - 606213' },
+                'Dharmapuri': { lat: 12.1211, lng: 78.1582, address: 'Shop No. 201, Second Floor, Salem Main Road, Dharmapuri - 636701' }
+            },
+            'Telangana': {
+                'Medchal': { lat: 17.6240, lng: 78.4813, address: 'Shop No. 301, Third Floor, Near Bus Depot, Kompally, Medchal - 501401' },
+                'Ibrahimpatnam': { lat: 17.4227, lng: 78.7019, address: 'Shop No. 15, First Floor, Main Road, Ibrahimpatnam, Ranga Reddy - 501506' },
+                'Siddipet': { lat: 18.1018, lng: 78.8529, address: 'Shop No. 201, Second Floor, Hyderabad Road, Siddipet, Telangana - 502103' },
+                'Jangaon': { lat: 17.7226, lng: 79.1514, address: 'Shop No. 12, First Floor, Main Road, Jangaon, Telangana - 506167' },
+                'Kamareddy': { lat: 18.3220, lng: 78.3395, address: 'Shop No. 201, Second Floor, Near Bus Stand, Kamareddy - 503111' },
+                'Jagtial': { lat: 18.7939, lng: 78.9109, address: 'Shop No. 15, First Floor, Main Road, Jagtial, Telangana - 505327' },
+                'Karimnagar': { lat: 18.4386, lng: 79.1288, address: 'Shop No. 301, Third Floor, Rajeev Chowk, Karimnagar - 505001' }
+            },
+            'Karnataka': {
+                'Belgaum': { lat: 15.8497, lng: 74.4977, address: 'Shop No. 401, Fourth Floor, Hindwadi, Belgaum, Karnataka - 590011' },
+                'Davanagere': { lat: 14.4644, lng: 75.9218, address: 'Shop No. 201, Second Floor, P.J. Extension, Davanagere - 577002' },
+                'Haveri': { lat: 14.7951, lng: 75.4005, address: 'Shop No. 15, First Floor, Ranibennur Road, Haveri, Karnataka - 581110' },
+                'Chitradurga': { lat: 14.2226, lng: 76.4018, address: 'Shop No. 201, Second Floor, Near Court Circle, Chitradurga - 577501' },
+                'Hospet': { lat: 15.2695, lng: 76.3870, address: 'Shop No. 301, Third Floor, Station Road, Hospet, Karnataka - 583201' },
+                'Shimoga': { lat: 13.9299, lng: 75.5681, address: 'Shop No. 201, Second Floor, Kuvempu Road, Shimoga, Karnataka - 577201' },
+                'Gadag': { lat: 15.4394, lng: 75.6389, address: 'Shop No. 12, First Floor, Station Road, Gadag, Karnataka - 582101' }
+            }
+        };
+        
         // Define helper functions BEFORE initializing the map
         // Function to populate city dropdown based on selected state
         function populateCityDropdown(stateName) {
-            console.log('populateCityDropdown called with:', stateName);
             const citySelector = document.getElementById('city-selector');
             citySelector.innerHTML = '<option value="">Select City</option>';
             
-            if (window.indiaMapSelectorInstance && window.indiaMapSelectorInstance.operationalStates[stateName]) {
-                const branches = window.indiaMapSelectorInstance.operationalStates[stateName];
-                console.log('Found', branches.length, 'branches for', stateName);
+            if (branchLocations[stateName]) {
+                const branches = Object.keys(branchLocations[stateName]);
                 branches.forEach(branch => {
                     const option = document.createElement('option');
                     option.value = branch;
                     option.textContent = branch;
                     citySelector.appendChild(option);
                 });
-                console.log('City dropdown populated successfully');
-            } else {
-                console.log('No branches found for', stateName);
             }
         }
         
         // Function to display all branches in a state
         function displayStateBranches(stateName) {
-            console.log('displayStateBranches called with:', stateName);
             const infoDiv = document.getElementById('selected-branch-info');
             
-            if (window.indiaMapSelectorInstance && window.indiaMapSelectorInstance.operationalStates[stateName]) {
-                const branches = window.indiaMapSelectorInstance.operationalStates[stateName];
-                console.log('Displaying', branches.length, 'branches for', stateName);
+            if (branchLocations[stateName]) {
+                const branches = Object.keys(branchLocations[stateName]);
                 
                 let branchesHTML = `
                 <div style="margin-bottom: 20px; text-align: center;">
@@ -752,13 +845,24 @@
                     item.addEventListener('click', function() {
                         const state = this.dataset.state;
                         const branch = this.dataset.branch;
-                        const address = window.indiaMapSelectorInstance.branchAddresses[state][branch];
+                        const address = branchLocations[state][branch].address;
                         
                         // Update form and display
                         document.getElementById('state').value = state;
                         document.getElementById('district').value = branch;
                         document.getElementById('city-selector').value = branch;
                         displayBranchInfo(state, branch, address);
+                        
+                        // Zoom map to branch location
+                        const branchData = branchLocations[state][branch];
+                        map.setView([branchData.lat, branchData.lng], 12);
+                        
+                        // Find and open the marker popup
+                        allMarkers.forEach(({ marker, stateName, branchName }) => {
+                            if (stateName === state && branchName === branch) {
+                                marker.openPopup();
+                            }
+                        });
                     });
                 });
             }
@@ -784,71 +888,119 @@
             `;
         }
         
-        // Now initialize the map with the functions available
-        // Make map responsive based on screen size
-        const mapWidth = window.innerWidth < 576 ? 300 : (window.innerWidth < 992 ? 400 : 600);
-        const mapHeight = window.innerWidth < 576 ? 350 : (window.innerWidth < 992 ? 400 : 550);
-        
-        window.indiaMapSelectorInstance = new IndiaMapSelector('india-map-selector', {
-            width: mapWidth,
-            height: mapHeight,
-            onStateSelect: function(stateName) {
-                console.log('=== onStateSelect called ===');
-                console.log('State selected:', stateName);
-                console.log('Map instance available:', !!window.indiaMapSelectorInstance);
-                
-                // Update right panel state selector
-                document.getElementById('state-selector').value = stateName;
-                console.log('State selector updated');
-                
-                // Update form state
-                document.getElementById('state').value = stateName;
-                console.log('Form state updated');
-                
-                // Populate city dropdown with branches from selected state
-                console.log('Calling populateCityDropdown...');
-                populateCityDropdown(stateName);
-                console.log('populateCityDropdown completed');
-                
-                // Show branches in the info panel
-                console.log('Calling displayStateBranches...');
-                displayStateBranches(stateName);
-                console.log('displayStateBranches completed');
-            },
-            onDistrictSelect: function(stateName, branchName, branchAddress) {
-                console.log('Branch selected:', stateName, branchName, branchAddress);
-                
-                // Update form fields
-                document.getElementById('state').value = stateName;
-                document.getElementById('district').value = branchName;
-                
-                // Update right panel selectors
-                document.getElementById('state-selector').value = stateName;
-                document.getElementById('city-selector').value = branchName;
-                
-                // Display selected branch info
-                displayBranchInfo(stateName, branchName, branchAddress);
-            }
+        // Initialize Leaflet Map
+        // Center of India
+        const indiaCenter = [22.5937, 78.9629];
+        const map = L.map('india-map-selector', {
+            center: indiaCenter,
+            zoom: 5,
+            scrollWheelZoom: true,
+            zoomControl: true
         });
+        
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 18,
+            minZoom: 4
+        }).addTo(map);
+        
+        // Custom pin icon
+        const branchIcon = L.icon({
+            iconUrl: '/Untitled_design__1_-removebg-preview.png',
+            iconSize: [40, 40],
+            iconAnchor: [20, 40],
+            popupAnchor: [0, -40]
+        });
+        
+        // Store all markers
+        const allMarkers = [];
+        const markersByState = {};
+        
+        // Add markers for all branches
+        Object.keys(branchLocations).forEach(stateName => {
+            markersByState[stateName] = [];
+            
+            Object.keys(branchLocations[stateName]).forEach(branchName => {
+                const branch = branchLocations[stateName][branchName];
+                
+                // Create marker
+                const marker = L.marker([branch.lat, branch.lng], { icon: branchIcon })
+                    .addTo(map);
+                
+                // Create popup content
+                const popupContent = `
+                    <div style="min-width: 200px;">
+                        <h4 style="margin: 0 0 10px 0; color: #02478c; font-size: 16px; font-weight: 600;">
+                            ${branchName}
+                        </h4>
+                        <p style="margin: 0 0 10px 0; color: #666; font-size: 13px; line-height: 1.5;">
+                            ${branch.address}
+                        </p>
+                        <button onclick="selectBranch('${stateName}', '${branchName}')" 
+                            style="width: 100%; padding: 8px; background: #02478c; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 600;">
+                            Select This Branch
+                        </button>
+                    </div>
+                `;
+                
+                marker.bindPopup(popupContent, {
+                    maxWidth: 300,
+                    className: 'branch-popup'
+                });
+                
+                // Add click handler
+                marker.on('click', function() {
+                    // Update right panel
+                    document.getElementById('state-selector').value = stateName;
+                    populateCityDropdown(stateName);
+                    displayStateBranches(stateName);
+                    
+                    // Zoom to marker
+                    map.setView([branch.lat, branch.lng], 12);
+                });
+                
+                allMarkers.push({ marker, stateName, branchName });
+                markersByState[stateName].push(marker);
+            });
+        });
+        
+        // Global function for selecting branch from popup
+        window.selectBranch = function(stateName, branchName) {
+            const branch = branchLocations[stateName][branchName];
+            
+            // Update form fields
+            document.getElementById('state').value = stateName;
+            document.getElementById('district').value = branchName;
+            
+            // Update right panel
+            document.getElementById('state-selector').value = stateName;
+            document.getElementById('city-selector').value = branchName;
+            
+            // Display branch info
+            displayBranchInfo(stateName, branchName, branch.address);
+            
+            // Close popup
+            map.closePopup();
+        };
     
     // State selector change handler
     document.getElementById('state-selector').addEventListener('change', function() {
         const selectedState = this.value;
         if (selectedState) {
-            // Trigger map state selection with red highlighting
-            if (window.indiaMapSelectorInstance) {
-                window.indiaMapSelectorInstance.selectState(selectedState);
-            }
-            
-            // Also manually call the functions for dropdown sync
+            // Populate dropdowns and display
             populateCityDropdown(selectedState);
             displayStateBranches(selectedState);
             document.getElementById('state').value = selectedState;
-        } else {
-            // Reset map highlighting when no state is selected
-            if (window.indiaMapSelectorInstance) {
-                window.indiaMapSelectorInstance.resetSelection();
+            
+            // Zoom map to show all branches in the state
+            if (markersByState[selectedState] && markersByState[selectedState].length > 0) {
+                const group = L.featureGroup(markersByState[selectedState]);
+                map.fitBounds(group.getBounds().pad(0.1));
             }
+        } else {
+            // Reset map view
+            map.setView(indiaCenter, 5);
             
             // Clear right panel
             document.getElementById('selected-branch-info').innerHTML = 
@@ -861,15 +1013,25 @@
         const selectedCity = this.value;
         const selectedState = document.getElementById('state-selector').value;
         
-        if (selectedCity && selectedState) {
-            const address = window.indiaMapSelectorInstance.branchAddresses[selectedState][selectedCity];
+        if (selectedCity && selectedState && branchLocations[selectedState] && branchLocations[selectedState][selectedCity]) {
+            const branch = branchLocations[selectedState][selectedCity];
             
             // Update form
             document.getElementById('state').value = selectedState;
             document.getElementById('district').value = selectedCity;
             
             // Display info
-            displayBranchInfo(selectedState, selectedCity, address);
+            displayBranchInfo(selectedState, selectedCity, branch.address);
+            
+            // Zoom map to branch
+            map.setView([branch.lat, branch.lng], 12);
+            
+            // Find and open the marker popup
+            allMarkers.forEach(({ marker, stateName, branchName }) => {
+                if (stateName === selectedState && branchName === selectedCity) {
+                    marker.openPopup();
+                }
+            });
         }
     });
     
@@ -906,19 +1068,19 @@
         
         // Reset button functionality
         document.getElementById('reset-selection').addEventListener('click', function() {
-            if (window.indiaMapSelectorInstance) {
-                window.indiaMapSelectorInstance.resetSelection();
-                
-                // Clear form fields
-                document.getElementById('state').value = '';
-                document.getElementById('district').value = '';
-                
-                // Clear right panel
-                document.getElementById('state-selector').value = '';
-                document.getElementById('city-selector').innerHTML = '<option value="">Select City</option>';
-                document.getElementById('selected-branch-info').innerHTML = 
-                    '<div style="color: #666; font-size: 14px;">Select a state from the map or dropdown to view branches</div>';
-            }
+            // Clear form fields
+            document.getElementById('state').value = '';
+            document.getElementById('district').value = '';
+            
+            // Clear right panel
+            document.getElementById('state-selector').value = '';
+            document.getElementById('city-selector').innerHTML = '<option value="">Select City</option>';
+            document.getElementById('selected-branch-info').innerHTML = 
+                '<div style="color: #666; font-size: 14px;">Select a state from the map or dropdown to view branches</div>';
+            
+            // Reset map view
+            map.setView(indiaCenter, 5);
+            map.closePopup();
         });
 });
 </script>
