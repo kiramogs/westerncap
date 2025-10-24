@@ -360,47 +360,13 @@ class IndiaMapSelector {
                 .each(function() {
                     const pinGroup = d3.select(this);
                     
-                    // Pin shadow
-                    pinGroup.append('ellipse')
-                        .attr('cx', 0)
-                        .attr('cy', 8)
-                        .attr('rx', 4)
-                        .attr('ry', 2)
-                        .attr('fill', 'rgba(0,0,0,0.2)')
-                        .attr('opacity', 0.3);
-                    
-                    // Pin body (orange circle)
-                    pinGroup.append('circle')
-                        .attr('cx', 0)
-                        .attr('cy', 0)
-                        .attr('r', 6)
-                        .attr('fill', '#FF6B35')
-                        .attr('stroke', '#ffffff')
-                        .attr('stroke-width', 1.5);
-                    
-                    // Pin stem
-                    pinGroup.append('path')
-                        .attr('d', 'M 0,6 L -2,12 L 2,12 Z')
-                        .attr('fill', '#FF6B35')
-                        .attr('stroke', '#ffffff')
-                        .attr('stroke-width', 1.5);
-                    
-                    // Inner decorative pattern
-                    pinGroup.append('circle')
-                        .attr('cx', 0)
-                        .attr('cy', 0)
-                        .attr('r', 3)
-                        .attr('fill', 'none')
-                        .attr('stroke', '#ffffff')
-                        .attr('stroke-width', 0.8)
-                        .attr('opacity', 0.7);
-                    
-                    // Center dot
-                    pinGroup.append('circle')
-                        .attr('cx', 0)
-                        .attr('cy', 0)
-                        .attr('r', 1)
-                        .attr('fill', '#ffffff')
+                    // Use your custom pin image
+                    pinGroup.append('image')
+                        .attr('href', '/generated-image-removebg-preview.png')
+                        .attr('x', -8)
+                        .attr('y', -8)
+                        .attr('width', 16)
+                        .attr('height', 16)
                         .attr('opacity', 0.9);
                 })
                 .transition()
@@ -445,10 +411,10 @@ class IndiaMapSelector {
             .transition()
             .duration(300)
             .style('transform', 'scale(1)')
-            .selectAll('circle, path')
+            .selectAll('image')
             .transition()
             .duration(300)
-            .attr('fill', '#FF6B35');
+            .style('filter', 'none');
         
         // Highlight selected state in red
         this.mapGroup.selectAll('path')
@@ -471,10 +437,10 @@ class IndiaMapSelector {
                         .transition()
                         .duration(300)
                         .style('transform', 'scale(1.2)')
-                        .selectAll('circle, path')
+                        .selectAll('image')
                         .transition()
                         .duration(300)
-                        .attr('fill', '#ff4444');
+                        .style('filter', 'hue-rotate(0deg) brightness(1.2)');
                 }
             });
         
