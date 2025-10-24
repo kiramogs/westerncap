@@ -951,10 +951,23 @@
                 
                 // Add click handler
                 marker.on('click', function() {
-                    // Update right panel
+                    console.log('Marker clicked:', stateName, branchName);
+                    
+                    // Update form fields
+                    document.getElementById('state').value = stateName;
+                    document.getElementById('district').value = branchName;
+                    
+                    // Update right panel state selector
                     document.getElementById('state-selector').value = stateName;
+                    
+                    // Populate city dropdown
                     populateCityDropdown(stateName);
-                    displayStateBranches(stateName);
+                    
+                    // Update city selector to show selected branch
+                    document.getElementById('city-selector').value = branchName;
+                    
+                    // Display the selected branch info in the right panel
+                    displayBranchInfo(stateName, branchName, branch.address);
                     
                     // Zoom to marker
                     map.setView([branch.lat, branch.lng], 12);
