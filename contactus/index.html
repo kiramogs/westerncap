@@ -828,8 +828,8 @@
                 `;
                 infoDiv.innerHTML = branchesHTML;
                 
-                // Add click handlers to branch items
-                document.querySelectorAll('.branch-item').forEach(item => {
+                // Add click handlers to branch items - target only items within selected-branch-info
+                document.querySelectorAll('#selected-branch-info .branch-item').forEach(item => {
                     item.addEventListener('mouseenter', function() {
                         this.style.background = '#f0f8ff';
                         this.style.borderColor = '#02478c';
@@ -1052,17 +1052,138 @@
     
     // Search functionality
     document.getElementById('branch-search').addEventListener('input', function() {
-        const searchTerm = this.value.toLowerCase();
-        const branchItems = document.querySelectorAll('.branch-item');
+        const searchTerm = this.value.toLowerCase().trim();
         
-        branchItems.forEach(item => {
-            const branchName = item.dataset.branch.toLowerCase();
-            if (branchName.includes(searchTerm)) {
-                item.style.display = 'block';
-            } else {
-                item.style.display = 'none';
-            }
+        if (searchTerm === '') {
+            // Reset to initial state
+            document.getElementById('state-selector').value = '';
+            document.getElementById('city-selector').innerHTML = '<option value="">Select City</option>';
+            document.getElementById('selected-branch-info').innerHTML = 
+                '<div style="color: #666; font-size: 14px;">Select a state from the map or dropdown to view branches</div>';
+            map.setView(indiaCenter, 5);
+            return;
+        }
+        
+        // Search across all branches
+        const matchedBranches = [];
+        Object.keys(branchLocations).forEach(stateName => {
+            Object.keys(branchLocations[stateName]).forEach(branchName => {
+                const branch = branchLocations[stateName][branchName];
+                // Search in branch name, state name, and address
+                if (branchName.toLowerCase().includes(searchTerm) || 
+                    stateName.toLowerCase().includes(searchTerm) ||
+                    branch.address.toLowerCase().includes(searchTerm)) {
+                    matchedBranches.push({ stateName, branchName, branch });
+                }
+            });
         });
+        
+        if (matchedBranches.length === 0) {
+            // No results found
+            document.getElementById('selected-branch-info').innerHTML = 
+                '<div style="text-align: center; padding: 20px; color: #999;">' +
+                '<div style="font-size: 48px; margin-bottom: 10px;">🔍</div>' +
+                '<div style="font-size: 16px; font-weight: 600; margin-bottom: 5px;">No branches found</div>' +
+                '<div style="font-size: 13px;">Try searching with different keywords</div>' +
+                '</div>';
+            return;
+        }
+        
+        // Display search results
+        let resultsHTML = `
+            <div style="margin-bottom: 20px; text-align: center;">
+                <h4 style="color: #02478c; font-size: 18px; font-weight: 700; margin-bottom: 8px;">
+                    Search Results
+                </h4>
+                <div style="color: #666; font-size: 14px; background: #f0f8ff; padding: 8px 12px; border-radius: 20px; display: inline-block;">
+                    ${matchedBranches.length} ${matchedBranches.length === 1 ? 'Branch' : 'Branches'} Found
+                </div>
+            </div>
+            <div style="max-height: 400px; overflow-y: auto; padding-right: 8px;">
+                <div style="display: grid; gap: 12px;">
+        `;
+        
+        matchedBranches.forEach((match, index) => {
+            const { stateName, branchName, branch } = match;
+            resultsHTML += `
+                <div class="branch-item" data-state="${stateName}" data-branch="${branchName}" 
+                    style="padding: 16px; background: white; border: 2px solid #e8f4fd; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; position: relative;">
+                    <div style="display: flex; align-items: flex-start; gap: 12px;">
+                        <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #02478c, #024070); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 14px; flex-shrink: 0;">
+                            ${index + 1}
+                        </div>
+                        <div style="flex: 1;">
+                            <div style="font-weight: 600; color: #02478c; font-size: 16px; margin-bottom: 4px;">${branchName}, ${stateName}</div>
+                            <div style="color: #666; font-size: 12px; line-height: 1.5; margin-bottom: 6px;">${branch.address}</div>
+                            <div style="color: #4CAF50; font-size: 12px; font-weight: 600;">📍 Click to view on map</div>
+                        </div>
+                        <div style="color: #02478c; font-size: 18px; flex-shrink: 0;">→</div>
+                    </div>
+                </div>
+            `;
+        });
+        
+        resultsHTML += `
+                </div>
+            </div>
+        `;
+        
+        document.getElementById('selected-branch-info').innerHTML = resultsHTML;
+        
+        // Add click handlers to search results - target only items within selected-branch-info
+        document.querySelectorAll('#selected-branch-info .branch-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.background = '#f0f8ff';
+                this.style.borderColor = '#02478c';
+                this.style.transform = 'translateY(-2px)';
+                this.style.boxShadow = '0 4px 12px rgba(2, 71, 140, 0.15)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.background = 'white';
+                this.style.borderColor = '#e8f4fd';
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = 'none';
+            });
+            
+            item.addEventListener('click', function() {
+                const state = this.dataset.state;
+                const branch = this.dataset.branch;
+                const address = branchLocations[state][branch].address;
+                
+                // Update form and display
+                document.getElementById('state').value = state;
+                document.getElementById('district').value = branch;
+                document.getElementById('state-selector').value = state;
+                populateCityDropdown(state);
+                document.getElementById('city-selector').value = branch;
+                displayBranchInfo(state, branch, address);
+                
+                // Clear the search box after selection
+                document.getElementById('branch-search').value = '';
+                
+                // Zoom map to branch location
+                const branchData = branchLocations[state][branch];
+                map.setView([branchData.lat, branchData.lng], 12);
+                
+                // Find and open the marker popup
+                allMarkers.forEach(({ marker, stateName, branchName }) => {
+                    if (stateName === state && branchName === branch) {
+                        marker.openPopup();
+                    }
+                });
+            });
+        });
+        
+        // If only one result, zoom to it
+        if (matchedBranches.length === 1) {
+            const { branch } = matchedBranches[0];
+            map.setView([branch.lat, branch.lng], 12);
+        } else {
+            // Zoom to show all search results
+            const bounds = L.latLngBounds(matchedBranches.map(m => [m.branch.lat, m.branch.lng]));
+            map.fitBounds(bounds.pad(0.1));
+        }
     });
     
         // Handle window resize for mobile orientation changes
@@ -1086,6 +1207,9 @@
             // Clear form fields
             document.getElementById('state').value = '';
             document.getElementById('district').value = '';
+            
+            // Clear search box
+            document.getElementById('branch-search').value = '';
             
             // Clear right panel
             document.getElementById('state-selector').value = '';
