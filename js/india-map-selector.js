@@ -505,7 +505,21 @@ class IndiaMapSelector {
         this.options.onStateSelect(stateName);
         console.log('onStateSelect callback completed');
         
-        // Don't show branch list overlay - let the right panel handle it
+        // Load the state map to show branch pins
+        const stateFileMap = {
+            'Rajasthan': 'rajasthan',
+            'Maharashtra': 'maharashtra',
+            'Madhya Pradesh': 'madhyapradesh',
+            'Tamil Nadu': 'tamilnadu',
+            'Telangana': 'telangana',
+            'Karnataka': 'karnataka'
+        };
+        
+        const stateFile = stateFileMap[stateName];
+        if (stateFile) {
+            console.log('Loading state map for:', stateName);
+            await this.loadStateMap(stateFile, stateName);
+        }
     }
     
     resetSelection() {
@@ -793,6 +807,7 @@ class IndiaMapSelector {
     
     async loadStateMap(stateFile, stateName) {
         try {
+            console.log('Loading state map file:', stateFile);
             const response = await fetch(`/js/topojsons/states/${stateFile}.json`);
             if (!response.ok) throw new Error('State map not found');
             
@@ -811,46 +826,117 @@ class IndiaMapSelector {
             // Clear existing paths
             this.mapGroup.selectAll('*').remove();
             
-            // Draw districts
+            // Draw state outline
             this.mapGroup.selectAll('path')
                 .data(geojson.features)
                 .enter()
                 .append('path')
                 .attr('d', path)
-                .attr('fill', '#2196F3')
-                .attr('stroke', '#ffffff')
-                .attr('stroke-width', 1)
-                .style('cursor', 'pointer')
-                .style('transition', 'all 0.3s ease')
-                .on('mouseover', (event, d) => {
-                    d3.select(event.currentTarget)
-                        .attr('fill', '#ff8a00');
+                .attr('fill', '#e8f4fd')
+                .attr('stroke', '#02478c')
+                .attr('stroke-width', 2)
+                .style('pointer-events', 'none');
+            
+            // Get branches for this state
+            const branches = this.operationalStates[stateName];
+            console.log('Branches for', stateName, ':', branches);
+            
+            if (branches && branches.length > 0) {
+                // Add pins for each branch
+                // We'll distribute pins evenly across the state
+                // Calculate bounds
+                const bounds = path.bounds(geojson);
+                const width = bounds[1][0] - bounds[0][0];
+                const height = bounds[1][1] - bounds[0][1];
+                
+                // Create a grid layout for pins
+                const cols = Math.ceil(Math.sqrt(branches.length));
+                const rows = Math.ceil(branches.length / cols);
+                const paddingX = width * 0.1;
+                const paddingY = height * 0.1;
+                const cellWidth = (width - 2 * paddingX) / cols;
+                const cellHeight = (height - 2 * paddingY) / rows;
+                
+                branches.forEach((branch, index) => {
+                    const col = index % cols;
+                    const row = Math.floor(index / cols);
                     
-                    const districtName = d.properties.NAME_2 || d.properties.DISTRICT || d.properties.name || 'Unknown';
-                    this.tooltip
-                        .style('display', 'block')
-                        .html(districtName);
-                })
-                .on('mousemove', (event) => {
-                    this.tooltip
-                        .style('left', (event.pageX + 10) + 'px')
-                        .style('top', (event.pageY - 20) + 'px');
-                })
-                .on('mouseout', (event) => {
-                    d3.select(event.currentTarget)
-                        .attr('fill', '#2196F3');
+                    // Calculate position with some randomness for natural look
+                    const randomOffsetX = (Math.random() - 0.5) * cellWidth * 0.3;
+                    const randomOffsetY = (Math.random() - 0.5) * cellHeight * 0.3;
                     
-                    this.tooltip.style('display', 'none');
-                })
-                .on('click', (event, d) => {
-                    const districtName = d.properties.NAME_2 || d.properties.DISTRICT || d.properties.name || 'Unknown';
-                    this.selectDistrict(districtName);
+                    const x = bounds[0][0] + paddingX + col * cellWidth + cellWidth / 2 + randomOffsetX;
+                    const y = bounds[0][1] + paddingY + row * cellHeight + cellHeight / 2 + randomOffsetY;
+                    
+                    // Create branch pin group
+                    const pinGroup = this.mapGroup.append('g')
+                        .attr('class', 'branch-pin')
+                        .attr('transform', `translate(${x}, ${y})`)
+                        .style('cursor', 'pointer')
+                        .style('opacity', 0);
+                    
+                    // Shadow
+                    pinGroup.append('ellipse')
+                        .attr('cx', 0)
+                        .attr('cy', 12)
+                        .attr('rx', 8)
+                        .attr('ry', 4)
+                        .attr('fill', 'rgba(0,0,0,0.3)')
+                        .attr('opacity', 0.4);
+                    
+                    // Pin image
+                    pinGroup.append('image')
+                        .attr('href', '/Untitled_design__1_-removebg-preview.png')
+                        .attr('x', -20)
+                        .attr('y', -20)
+                        .attr('width', 40)
+                        .attr('height', 40)
+                        .attr('opacity', 0.95);
+                    
+                    // Add hover and click events
+                    pinGroup
+                        .on('mouseover', () => {
+                            pinGroup.selectAll('image')
+                                .transition()
+                                .duration(200)
+                                .style('filter', 'brightness(1.3) drop-shadow(0 0 8px rgba(255, 107, 53, 0.8))');
+                            
+                            this.tooltip
+                                .style('display', 'block')
+                                .html(`<strong>${branch}</strong><br/><small>Click to select</small>`);
+                        })
+                        .on('mousemove', (event) => {
+                            this.tooltip
+                                .style('left', (event.pageX + 10) + 'px')
+                                .style('top', (event.pageY - 20) + 'px');
+                        })
+                        .on('mouseout', () => {
+                            pinGroup.selectAll('image')
+                                .transition()
+                                .duration(200)
+                                .style('filter', 'none');
+                            
+                            this.tooltip.style('display', 'none');
+                        })
+                        .on('click', () => {
+                            console.log('Branch pin clicked:', branch);
+                            const branchAddress = this.branchAddresses[stateName][branch];
+                            this.options.onDistrictSelect(stateName, branch, branchAddress);
+                        });
+                    
+                    // Animate pin appearance
+                    pinGroup.transition()
+                        .duration(600)
+                        .delay(index * 50)
+                        .style('opacity', 1);
                 });
+            }
             
             this.currentView = 'state';
             this.backButton.style('display', 'block');
             
         } catch (error) {
+            console.error('Error loading state map:', error);
             throw error;
         }
     }
