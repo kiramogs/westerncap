@@ -360,18 +360,24 @@ class IndiaMapSelector {
                 .each(function() {
                     const pinGroup = d3.select(this);
                     
-                    // Use your custom pin image
+                    // Add shadow for better visibility
+                    pinGroup.append('ellipse')
+                        .attr('cx', 0)
+                        .attr('cy', 12)
+                        .attr('rx', 8)
+                        .attr('ry', 4)
+                        .attr('fill', 'rgba(0,0,0,0.3)')
+                        .attr('opacity', 0.4);
+                    
+                    // Use your custom pin image - increased size by 2.5x (16 * 2.5 = 40)
                     pinGroup.append('image')
                         .attr('href', '/generated-image-removebg-preview.png')
-                        .attr('x', -8)
-                        .attr('y', -8)
-                        .attr('width', 16)
-                        .attr('height', 16)
-                        .attr('opacity', 0.9);
+                        .attr('x', -20)
+                        .attr('y', -20)
+                        .attr('width', 40)
+                        .attr('height', 40)
+                        .attr('opacity', 0.95);
                 })
-                .transition()
-                .duration(1000)
-                .delay((d, i) => i * 150 + 200)
                 .style('opacity', 0.9);
             
             this.currentView = 'india';
@@ -408,9 +414,6 @@ class IndiaMapSelector {
         
         // Reset pin highlighting
         this.mapGroup.selectAll('.state-pin')
-            .transition()
-            .duration(300)
-            .style('transform', 'scale(1)')
             .selectAll('image')
             .transition()
             .duration(300)
@@ -434,13 +437,10 @@ class IndiaMapSelector {
                 const pinState = d.properties.ST_NM || d.properties.NAME_1;
                 if (pinState === stateName) {
                     d3.select(this)
-                        .transition()
-                        .duration(300)
-                        .style('transform', 'scale(1.2)')
                         .selectAll('image')
                         .transition()
                         .duration(300)
-                        .style('filter', 'hue-rotate(0deg) brightness(1.2)');
+                        .style('filter', 'brightness(1.3) drop-shadow(0 0 8px rgba(255, 0, 0, 0.6))');
                 }
             });
         
