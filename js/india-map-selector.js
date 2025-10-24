@@ -453,48 +453,27 @@ class IndiaMapSelector {
     async selectState(stateName) {
         console.log('=== selectState called in india-map-selector.js ===');
         console.log('State name:', stateName);
+        console.log('Previous selected state:', this.selectedState);
         console.log('Has onStateSelect callback:', typeof this.options.onStateSelect);
         
-        // Reset previous selection highlighting (but keep selected state marked)
+        // First, reset ALL states to their default colors (including previously selected)
         this.mapGroup.selectAll('path')
             .transition()
             .duration(300)
             .attr('fill', (d) => {
                 const state = d.properties.ST_NM || d.properties.NAME_1 || 'Unknown';
                 const isOperational = this.operationalStates.hasOwnProperty(state);
-                if (state === this.selectedState) {
-                    return '#ff4444'; // Keep selected state red
-                }
                 return isOperational ? '#4CAF50' : '#cccccc';
             })
-            .attr('stroke', (d) => {
-                const state = d.properties.ST_NM || d.properties.NAME_1 || 'Unknown';
-                return state === this.selectedState ? '#ffffff' : '#ffffff';
-            })
-            .attr('stroke-width', (d) => {
-                const state = d.properties.ST_NM || d.properties.NAME_1 || 'Unknown';
-                return state === this.selectedState ? 3 : 1.5;
-            });
+            .attr('stroke', '#ffffff')
+            .attr('stroke-width', 1.5);
         
-        // Reset pin highlighting (but keep selected state's pin marked)
-        const currentSelectedState = this.selectedState;
+        // Reset ALL pin highlighting to default
         this.mapGroup.selectAll('.state-pin')
-            .each(function(d) {
-                const pinState = d.properties.ST_NM || d.properties.NAME_1;
-                if (pinState === currentSelectedState) {
-                    d3.select(this)
-                        .selectAll('image')
-                        .transition()
-                        .duration(300)
-                        .style('filter', 'brightness(1.3) drop-shadow(0 0 8px rgba(255, 0, 0, 0.6))');
-                } else {
-                    d3.select(this)
-                        .selectAll('image')
-                        .transition()
-                        .duration(300)
-                        .style('filter', 'none');
-                }
-            });
+            .selectAll('image')
+            .transition()
+            .duration(300)
+            .style('filter', 'none');
         
         // Highlight selected state in red
         this.mapGroup.selectAll('path')
