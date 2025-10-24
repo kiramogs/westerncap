@@ -651,80 +651,42 @@
 <script src="/js/india-map-selector.js"></script>
 
 <script>
-// Initialize India Map Selector
-document.addEventListener('DOMContentLoaded', function() {
-    // Hide the dropdowns since we're using the map
-    const stateFieldset = document.querySelector('fieldset:has(#state)');
-    const districtFieldset = document.querySelector('fieldset:has(#district)');
-    const cityFieldset = document.querySelector('fieldset:has(#city)');
-    
-    if (stateFieldset) stateFieldset.style.display = 'none';
-    if (districtFieldset) districtFieldset.style.display = 'none';
-    if (cityFieldset) cityFieldset.style.display = 'none';
-    
-    // Initialize the map and store globally
-    // Make map responsive based on screen size
-    const mapWidth = window.innerWidth < 576 ? 300 : (window.innerWidth < 992 ? 400 : 600);
-    const mapHeight = window.innerWidth < 576 ? 350 : (window.innerWidth < 992 ? 400 : 550);
-    
-    window.indiaMapSelectorInstance = new IndiaMapSelector('india-map-selector', {
-        width: mapWidth,
-        height: mapHeight,
-        onStateSelect: function(stateName) {
-            console.log('State selected:', stateName);
-            
-            // Update right panel state selector
-            document.getElementById('state-selector').value = stateName;
-            
-            // Update form state
-            document.getElementById('state').value = stateName;
-            
-            // Populate city dropdown with branches from selected state
-            populateCityDropdown(stateName);
-            
-            // Show branches in the info panel
-            displayStateBranches(stateName);
-        },
-        onDistrictSelect: function(stateName, branchName, branchAddress) {
-            console.log('Branch selected:', stateName, branchName, branchAddress);
-            
-            // Update form fields
-            document.getElementById('state').value = stateName;
-            document.getElementById('district').value = branchName;
-            
-            // Update right panel selectors
-            document.getElementById('state-selector').value = stateName;
-            document.getElementById('city-selector').value = branchName;
-            
-            // Display selected branch info
-            displayBranchInfo(stateName, branchName, branchAddress);
-        }
-    });
-    
-    // Function to populate city dropdown based on selected state
-    function populateCityDropdown(stateName) {
-        const citySelector = document.getElementById('city-selector');
-        citySelector.innerHTML = '<option value="">Select City</option>';
+    // Initialize India Map Selector
+    document.addEventListener('DOMContentLoaded', function() {
+        // Hide the dropdowns since we're using the map
+        const stateFieldset = document.querySelector('fieldset:has(#state)');
+        const districtFieldset = document.querySelector('fieldset:has(#district)');
+        const cityFieldset = document.querySelector('fieldset:has(#city)');
         
-        if (window.indiaMapSelectorInstance && window.indiaMapSelectorInstance.operationalStates[stateName]) {
-            const branches = window.indiaMapSelectorInstance.operationalStates[stateName];
-            branches.forEach(branch => {
-                const option = document.createElement('option');
-                option.value = branch;
-                option.textContent = branch;
-                citySelector.appendChild(option);
-            });
-        }
-    }
-    
-    // Function to display all branches in a state
-    function displayStateBranches(stateName) {
-        const infoDiv = document.getElementById('selected-branch-info');
+        if (stateFieldset) stateFieldset.style.display = 'none';
+        if (districtFieldset) districtFieldset.style.display = 'none';
+        if (cityFieldset) cityFieldset.style.display = 'none';
         
-        if (window.indiaMapSelectorInstance && window.indiaMapSelectorInstance.operationalStates[stateName]) {
-            const branches = window.indiaMapSelectorInstance.operationalStates[stateName];
+        // Define helper functions BEFORE initializing the map
+        // Function to populate city dropdown based on selected state
+        function populateCityDropdown(stateName) {
+            const citySelector = document.getElementById('city-selector');
+            citySelector.innerHTML = '<option value="">Select City</option>';
             
-            let branchesHTML = `
+            if (window.indiaMapSelectorInstance && window.indiaMapSelectorInstance.operationalStates[stateName]) {
+                const branches = window.indiaMapSelectorInstance.operationalStates[stateName];
+                branches.forEach(branch => {
+                    const option = document.createElement('option');
+                    option.value = branch;
+                    option.textContent = branch;
+                    citySelector.appendChild(option);
+                });
+            }
+        }
+        
+        // Function to display all branches in a state
+        function displayStateBranches(stateName) {
+            const infoDiv = document.getElementById('selected-branch-info');
+            
+            if (window.indiaMapSelectorInstance && window.indiaMapSelectorInstance.operationalStates[stateName]) {
+                const branches = window.indiaMapSelectorInstance.operationalStates[stateName];
+                
+                let branchesHTML = `
                 <div style="margin-bottom: 20px; text-align: center;">
                     <h4 style="color: #02478c; font-size: 20px; font-weight: 700; margin-bottom: 8px;">
                         ${stateName}
@@ -735,10 +697,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 <div style="max-height: 400px; overflow-y: auto; padding-right: 8px;">
                     <div style="display: grid; gap: 12px;">
-            `;
-            
-            branches.forEach((branch, index) => {
-                branchesHTML += `
+                `;
+                
+                branches.forEach((branch, index) => {
+                    branchesHTML += `
                     <div class="branch-item" data-state="${stateName}" data-branch="${branch}" 
                         style="padding: 16px; background: white; border: 2px solid #e8f4fd; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; position: relative;">
                         <div style="display: flex; align-items: center; gap: 12px;">
@@ -752,68 +714,107 @@ document.addEventListener('DOMContentLoaded', function() {
                             <div style="color: #02478c; font-size: 18px;">→</div>
                         </div>
                     </div>
-                `;
-            });
-            
-            branchesHTML += `
+                    `;
+                });
+                
+                branchesHTML += `
                     </div>
                 </div>
                 <div style="margin-top: 15px; text-align: center; padding: 12px; background: #e8f5e9; border-radius: 6px;">
                     <span style="color: #4CAF50; font-size: 13px; font-weight: 600;">💡 Click any branch above to select it</span>
                 </div>
-            `;
-            infoDiv.innerHTML = branchesHTML;
-            
-            // Add click handlers to branch items
-            document.querySelectorAll('.branch-item').forEach(item => {
-                item.addEventListener('mouseenter', function() {
-                    this.style.background = '#f0f8ff';
-                    this.style.borderColor = '#02478c';
-                    this.style.transform = 'translateY(-2px)';
-                    this.style.boxShadow = '0 4px 12px rgba(2, 71, 140, 0.15)';
-                });
+                `;
+                infoDiv.innerHTML = branchesHTML;
                 
-                item.addEventListener('mouseleave', function() {
-                    this.style.background = 'white';
-                    this.style.borderColor = '#e8f4fd';
-                    this.style.transform = 'translateY(0)';
-                    this.style.boxShadow = 'none';
-                });
-                
-                item.addEventListener('click', function() {
-                    const state = this.dataset.state;
-                    const branch = this.dataset.branch;
-                    const address = window.indiaMapSelectorInstance.branchAddresses[state][branch];
+                // Add click handlers to branch items
+                document.querySelectorAll('.branch-item').forEach(item => {
+                    item.addEventListener('mouseenter', function() {
+                        this.style.background = '#f0f8ff';
+                        this.style.borderColor = '#02478c';
+                        this.style.transform = 'translateY(-2px)';
+                        this.style.boxShadow = '0 4px 12px rgba(2, 71, 140, 0.15)';
+                    });
                     
-                    // Update form and display
-                    document.getElementById('state').value = state;
-                    document.getElementById('district').value = branch;
-                    document.getElementById('city-selector').value = branch;
-                    displayBranchInfo(state, branch, address);
+                    item.addEventListener('mouseleave', function() {
+                        this.style.background = 'white';
+                        this.style.borderColor = '#e8f4fd';
+                        this.style.transform = 'translateY(0)';
+                        this.style.boxShadow = 'none';
+                    });
+                    
+                    item.addEventListener('click', function() {
+                        const state = this.dataset.state;
+                        const branch = this.dataset.branch;
+                        const address = window.indiaMapSelectorInstance.branchAddresses[state][branch];
+                        
+                        // Update form and display
+                        document.getElementById('state').value = state;
+                        document.getElementById('district').value = branch;
+                        document.getElementById('city-selector').value = branch;
+                        displayBranchInfo(state, branch, address);
+                    });
                 });
-            });
+            }
         }
-    }
     
-    // Function to display selected branch info
-    function displayBranchInfo(stateName, branchName, branchAddress) {
-        const infoDiv = document.getElementById('selected-branch-info');
-        infoDiv.innerHTML = `
-            <div style="margin-bottom: 15px;">
-                <h4 style="color: #02478c; font-size: 18px; font-weight: 600; margin-bottom: 10px;">
-                    📍 ${branchName}, ${stateName}
-                </h4>
-            </div>
-            <div style="padding: 15px; background: white; border-radius: 6px; border: 1px solid #e0e0e0; margin-bottom: 15px;">
-                <div style="color: #555; font-size: 14px; line-height: 1.6;">
-                    ${branchAddress}
+        // Function to display selected branch info
+        function displayBranchInfo(stateName, branchName, branchAddress) {
+            const infoDiv = document.getElementById('selected-branch-info');
+            infoDiv.innerHTML = `
+                <div style="margin-bottom: 15px;">
+                    <h4 style="color: #02478c; font-size: 18px; font-weight: 600; margin-bottom: 10px;">
+                        📍 ${branchName}, ${stateName}
+                    </h4>
                 </div>
-            </div>
-            <div style="text-align: center; padding: 12px; background: #e8f5e9; border-radius: 4px;">
-                <span style="color: #4CAF50; font-size: 14px; font-weight: 600;">✓ Branch selected! Fill the form below.</span>
-            </div>
-        `;
-    }
+                <div style="padding: 15px; background: white; border-radius: 6px; border: 1px solid #e0e0e0; margin-bottom: 15px;">
+                    <div style="color: #555; font-size: 14px; line-height: 1.6;">
+                        ${branchAddress}
+                    </div>
+                </div>
+                <div style="text-align: center; padding: 12px; background: #e8f5e9; border-radius: 4px;">
+                    <span style="color: #4CAF50; font-size: 14px; font-weight: 600;">✓ Branch selected! Fill the form below.</span>
+                </div>
+            `;
+        }
+        
+        // Now initialize the map with the functions available
+        // Make map responsive based on screen size
+        const mapWidth = window.innerWidth < 576 ? 300 : (window.innerWidth < 992 ? 400 : 600);
+        const mapHeight = window.innerWidth < 576 ? 350 : (window.innerWidth < 992 ? 400 : 550);
+        
+        window.indiaMapSelectorInstance = new IndiaMapSelector('india-map-selector', {
+            width: mapWidth,
+            height: mapHeight,
+            onStateSelect: function(stateName) {
+                console.log('State selected:', stateName);
+                
+                // Update right panel state selector
+                document.getElementById('state-selector').value = stateName;
+                
+                // Update form state
+                document.getElementById('state').value = stateName;
+                
+                // Populate city dropdown with branches from selected state
+                populateCityDropdown(stateName);
+                
+                // Show branches in the info panel
+                displayStateBranches(stateName);
+            },
+            onDistrictSelect: function(stateName, branchName, branchAddress) {
+                console.log('Branch selected:', stateName, branchName, branchAddress);
+                
+                // Update form fields
+                document.getElementById('state').value = stateName;
+                document.getElementById('district').value = branchName;
+                
+                // Update right panel selectors
+                document.getElementById('state-selector').value = stateName;
+                document.getElementById('city-selector').value = branchName;
+                
+                // Display selected branch info
+                displayBranchInfo(stateName, branchName, branchAddress);
+            }
+        });
     
     // State selector change handler
     document.getElementById('state-selector').addEventListener('change', function() {
