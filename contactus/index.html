@@ -800,20 +800,22 @@
                 `;
                 
                 branches.forEach((branch, index) => {
+                    const branchAddress = branchLocations[stateName][branch].address;
                     branchesHTML += `
-                    <div class="branch-item" data-state="${stateName}" data-branch="${branch}" 
-                        style="padding: 16px; background: white; border: 2px solid #e8f4fd; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; position: relative;">
-                        <div style="display: flex; align-items: center; gap: 12px;">
-                            <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #02478c, #024070); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 14px;">
-                                ${index + 1}
+                        <div class="branch-item" data-state="${stateName}" data-branch="${branch}" 
+                            style="padding: 16px; background: white; border: 2px solid #e8f4fd; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; position: relative;">
+                            <div style="display: flex; align-items: flex-start; gap: 12px;">
+                                <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #02478c, #024070); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 14px; flex-shrink: 0;">
+                                    ${index + 1}
+                                </div>
+                                <div style="flex: 1;">
+                                    <div style="font-weight: 600; color: #02478c; font-size: 16px; margin-bottom: 6px;">${branch}</div>
+                                    <div style="color: #666; font-size: 12px; line-height: 1.5; margin-bottom: 6px;">${branchAddress}</div>
+                                    <div style="color: #4CAF50; font-size: 12px; font-weight: 600;">📍 Click to view on map</div>
+                                </div>
+                                <div style="color: #02478c; font-size: 18px; flex-shrink: 0;">→</div>
                             </div>
-                            <div style="flex: 1;">
-                                <div style="font-weight: 600; color: #02478c; font-size: 16px; margin-bottom: 4px;">${branch}</div>
-                                <div style="color: #666; font-size: 13px;">Click to select this branch</div>
-                            </div>
-                            <div style="color: #02478c; font-size: 18px;">→</div>
                         </div>
-                    </div>
                     `;
                 });
                 
