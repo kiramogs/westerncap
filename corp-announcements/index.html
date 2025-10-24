@@ -143,6 +143,17 @@
             z-index: -1;
         }
         
+        /* Ensure seamless hover area for investor relations dropdown */
+        .dropdown-investor-relations::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            height: 20px;
+            z-index: 999;
+        }
+        
         .navbar .dropdown-menu li {
             opacity: 0;
             transform: translateX(-10px);
@@ -252,16 +263,51 @@
             <section class="pt-md-5 pb-5 links-section">
                 <div class="container">
                     <div style="padding: 40px 0;">
-                        <div style="display: flex; align-items: center; margin-bottom: 40px;">
+                        <div style="display: flex; align-items: center; margin-bottom: 30px;">
                             <div style="width: 4px; height: 40px; background: #4CAF50; margin-right: 15px;"></div>
                             <h2 style="color: #02478c; font-size: 32px; font-weight: 600; margin: 0;">Corporate Announcements</h2>
                         </div>
 
-                        <!-- 2025 -->
-                        <div class="year-section" style="margin-bottom: 50px;">
-                            <h3 style="color: #02478c; font-size: 24px; font-weight: 600; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 2px solid #e0e0e0;">
-                                2025
-                            </h3>
+                        <!-- Horizontal Tab Navigation -->
+                        <div class="tab-navigation-wrapper" style="margin-bottom: 40px;">
+                            <!-- Main Tabs -->
+                            <div class="main-tabs" style="background: #f8f9fa; padding: 10px; border-radius: 8px 8px 0 0; display: flex; gap: 10px; overflow-x: auto; flex-wrap: wrap;">
+                                <button class="main-tab-btn active" data-tab="quarterly" style="padding: 12px 24px; background: #02478c; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.3s ease;">
+                                    Quarterly Reports
+                                </button>
+                                <button class="main-tab-btn" data-tab="board-meetings" style="padding: 12px 24px; background: white; color: #02478c; border: 1px solid #ddd; border-radius: 6px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.3s ease;">
+                                    Board Meetings
+                                </button>
+                                <button class="main-tab-btn" data-tab="agm-egm" style="padding: 12px 24px; background: white; color: #02478c; border: 1px solid #ddd; border-radius: 6px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.3s ease;">
+                                    AGM/EGM
+                                </button>
+                                <button class="main-tab-btn" data-tab="regulatory" style="padding: 12px 24px; background: white; color: #02478c; border: 1px solid #ddd; border-radius: 6px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.3s ease;">
+                                    Regulatory Filings
+                                </button>
+                            </div>
+
+                            <!-- Sub Tabs (Year Selection) -->
+                            <div class="sub-tabs" style="background: white; padding: 15px; border: 1px solid #e0e0e0; border-top: none; border-radius: 0 0 8px 8px; display: flex; gap: 8px; overflow-x: auto; flex-wrap: wrap; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                                <button class="sub-tab-btn active" data-year="2025" style="padding: 8px 20px; background: #FFC107; color: #02478c; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.3s ease;">
+                                    2025
+                                </button>
+                                <button class="sub-tab-btn" data-year="2024" style="padding: 8px 20px; background: #f0f0f0; color: #666; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.3s ease;">
+                                    2024
+                                </button>
+                                <button class="sub-tab-btn" data-year="2023" style="padding: 8px 20px; background: #f0f0f0; color: #666; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.3s ease;">
+                                    2023
+                                </button>
+                                <button class="sub-tab-btn" data-year="2022" style="padding: 8px 20px; background: #f0f0f0; color: #666; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.3s ease;">
+                                    2022
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Tab Content Container -->
+                        <div id="tab-content-container">
+
+                        <!-- 2025 Content -->
+                        <div class="year-content" data-year="2025" style="display: block;">
                             <div class="row g-4">
                                 <div class="col-md-4">
                                     <div class="document-card" style="border: 1px solid #e0e0e0; padding: 25px; border-radius: 8px; transition: all 0.3s ease; background: white; height: 100%;">
@@ -275,11 +321,8 @@
                             </div>
                         </div>
 
-                        <!-- 2024 -->
-                        <div class="year-section" style="margin-bottom: 50px;">
-                            <h3 style="color: #02478c; font-size: 24px; font-weight: 600; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 2px solid #e0e0e0;">
-                                2024
-                            </h3>
+                        <!-- 2024 Content -->
+                        <div class="year-content" data-year="2024" style="display: none;">
                             <div class="row g-4">
                                 <div class="col-md-4">
                                     <div class="document-card" style="border: 1px solid #e0e0e0; padding: 25px; border-radius: 8px; transition: all 0.3s ease; background: white; height: 100%;">
@@ -320,11 +363,8 @@
                             </div>
                         </div>
 
-                        <!-- 2023 -->
-                        <div class="year-section">
-                            <h3 style="color: #02478c; font-size: 24px; font-weight: 600; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 2px solid #e0e0e0;">
-                                2023
-                            </h3>
+                        <!-- 2023 Content -->
+                        <div class="year-content" data-year="2023" style="display: none;">
                             <div class="row g-4">
                                 <div class="col-md-4">
                                     <div class="document-card" style="border: 1px solid #e0e0e0; padding: 25px; border-radius: 8px; transition: all 0.3s ease; background: white; height: 100%;">
@@ -364,6 +404,21 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- 2022 Content (Placeholder) -->
+                        <div class="year-content" data-year="2022" style="display: none;">
+                            <div class="row g-4">
+                                <div class="col-12">
+                                    <div style="text-align: center; padding: 60px 20px; background: #f8f9fa; border-radius: 8px;">
+                                        <div style="font-size: 48px; margin-bottom: 20px;">📁</div>
+                                        <h4 style="color: #666; margin-bottom: 10px;">No announcements available for 2022</h4>
+                                        <p style="color: #999;">Please check back later or select another year.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        </div><!-- End tab-content-container -->
                     </div>
                 </div>
             </section>
@@ -373,6 +428,57 @@
                     transform: translateY(-4px);
                     box-shadow: 0 4px 12px rgba(0, 102, 204, 0.15);
                     border-color: #0066cc !important;
+                }
+                
+                /* Tab Styles */
+                .main-tab-btn:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 2px 8px rgba(2, 71, 140, 0.2);
+                }
+                
+                .main-tab-btn.active {
+                    background: #02478c !important;
+                    color: white !important;
+                    box-shadow: 0 4px 12px rgba(2, 71, 140, 0.3);
+                }
+                
+                .sub-tab-btn:hover {
+                    background: #e0e0e0 !important;
+                }
+                
+                .sub-tab-btn.active {
+                    background: #FFC107 !important;
+                    color: #02478c !important;
+                }
+                
+                /* Mobile Responsiveness */
+                @media screen and (max-width: 768px) {
+                    .main-tabs, .sub-tabs {
+                        flex-wrap: nowrap !important;
+                        overflow-x: auto !important;
+                        -webkit-overflow-scrolling: touch;
+                    }
+                    
+                    .main-tab-btn, .sub-tab-btn {
+                        font-size: 14px !important;
+                        padding: 10px 16px !important;
+                    }
+                }
+                
+                /* Smooth transitions */
+                .year-content {
+                    animation: fadeIn 0.4s ease-in-out;
+                }
+                
+                @keyframes fadeIn {
+                    from {
+                        opacity: 0;
+                        transform: translateY(10px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
                 }
             </style>
         </div>
@@ -448,22 +554,83 @@
         AOS.init();
     </script>
 <script>
+// Tab Functionality
+$(document).ready(function() {
+    // Main Tab Switching
+    $('.main-tab-btn').on('click', function() {
+        // Remove active class from all main tabs
+        $('.main-tab-btn').removeClass('active').css({
+            'background': 'white',
+            'color': '#02478c',
+            'border': '1px solid #ddd'
+        });
+        
+        // Add active class to clicked tab
+        $(this).addClass('active').css({
+            'background': '#02478c',
+            'color': 'white',
+            'border': 'none'
+        });
+        
+        // Get the tab type
+        const tabType = $(this).data('tab');
+        
+        // Here you can add logic to show different content based on tab type
+        // For now, we'll just show a message (you can expand this later)
+        console.log('Selected tab:', tabType);
+    });
+    
+    // Sub Tab (Year) Switching
+    $('.sub-tab-btn').on('click', function() {
+        // Remove active class from all sub tabs
+        $('.sub-tab-btn').removeClass('active').css({
+            'background': '#f0f0f0',
+            'color': '#666'
+        });
+        
+        // Add active class to clicked tab
+        $(this).addClass('active').css({
+            'background': '#FFC107',
+            'color': '#02478c'
+        });
+        
+        // Get the year
+        const selectedYear = $(this).data('year');
+        
+        // Hide all year content
+        $('.year-content').hide();
+        
+        // Show selected year content
+        $('.year-content[data-year="' + selectedYear + '"]').show();
+        
+        // Smooth scroll to content
+        $('html, body').animate({
+            scrollTop: $('#tab-content-container').offset().top - 100
+        }, 400);
+    });
+});
+
 // Enhanced dropdown with smooth animations and proper hotspot detection
 $(document).ready(function() {
     // Disable Bootstrap's default dropdown behavior
     $('.navbar .dropdown-toggle').attr('data-bs-toggle', '').attr('data-toggle', '');
     
-    var closeTimer;
+    var closeTimers = {};
     
     // Handle hover events with extended hotspot
-    $('.navbar .dropdown, .navbar .dropdown-menu').hover(
-        function() {
-            // Mouse enter - clear any pending close timers
-            clearTimeout(closeTimer);
+    $('.navbar .dropdown').each(function(index) {
+        var $dropdown = $(this);
+        var dropdownId = 'dropdown_' + index;
+        
+        // Hover on dropdown container (including toggle and menu)
+        $dropdown.on('mouseenter', function() {
+            // Clear any pending close timer for this dropdown
+            if (closeTimers[dropdownId]) {
+                clearTimeout(closeTimers[dropdownId]);
+                delete closeTimers[dropdownId];
+            }
             
-            var $dropdown = $(this).closest('.dropdown');
-            
-            // Close all other dropdowns with animation
+            // Close all other dropdowns
             $('.navbar .dropdown').not($dropdown).each(function() {
                 $(this).find('.dropdown-menu').removeClass('show');
                 $(this).find('.dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
@@ -472,23 +639,36 @@ $(document).ready(function() {
             // Open this dropdown with animation
             $dropdown.find('.dropdown-menu').addClass('show');
             $dropdown.find('.dropdown-toggle').addClass('show').attr('aria-expanded', 'true');
-        },
-        function() {
-            // Mouse leave - close after delay for smooth UX
-            var $dropdown = $(this).closest('.dropdown');
-            
-            closeTimer = setTimeout(function() {
+        });
+        
+        $dropdown.on('mouseleave', function() {
+            // Close after delay for smooth UX
+            closeTimers[dropdownId] = setTimeout(function() {
                 $dropdown.find('.dropdown-menu').removeClass('show');
                 $dropdown.find('.dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
-            }, 300); // 300ms delay before closing
-        }
-    );
+                delete closeTimers[dropdownId];
+            }, 400); // 400ms delay before closing
+        });
+        
+        // Also handle hover on dropdown menu items to ensure it stays open
+        $dropdown.find('.dropdown-menu').on('mouseenter', function() {
+            if (closeTimers[dropdownId]) {
+                clearTimeout(closeTimers[dropdownId]);
+                delete closeTimers[dropdownId];
+            }
+        });
+    });
     
     // Close dropdown when clicking outside
     $(document).on('click', function(e) {
         if (!$(e.target).closest('.navbar .dropdown').length) {
             $('.navbar .dropdown-menu').removeClass('show');
             $('.navbar .dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
+            // Clear all timers
+            Object.keys(closeTimers).forEach(function(key) {
+                clearTimeout(closeTimers[key]);
+            });
+            closeTimers = {};
         }
     });
     
