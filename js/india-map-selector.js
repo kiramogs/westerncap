@@ -378,6 +378,12 @@ class IndiaMapSelector {
                         .attr('height', 40)
                         .attr('opacity', 0.95);
                 })
+                .style('cursor', 'pointer')
+                .on('click', (event, d) => {
+                    const stateName = d.properties.ST_NM || d.properties.NAME_1;
+                    console.log('Pin clicked for state:', stateName);
+                    this.selectState(stateName);
+                })
                 .style('opacity', 0.9);
             
             this.currentView = 'india';

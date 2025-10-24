@@ -691,11 +691,6 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Display selected branch info
             displayBranchInfo(stateName, branchName, branchAddress);
-            
-            // Scroll to form
-            setTimeout(() => {
-                document.querySelector('.contact').scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 500);
         }
     });
     
@@ -788,11 +783,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     document.getElementById('district').value = branch;
                     document.getElementById('city-selector').value = branch;
                     displayBranchInfo(state, branch, address);
-                    
-                    // Scroll to form
-                    setTimeout(() => {
-                        document.querySelector('.contact').scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }, 300);
                 });
             });
         }
