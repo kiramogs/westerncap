@@ -723,38 +723,59 @@ document.addEventListener('DOMContentLoaded', function() {
             const branches = window.indiaMapSelectorInstance.operationalStates[stateName];
             
             let branchesHTML = `
-                <div style="margin-bottom: 15px;">
-                    <h4 style="color: #02478c; font-size: 18px; font-weight: 600; margin-bottom: 10px;">
-                        ${stateName} (${branches.length} Branches)
+                <div style="margin-bottom: 20px; text-align: center;">
+                    <h4 style="color: #02478c; font-size: 20px; font-weight: 700; margin-bottom: 8px;">
+                        ${stateName}
                     </h4>
+                    <div style="color: #666; font-size: 14px; background: #f0f8ff; padding: 8px 12px; border-radius: 20px; display: inline-block;">
+                        ${branches.length} Branches Available
+                    </div>
                 </div>
-                <div style="max-height: 350px; overflow-y: auto; padding-right: 10px;">
+                <div style="max-height: 400px; overflow-y: auto; padding-right: 8px;">
+                    <div style="display: grid; gap: 12px;">
             `;
             
-            branches.forEach(branch => {
+            branches.forEach((branch, index) => {
                 branchesHTML += `
                     <div class="branch-item" data-state="${stateName}" data-branch="${branch}" 
-                        style="padding: 12px; margin-bottom: 10px; background: white; border: 1px solid #e0e0e0; border-radius: 4px; cursor: pointer; transition: all 0.3s ease;">
-                        <div style="font-weight: 600; color: #02478c; font-size: 15px;">📍 ${branch}</div>
+                        style="padding: 16px; background: white; border: 2px solid #e8f4fd; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; position: relative;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #02478c, #024070); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 14px;">
+                                ${index + 1}
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; color: #02478c; font-size: 16px; margin-bottom: 4px;">${branch}</div>
+                                <div style="color: #666; font-size: 13px;">Click to select this branch</div>
+                            </div>
+                            <div style="color: #02478c; font-size: 18px;">→</div>
+                        </div>
                     </div>
                 `;
             });
             
-            branchesHTML += '</div>';
+            branchesHTML += `
+                    </div>
+                </div>
+                <div style="margin-top: 15px; text-align: center; padding: 12px; background: #e8f5e9; border-radius: 6px;">
+                    <span style="color: #4CAF50; font-size: 13px; font-weight: 600;">💡 Click any branch above to select it</span>
+                </div>
+            `;
             infoDiv.innerHTML = branchesHTML;
             
             // Add click handlers to branch items
             document.querySelectorAll('.branch-item').forEach(item => {
                 item.addEventListener('mouseenter', function() {
-                    this.style.background = '#e3f2fd';
+                    this.style.background = '#f0f8ff';
                     this.style.borderColor = '#02478c';
-                    this.style.transform = 'translateX(5px)';
+                    this.style.transform = 'translateY(-2px)';
+                    this.style.boxShadow = '0 4px 12px rgba(2, 71, 140, 0.15)';
                 });
                 
                 item.addEventListener('mouseleave', function() {
                     this.style.background = 'white';
-                    this.style.borderColor = '#e0e0e0';
-                    this.style.transform = 'translateX(0)';
+                    this.style.borderColor = '#e8f4fd';
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = 'none';
                 });
                 
                 item.addEventListener('click', function() {
@@ -801,11 +822,32 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('state-selector').addEventListener('change', function() {
         const selectedState = this.value;
         if (selectedState) {
-            // Trigger map state selection (this will call onStateSelect callback)
-            // We don't have a direct method, so we manually call the functions
+            // Trigger map state selection with red highlighting
+            if (window.indiaMapSelectorInstance) {
+                window.indiaMapSelectorInstance.selectState(selectedState);
+            }
+            
+            // Also manually call the functions for dropdown sync
             populateCityDropdown(selectedState);
             displayStateBranches(selectedState);
             document.getElementById('state').value = selectedState;
+        } else {
+            // Reset map highlighting when no state is selected
+            if (window.indiaMapSelectorInstance) {
+                window.indiaMapSelectorInstance.mapGroup.selectAll('path')
+                    .transition()
+                    .duration(300)
+                    .attr('fill', (d) => {
+                        const state = d.properties.ST_NM || d.properties.NAME_1 || 'Unknown';
+                        const isOperational = window.indiaMapSelectorInstance.operationalStates.hasOwnProperty(state);
+                        return isOperational ? '#4CAF50' : '#cccccc';
+                    })
+                    .attr('stroke-width', 1.5);
+            }
+            
+            // Clear right panel
+            document.getElementById('selected-branch-info').innerHTML = 
+                '<div style="color: #666; font-size: 14px;">Select a state from the map or dropdown to view branches</div>';
         }
     });
     

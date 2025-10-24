@@ -354,11 +354,32 @@ class IndiaMapSelector {
     }
     
     async selectState(stateName) {
+        // Reset previous selection highlighting
+        this.mapGroup.selectAll('path')
+            .transition()
+            .duration(300)
+            .attr('fill', (d) => {
+                const state = d.properties.ST_NM || d.properties.NAME_1 || 'Unknown';
+                const isOperational = this.operationalStates.hasOwnProperty(state);
+                return isOperational ? '#4CAF50' : '#cccccc';
+            });
+        
+        // Highlight selected state in red
+        this.mapGroup.selectAll('path')
+            .filter(function() {
+                const state = d3.select(this).attr('data-state');
+                return state === stateName;
+            })
+            .transition()
+            .duration(300)
+            .attr('fill', '#ff4444')
+            .attr('stroke', '#ffffff')
+            .attr('stroke-width', 3);
+        
         this.selectedState = stateName;
         this.options.onStateSelect(stateName);
         
-        // Show branch list instead of district map
-        this.showBranchList(stateName);
+        // Don't show branch list overlay - let the right panel handle it
     }
     
     showBranchList(stateName) {
