@@ -324,22 +324,75 @@
         </div>
         
         <!-- Branch Locator with Map -->
+        <style>
+            /* Mobile-friendly styles for branch selector */
+            @media screen and (max-width: 991px) {
+                .branch-selector-map {
+                    margin-bottom: 30px !important;
+                }
+                
+                .branch-selector-map h3,
+                .branch-selector-panel h3 {
+                    font-size: 22px !important;
+                }
+                
+                .branch-selector-map .map-description {
+                    font-size: 14px !important;
+                }
+                
+                #india-map-selector {
+                    min-height: 400px !important;
+                }
+                
+                .branch-selector-panel {
+                    padding: 20px !important;
+                }
+                
+                #selected-branch-info {
+                    max-height: 300px !important;
+                    overflow-y: auto !important;
+                }
+            }
+            
+            @media screen and (max-width: 576px) {
+                .branch-selector-map,
+                .branch-selector-panel {
+                    padding: 15px !important;
+                }
+                
+                .branch-selector-map h3,
+                .branch-selector-panel h3 {
+                    font-size: 18px !important;
+                }
+                
+                #india-map-selector {
+                    min-height: 350px !important;
+                }
+                
+                #branch-search,
+                #state-selector,
+                #city-selector {
+                    font-size: 16px !important; /* Prevents zoom on iOS */
+                }
+            }
+        </style>
+        
         <div class="row mt-5" data-aos="fade-up" data-aos-duration="1000" style="margin-bottom: 40px;">
             <!-- Left Side - Map -->
-            <div class="col-lg-7">
-                <div style="background: white; border-radius: 8px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <div class="col-lg-7 col-md-12">
+                <div class="branch-selector-map" style="background: white; border-radius: 8px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
                     <h3 style="color: #FF6B35; font-size: 28px; font-weight: 700; margin-bottom: 10px; border-bottom: 3px solid #FF6B35; display: inline-block; padding-bottom: 5px;">
                         WIDE NETWORK OF BRANCHES
                     </h3>
-                    <p style="color: #666; font-size: 16px; margin-bottom: 20px;">A network of 100+ branches is spread across the country.</p>
+                    <p class="map-description" style="color: #666; font-size: 16px; margin-bottom: 20px;">A network of 100+ branches is spread across the country.</p>
                     
                     <div id="india-map-selector" style="position: relative; min-height: 550px;"></div>
                 </div>
             </div>
             
             <!-- Right Side - Branch Locator -->
-            <div class="col-lg-5">
-                <div style="background: white; border-radius: 8px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); height: 100%;">
+            <div class="col-lg-5 col-md-12">
+                <div class="branch-selector-panel" style="background: white; border-radius: 8px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); height: 100%;">
                     <h3 style="color: #FF6B35; font-size: 28px; font-weight: 700; margin-bottom: 20px; border-bottom: 3px solid #FF6B35; display: inline-block; padding-bottom: 5px;">
                         BRANCH LOCATOR
                     </h3>
@@ -603,9 +656,13 @@ document.addEventListener('DOMContentLoaded', function() {
     if (cityFieldset) cityFieldset.style.display = 'none';
     
     // Initialize the map and store globally
+    // Make map responsive based on screen size
+    const mapWidth = window.innerWidth < 576 ? 300 : (window.innerWidth < 992 ? 400 : 600);
+    const mapHeight = window.innerWidth < 576 ? 350 : (window.innerWidth < 992 ? 400 : 550);
+    
     window.indiaMapSelectorInstance = new IndiaMapSelector('india-map-selector', {
-        width: 600,
-        height: 550,
+        width: mapWidth,
+        height: mapHeight,
         onStateSelect: function(stateName) {
             console.log('State selected:', stateName);
             
@@ -782,6 +839,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 item.style.display = 'none';
             }
         });
+    });
+    
+    // Handle window resize for mobile orientation changes
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+            // Only reload map if screen size category changed significantly
+            const newMapWidth = window.innerWidth < 576 ? 300 : (window.innerWidth < 992 ? 400 : 600);
+            const currentMapWidth = window.indiaMapSelectorInstance.options.width;
+            
+            if (Math.abs(newMapWidth - currentMapWidth) > 50) {
+                // Reload the page or reinitialize map
+                location.reload();
+            }
+        }, 500);
     });
 });
 </script>
