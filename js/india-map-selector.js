@@ -332,6 +332,82 @@ class IndiaMapSelector {
                 .delay((d, i) => i * 100)
                 .style('opacity', 0.95);
             
+            // Add pin icons for operational states
+            const pinOffsets = {
+                'Rajasthan': { dx: 0, dy: -25 },
+                'Maharashtra': { dx: 0, dy: -5 },
+                'Madhya Pradesh': { dx: 0, dy: -25 },
+                'Tamil Nadu': { dx: 0, dy: -15 },
+                'Telangana': { dx: 0, dy: -25 },
+                'Karnataka': { dx: 0, dy: -10 }
+            };
+            
+            this.mapGroup.selectAll('.state-pin')
+                .data(geojson.features.filter(d => {
+                    const stateName = d.properties.ST_NM || d.properties.NAME_1 || 'Unknown';
+                    return this.operationalStates.hasOwnProperty(stateName);
+                }))
+                .enter()
+                .append('g')
+                .attr('class', 'state-pin')
+                .attr('transform', d => {
+                    const stateName = d.properties.ST_NM || d.properties.NAME_1;
+                    const offset = pinOffsets[stateName] || { dx: 0, dy: -20 };
+                    const centroid = path.centroid(d);
+                    return `translate(${centroid[0] + offset.dx}, ${centroid[1] + offset.dy})`;
+                })
+                .style('opacity', 0)
+                .each(function() {
+                    const pinGroup = d3.select(this);
+                    
+                    // Pin shadow
+                    pinGroup.append('ellipse')
+                        .attr('cx', 0)
+                        .attr('cy', 8)
+                        .attr('rx', 4)
+                        .attr('ry', 2)
+                        .attr('fill', 'rgba(0,0,0,0.2)')
+                        .attr('opacity', 0.3);
+                    
+                    // Pin body (orange circle)
+                    pinGroup.append('circle')
+                        .attr('cx', 0)
+                        .attr('cy', 0)
+                        .attr('r', 6)
+                        .attr('fill', '#FF6B35')
+                        .attr('stroke', '#ffffff')
+                        .attr('stroke-width', 1.5);
+                    
+                    // Pin stem
+                    pinGroup.append('path')
+                        .attr('d', 'M 0,6 L -2,12 L 2,12 Z')
+                        .attr('fill', '#FF6B35')
+                        .attr('stroke', '#ffffff')
+                        .attr('stroke-width', 1.5);
+                    
+                    // Inner decorative pattern
+                    pinGroup.append('circle')
+                        .attr('cx', 0)
+                        .attr('cy', 0)
+                        .attr('r', 3)
+                        .attr('fill', 'none')
+                        .attr('stroke', '#ffffff')
+                        .attr('stroke-width', 0.8)
+                        .attr('opacity', 0.7);
+                    
+                    // Center dot
+                    pinGroup.append('circle')
+                        .attr('cx', 0)
+                        .attr('cy', 0)
+                        .attr('r', 1)
+                        .attr('fill', '#ffffff')
+                        .attr('opacity', 0.9);
+                })
+                .transition()
+                .duration(1000)
+                .delay((d, i) => i * 150 + 200)
+                .style('opacity', 0.9);
+            
             this.currentView = 'india';
             this.backButton.style('display', 'none');
             
@@ -364,6 +440,16 @@ class IndiaMapSelector {
                 return isOperational ? '#4CAF50' : '#cccccc';
             });
         
+        // Reset pin highlighting
+        this.mapGroup.selectAll('.state-pin')
+            .transition()
+            .duration(300)
+            .style('transform', 'scale(1)')
+            .selectAll('circle, path')
+            .transition()
+            .duration(300)
+            .attr('fill', '#FF6B35');
+        
         // Highlight selected state in red
         this.mapGroup.selectAll('path')
             .filter(function() {
@@ -375,6 +461,22 @@ class IndiaMapSelector {
             .attr('fill', '#ff4444')
             .attr('stroke', '#ffffff')
             .attr('stroke-width', 3);
+        
+        // Highlight selected state's pin
+        this.mapGroup.selectAll('.state-pin')
+            .each(function(d) {
+                const pinState = d.properties.ST_NM || d.properties.NAME_1;
+                if (pinState === stateName) {
+                    d3.select(this)
+                        .transition()
+                        .duration(300)
+                        .style('transform', 'scale(1.2)')
+                        .selectAll('circle, path')
+                        .transition()
+                        .duration(300)
+                        .attr('fill', '#ff4444');
+                }
+            });
         
         this.selectedState = stateName;
         this.options.onStateSelect(stateName);

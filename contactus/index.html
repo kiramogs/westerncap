@@ -843,6 +843,16 @@ document.addEventListener('DOMContentLoaded', function() {
                         return isOperational ? '#4CAF50' : '#cccccc';
                     })
                     .attr('stroke-width', 1.5);
+                
+                // Reset pin highlighting
+                window.indiaMapSelectorInstance.mapGroup.selectAll('.state-pin')
+                    .transition()
+                    .duration(300)
+                    .style('transform', 'scale(1)')
+                    .selectAll('circle, path')
+                    .transition()
+                    .duration(300)
+                    .attr('fill', '#FF6B35');
             }
             
             // Clear right panel
