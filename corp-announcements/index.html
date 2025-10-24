@@ -268,157 +268,187 @@
                             <h2 style="color: #02478c; font-size: 32px; font-weight: 600; margin: 0;">Corporate Announcements</h2>
                         </div>
 
-                        <!-- Horizontal Tab Navigation -->
-                        <div class="tab-navigation-wrapper" style="margin-bottom: 40px;">
-                            <!-- Main Tabs -->
-                            <div class="main-tabs" style="background: #f8f9fa; padding: 10px; border-radius: 8px 8px 0 0; display: flex; gap: 10px; overflow-x: auto; flex-wrap: wrap;">
-                                <button class="main-tab-btn active" data-tab="quarterly" style="padding: 12px 24px; background: #02478c; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.3s ease;">
-                                    Quarterly Reports
-                                </button>
-                                <button class="main-tab-btn" data-tab="board-meetings" style="padding: 12px 24px; background: white; color: #02478c; border: 1px solid #ddd; border-radius: 6px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.3s ease;">
-                                    Board Meetings
-                                </button>
-                                <button class="main-tab-btn" data-tab="agm-egm" style="padding: 12px 24px; background: white; color: #02478c; border: 1px solid #ddd; border-radius: 6px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.3s ease;">
-                                    AGM/EGM
-                                </button>
-                                <button class="main-tab-btn" data-tab="regulatory" style="padding: 12px 24px; background: white; color: #02478c; border: 1px solid #ddd; border-radius: 6px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.3s ease;">
-                                    Regulatory Filings
-                                </button>
+                        <!-- Vertical Tab Layout -->
+                        <div class="row">
+                            <!-- Left Side - Vertical Tabs -->
+                            <div class="col-lg-3 col-md-4 mb-4 mb-md-0">
+                                <div class="vertical-tabs" style="background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); overflow: hidden;">
+                                    <button class="vertical-tab-btn active" data-tab="closure-trading" style="width: 100%; padding: 16px 20px; background: #02478c; color: white; border: none; border-bottom: 1px solid #e0e0e0; text-align: left; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-size: 14px;">
+                                        Closure of Trading Window
+                                    </button>
+                                    <button class="vertical-tab-btn" data-tab="board-meetings" style="width: 100%; padding: 16px 20px; background: white; color: #333; border: none; border-bottom: 1px solid #e0e0e0; text-align: left; font-weight: 500; cursor: pointer; transition: all 0.3s ease; font-size: 14px;">
+                                        Pre-intimation and Outcome of Board Meetings
+                                    </button>
+                                    <button class="vertical-tab-btn" data-tab="record-dates" style="width: 100%; padding: 16px 20px; background: white; color: #333; border: none; border-bottom: 1px solid #e0e0e0; text-align: left; font-weight: 500; cursor: pointer; transition: all 0.3s ease; font-size: 14px;">
+                                        Record Dates & Payment Intimations
+                                    </button>
+                                    <button class="vertical-tab-btn" data-tab="egm-agm-notices" style="width: 100%; padding: 16px 20px; background: white; color: #333; border: none; border-bottom: 1px solid #e0e0e0; text-align: left; font-weight: 500; cursor: pointer; transition: all 0.3s ease; font-size: 14px;">
+                                        EGM/AGM Notices
+                                    </button>
+                                    <button class="vertical-tab-btn" data-tab="egm-agm-proceedings" style="width: 100%; padding: 16px 20px; background: white; color: #333; border: none; border-bottom: 1px solid #e0e0e0; text-align: left; font-weight: 500; cursor: pointer; transition: all 0.3s ease; font-size: 14px;">
+                                        EGM/AGM Proceedings
+                                    </button>
+                                    <button class="vertical-tab-btn" data-tab="investor-complaints" style="width: 100%; padding: 16px 20px; background: white; color: #333; border: none; border-bottom: 1px solid #e0e0e0; text-align: left; font-weight: 500; cursor: pointer; transition: all 0.3s ease; font-size: 14px;">
+                                        Investor Complaints
+                                    </button>
+                                    <button class="vertical-tab-btn" data-tab="due-diligence" style="width: 100%; padding: 16px 20px; background: white; color: #333; border: none; border-bottom: 1px solid #e0e0e0; text-align: left; font-weight: 500; cursor: pointer; transition: all 0.3s ease; font-size: 14px;">
+                                        Structural Due Diligence Certificate
+                                    </button>
+                                    <button class="vertical-tab-btn" data-tab="others" style="width: 100%; padding: 16px 20px; background: white; color: #333; border: none; text-align: left; font-weight: 500; cursor: pointer; transition: all 0.3s ease; font-size: 14px;">
+                                        Others
+                                    </button>
+                                </div>
                             </div>
 
-                            <!-- Sub Tabs (Year Selection) -->
-                            <div class="sub-tabs" style="background: white; padding: 15px; border: 1px solid #e0e0e0; border-top: none; border-radius: 0 0 8px 8px; display: flex; gap: 8px; overflow-x: auto; flex-wrap: wrap; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-                                <button class="sub-tab-btn active" data-year="2025" style="padding: 8px 20px; background: #FFC107; color: #02478c; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.3s ease;">
-                                    2025
-                                </button>
-                                <button class="sub-tab-btn" data-year="2024" style="padding: 8px 20px; background: #f0f0f0; color: #666; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.3s ease;">
-                                    2024
-                                </button>
-                                <button class="sub-tab-btn" data-year="2023" style="padding: 8px 20px; background: #f0f0f0; color: #666; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.3s ease;">
-                                    2023
-                                </button>
-                                <button class="sub-tab-btn" data-year="2022" style="padding: 8px 20px; background: #f0f0f0; color: #666; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.3s ease;">
-                                    2022
-                                </button>
-                            </div>
-                        </div>
+                            <!-- Right Side - Content Area -->
+                            <div class="col-lg-9 col-md-8">
+                                <!-- Tab Content Container -->
+                                <div id="tab-content-container" style="background: white; border-radius: 8px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); min-height: 400px;">
 
-                        <!-- Tab Content Container -->
-                        <div id="tab-content-container">
-
-                        <!-- 2025 Content -->
-                        <div class="year-content" data-year="2025" style="display: block;">
+                        <!-- Closure of Trading Window -->
+                        <div class="tab-content-section active" data-tab="closure-trading">
+                            <h3 style="color: #02478c; font-size: 24px; font-weight: 600; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 2px solid #e0e0e0;">
+                                Closure of Trading Window
+                            </h3>
                             <div class="row g-4">
-                                <div class="col-md-4">
-                                    <div class="document-card" style="border: 1px solid #e0e0e0; padding: 25px; border-radius: 8px; transition: all 0.3s ease; background: white; height: 100%;">
-                                        <a href="/pdfs/corp-announcements/2025-Q1.pdf" target="_blank" style="text-decoration: none; color: #0066cc; font-size: 16px; font-weight: 500; display: flex; align-items: center;">
+                                <div class="col-md-6">
+                                    <div class="document-card" style="border: 1px solid #e0e0e0; padding: 20px; border-radius: 8px; transition: all 0.3s ease; background: #f8f9fa; height: 100%;">
+                                        <a href="/pdfs/corp-announcements/closure-trading-2025.pdf" target="_blank" style="text-decoration: none; color: #0066cc; font-size: 15px; font-weight: 500; display: flex; align-items: center;">
                                             <span style="margin-right: 10px;">📄</span>
-                                            Q1 Announcements 2025
+                                            Closure of Trading Window - Q1 2025
                                         </a>
-                                        <p style="margin: 10px 0 0 30px; font-size: 13px; color: #666;">January - March 2025</p>
+                                        <p style="margin: 8px 0 0 30px; font-size: 12px; color: #666;">January 2025</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="document-card" style="border: 1px solid #e0e0e0; padding: 20px; border-radius: 8px; transition: all 0.3s ease; background: #f8f9fa; height: 100%;">
+                                        <a href="/pdfs/corp-announcements/closure-trading-2024-q4.pdf" target="_blank" style="text-decoration: none; color: #0066cc; font-size: 15px; font-weight: 500; display: flex; align-items: center;">
+                                            <span style="margin-right: 10px;">📄</span>
+                                            Closure of Trading Window - Q4 2024
+                                        </a>
+                                        <p style="margin: 8px 0 0 30px; font-size: 12px; color: #666;">October 2024</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- 2024 Content -->
-                        <div class="year-content" data-year="2024" style="display: none;">
+                        <!-- Board Meetings -->
+                        <div class="tab-content-section" data-tab="board-meetings" style="display: none;">
+                            <h3 style="color: #02478c; font-size: 24px; font-weight: 600; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 2px solid #e0e0e0;">
+                                Pre-intimation and Outcome of Board Meetings
+                            </h3>
                             <div class="row g-4">
-                                <div class="col-md-4">
-                                    <div class="document-card" style="border: 1px solid #e0e0e0; padding: 25px; border-radius: 8px; transition: all 0.3s ease; background: white; height: 100%;">
-                                        <a href="/pdfs/corp-announcements/2024-Q4.pdf" target="_blank" style="text-decoration: none; color: #0066cc; font-size: 16px; font-weight: 500; display: flex; align-items: center;">
+                                <div class="col-md-6">
+                                    <div class="document-card" style="border: 1px solid #e0e0e0; padding: 20px; border-radius: 8px; transition: all 0.3s ease; background: #f8f9fa;">
+                                        <a href="/pdfs/corp-announcements/board-meeting-2024-q4.pdf" target="_blank" style="text-decoration: none; color: #0066cc; font-size: 15px; font-weight: 500; display: flex; align-items: center;">
                                             <span style="margin-right: 10px;">📄</span>
-                                            Q4 Announcements 2024
+                                            Board Meeting Outcome - Q4 2024
                                         </a>
-                                        <p style="margin: 10px 0 0 30px; font-size: 13px; color: #666;">October - December 2024</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="document-card" style="border: 1px solid #e0e0e0; padding: 25px; border-radius: 8px; transition: all 0.3s ease; background: white; height: 100%;">
-                                        <a href="/pdfs/corp-announcements/2024-Q3.pdf" target="_blank" style="text-decoration: none; color: #0066cc; font-size: 16px; font-weight: 500; display: flex; align-items: center;">
-                                            <span style="margin-right: 10px;">📄</span>
-                                            Q3 Announcements 2024
-                                        </a>
-                                        <p style="margin: 10px 0 0 30px; font-size: 13px; color: #666;">July - September 2024</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="document-card" style="border: 1px solid #e0e0e0; padding: 25px; border-radius: 8px; transition: all 0.3s ease; background: white; height: 100%;">
-                                        <a href="/pdfs/corp-announcements/2024-Q2.pdf" target="_blank" style="text-decoration: none; color: #0066cc; font-size: 16px; font-weight: 500; display: flex; align-items: center;">
-                                            <span style="margin-right: 10px;">📄</span>
-                                            Q2 Announcements 2024
-                                        </a>
-                                        <p style="margin: 10px 0 0 30px; font-size: 13px; color: #666;">April - June 2024</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="document-card" style="border: 1px solid #e0e0e0; padding: 25px; border-radius: 8px; transition: all 0.3s ease; background: white; height: 100%;">
-                                        <a href="/pdfs/corp-announcements/2024-Q1.pdf" target="_blank" style="text-decoration: none; color: #0066cc; font-size: 16px; font-weight: 500; display: flex; align-items: center;">
-                                            <span style="margin-right: 10px;">📄</span>
-                                            Q1 Announcements 2024
-                                        </a>
-                                        <p style="margin: 10px 0 0 30px; font-size: 13px; color: #666;">January - March 2024</p>
+                                        <p style="margin: 8px 0 0 30px; font-size: 12px; color: #666;">December 2024</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- 2023 Content -->
-                        <div class="year-content" data-year="2023" style="display: none;">
-                            <div class="row g-4">
-                                <div class="col-md-4">
-                                    <div class="document-card" style="border: 1px solid #e0e0e0; padding: 25px; border-radius: 8px; transition: all 0.3s ease; background: white; height: 100%;">
-                                        <a href="/pdfs/corp-announcements/2023-Q4.pdf" target="_blank" style="text-decoration: none; color: #0066cc; font-size: 16px; font-weight: 500; display: flex; align-items: center;">
-                                            <span style="margin-right: 10px;">📄</span>
-                                            Q4 Announcements 2023
-                                        </a>
-                                        <p style="margin: 10px 0 0 30px; font-size: 13px; color: #666;">October - December 2023</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="document-card" style="border: 1px solid #e0e0e0; padding: 25px; border-radius: 8px; transition: all 0.3s ease; background: white; height: 100%;">
-                                        <a href="/pdfs/corp-announcements/2023-Q3.pdf" target="_blank" style="text-decoration: none; color: #0066cc; font-size: 16px; font-weight: 500; display: flex; align-items: center;">
-                                            <span style="margin-right: 10px;">📄</span>
-                                            Q3 Announcements 2023
-                                        </a>
-                                        <p style="margin: 10px 0 0 30px; font-size: 13px; color: #666;">July - September 2023</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="document-card" style="border: 1px solid #e0e0e0; padding: 25px; border-radius: 8px; transition: all 0.3s ease; background: white; height: 100%;">
-                                        <a href="/pdfs/corp-announcements/2023-Q2.pdf" target="_blank" style="text-decoration: none; color: #0066cc; font-size: 16px; font-weight: 500; display: flex; align-items: center;">
-                                            <span style="margin-right: 10px;">📄</span>
-                                            Q2 Announcements 2023
-                                        </a>
-                                        <p style="margin: 10px 0 0 30px; font-size: 13px; color: #666;">April - June 2023</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="document-card" style="border: 1px solid #e0e0e0; padding: 25px; border-radius: 8px; transition: all 0.3s ease; background: white; height: 100%;">
-                                        <a href="/pdfs/corp-announcements/2023-Q1.pdf" target="_blank" style="text-decoration: none; color: #0066cc; font-size: 16px; font-weight: 500; display: flex; align-items: center;">
-                                            <span style="margin-right: 10px;">📄</span>
-                                            Q1 Announcements 2023
-                                        </a>
-                                        <p style="margin: 10px 0 0 30px; font-size: 13px; color: #666;">January - March 2023</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 2022 Content (Placeholder) -->
-                        <div class="year-content" data-year="2022" style="display: none;">
+                        <!-- Record Dates & Payment Intimations -->
+                        <div class="tab-content-section" data-tab="record-dates" style="display: none;">
+                            <h3 style="color: #02478c; font-size: 24px; font-weight: 600; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 2px solid #e0e0e0;">
+                                Record Dates & Payment Intimations
+                            </h3>
                             <div class="row g-4">
                                 <div class="col-12">
                                     <div style="text-align: center; padding: 60px 20px; background: #f8f9fa; border-radius: 8px;">
                                         <div style="font-size: 48px; margin-bottom: 20px;">📁</div>
-                                        <h4 style="color: #666; margin-bottom: 10px;">No announcements available for 2022</h4>
-                                        <p style="color: #999;">Please check back later or select another year.</p>
+                                        <h4 style="color: #666; margin-bottom: 10px;">No documents available</h4>
+                                        <p style="color: #999;">Please check back later.</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        </div><!-- End tab-content-container -->
+                        <!-- EGM/AGM Notices -->
+                        <div class="tab-content-section" data-tab="egm-agm-notices" style="display: none;">
+                            <h3 style="color: #02478c; font-size: 24px; font-weight: 600; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 2px solid #e0e0e0;">
+                                EGM/AGM Notices
+                            </h3>
+                            <div class="row g-4">
+                                <div class="col-12">
+                                    <div style="text-align: center; padding: 60px 20px; background: #f8f9fa; border-radius: 8px;">
+                                        <div style="font-size: 48px; margin-bottom: 20px;">📁</div>
+                                        <h4 style="color: #666; margin-bottom: 10px;">No notices available</h4>
+                                        <p style="color: #999;">Please check back later.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- EGM/AGM Proceedings -->
+                        <div class="tab-content-section" data-tab="egm-agm-proceedings" style="display: none;">
+                            <h3 style="color: #02478c; font-size: 24px; font-weight: 600; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 2px solid #e0e0e0;">
+                                EGM/AGM Proceedings
+                            </h3>
+                            <div class="row g-4">
+                                <div class="col-12">
+                                    <div style="text-align: center; padding: 60px 20px; background: #f8f9fa; border-radius: 8px;">
+                                        <div style="font-size: 48px; margin-bottom: 20px;">📁</div>
+                                        <h4 style="color: #666; margin-bottom: 10px;">No proceedings available</h4>
+                                        <p style="color: #999;">Please check back later.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Investor Complaints -->
+                        <div class="tab-content-section" data-tab="investor-complaints" style="display: none;">
+                            <h3 style="color: #02478c; font-size: 24px; font-weight: 600; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 2px solid #e0e0e0;">
+                                Investor Complaints
+                            </h3>
+                            <div class="row g-4">
+                                <div class="col-12">
+                                    <div style="text-align: center; padding: 60px 20px; background: #f8f9fa; border-radius: 8px;">
+                                        <div style="font-size: 48px; margin-bottom: 20px;">✓</div>
+                                        <h4 style="color: #4CAF50; margin-bottom: 10px;">No active complaints</h4>
+                                        <p style="color: #999;">All investor queries have been resolved.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Structural Due Diligence Certificate -->
+                        <div class="tab-content-section" data-tab="due-diligence" style="display: none;">
+                            <h3 style="color: #02478c; font-size: 24px; font-weight: 600; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 2px solid #e0e0e0;">
+                                Structural Due Diligence Certificate
+                            </h3>
+                            <div class="row g-4">
+                                <div class="col-12">
+                                    <div style="text-align: center; padding: 60px 20px; background: #f8f9fa; border-radius: 8px;">
+                                        <div style="font-size: 48px; margin-bottom: 20px;">📁</div>
+                                        <h4 style="color: #666; margin-bottom: 10px;">No certificates available</h4>
+                                        <p style="color: #999;">Please check back later.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Others -->
+                        <div class="tab-content-section" data-tab="others" style="display: none;">
+                            <h3 style="color: #02478c; font-size: 24px; font-weight: 600; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 2px solid #e0e0e0;">
+                                Other Announcements
+                            </h3>
+                            <div class="row g-4">
+                                <div class="col-12">
+                                    <div style="text-align: center; padding: 60px 20px; background: #f8f9fa; border-radius: 8px;">
+                                        <div style="font-size: 48px; margin-bottom: 20px;">📁</div>
+                                        <h4 style="color: #666; margin-bottom: 10px;">No other announcements</h4>
+                                        <p style="color: #999;">Please check back later.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                                </div><!-- End tab-content-container -->
+                            </div><!-- End col-lg-9 -->
+                        </div><!-- End row -->
                     </div>
                 </div>
             </section>
@@ -430,54 +460,67 @@
                     border-color: #0066cc !important;
                 }
                 
-                /* Tab Styles */
-                .main-tab-btn:hover {
-                    transform: translateY(-2px);
-                    box-shadow: 0 2px 8px rgba(2, 71, 140, 0.2);
+                /* Vertical Tab Styles */
+                .vertical-tab-btn {
+                    position: relative;
+                    transition: all 0.3s ease;
                 }
                 
-                .main-tab-btn.active {
+                .vertical-tab-btn:hover {
+                    background: #f0f8ff !important;
+                    color: #02478c !important;
+                    padding-left: 25px !important;
+                }
+                
+                .vertical-tab-btn.active {
                     background: #02478c !important;
                     color: white !important;
-                    box-shadow: 0 4px 12px rgba(2, 71, 140, 0.3);
+                    border-left: 4px solid #FFC107;
+                    font-weight: 600 !important;
                 }
                 
-                .sub-tab-btn:hover {
-                    background: #e0e0e0 !important;
-                }
-                
-                .sub-tab-btn.active {
-                    background: #FFC107 !important;
-                    color: #02478c !important;
+                .vertical-tab-btn.active::before {
+                    content: '▶';
+                    position: absolute;
+                    right: 15px;
+                    font-size: 12px;
                 }
                 
                 /* Mobile Responsiveness */
                 @media screen and (max-width: 768px) {
-                    .main-tabs, .sub-tabs {
-                        flex-wrap: nowrap !important;
-                        overflow-x: auto !important;
-                        -webkit-overflow-scrolling: touch;
+                    .vertical-tabs {
+                        margin-bottom: 20px;
                     }
                     
-                    .main-tab-btn, .sub-tab-btn {
-                        font-size: 14px !important;
-                        padding: 10px 16px !important;
+                    .vertical-tab-btn {
+                        font-size: 13px !important;
+                        padding: 12px 15px !important;
                     }
                 }
                 
-                /* Smooth transitions */
-                .year-content {
+                /* Smooth transitions for content */
+                .tab-content-section {
                     animation: fadeIn 0.4s ease-in-out;
                 }
                 
                 @keyframes fadeIn {
                     from {
                         opacity: 0;
-                        transform: translateY(10px);
+                        transform: translateX(20px);
                     }
                     to {
                         opacity: 1;
-                        transform: translateY(0);
+                        transform: translateX(0);
+                    }
+                }
+                
+                /* Sticky sidebar on desktop */
+                @media screen and (min-width: 992px) {
+                    .vertical-tabs {
+                        position: sticky;
+                        top: 20px;
+                        max-height: calc(100vh - 40px);
+                        overflow-y: auto;
                     }
                 }
             </style>
@@ -554,59 +597,41 @@
         AOS.init();
     </script>
 <script>
-// Tab Functionality
+// Vertical Tab Functionality
 $(document).ready(function() {
-    // Main Tab Switching
-    $('.main-tab-btn').on('click', function() {
-        // Remove active class from all main tabs
-        $('.main-tab-btn').removeClass('active').css({
+    // Vertical Tab Switching
+    $('.vertical-tab-btn').on('click', function() {
+        // Remove active class from all tabs
+        $('.vertical-tab-btn').removeClass('active').css({
             'background': 'white',
-            'color': '#02478c',
-            'border': '1px solid #ddd'
+            'color': '#333',
+            'font-weight': '500',
+            'border-left': 'none'
         });
         
         // Add active class to clicked tab
         $(this).addClass('active').css({
             'background': '#02478c',
             'color': 'white',
-            'border': 'none'
+            'font-weight': '600',
+            'border-left': '4px solid #FFC107'
         });
         
         // Get the tab type
-        const tabType = $(this).data('tab');
+        const selectedTab = $(this).data('tab');
         
-        // Here you can add logic to show different content based on tab type
-        // For now, we'll just show a message (you can expand this later)
-        console.log('Selected tab:', tabType);
-    });
-    
-    // Sub Tab (Year) Switching
-    $('.sub-tab-btn').on('click', function() {
-        // Remove active class from all sub tabs
-        $('.sub-tab-btn').removeClass('active').css({
-            'background': '#f0f0f0',
-            'color': '#666'
-        });
+        // Hide all tab content sections
+        $('.tab-content-section').hide().removeClass('active');
         
-        // Add active class to clicked tab
-        $(this).addClass('active').css({
-            'background': '#FFC107',
-            'color': '#02478c'
-        });
+        // Show selected tab content
+        $('.tab-content-section[data-tab="' + selectedTab + '"]').show().addClass('active');
         
-        // Get the year
-        const selectedYear = $(this).data('year');
-        
-        // Hide all year content
-        $('.year-content').hide();
-        
-        // Show selected year content
-        $('.year-content[data-year="' + selectedYear + '"]').show();
-        
-        // Smooth scroll to content
-        $('html, body').animate({
-            scrollTop: $('#tab-content-container').offset().top - 100
-        }, 400);
+        // Smooth scroll to content on mobile
+        if ($(window).width() < 768) {
+            $('html, body').animate({
+                scrollTop: $('#tab-content-container').offset().top - 20
+            }, 400);
+        }
     });
 });
 
