@@ -477,10 +477,11 @@ class IndiaMapSelector {
             });
         
         // Reset pin highlighting (but keep selected state's pin marked)
+        const currentSelectedState = this.selectedState;
         this.mapGroup.selectAll('.state-pin')
             .each(function(d) {
                 const pinState = d.properties.ST_NM || d.properties.NAME_1;
-                if (pinState === this.selectedState) {
+                if (pinState === currentSelectedState) {
                     d3.select(this)
                         .selectAll('image')
                         .transition()
@@ -493,7 +494,7 @@ class IndiaMapSelector {
                         .duration(300)
                         .style('filter', 'none');
                 }
-            }.bind(this));
+            });
         
         // Highlight selected state in red
         this.mapGroup.selectAll('path')
