@@ -428,12 +428,19 @@
                         <p style="font-size: 12px; color: #999; margin-top: 8px;">Choose the city from the list.</p>
                     </div>
                     
-                    <!-- Selected Branch Display -->
-                    <div id="selected-branch-info" style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 6px; border-left: 4px solid #02478c; min-height: 100px;">
-                        <div style="color: #666; font-size: 14px;">
-                            Select a state from the map or dropdown to view branches
-                        </div>
+                <!-- Reset Button -->
+                <div style="margin-bottom: 20px; text-align: center;">
+                    <button id="reset-selection" style="background: #6c757d; color: white; border: none; padding: 8px 16px; border-radius: 4px; font-size: 14px; cursor: pointer; transition: all 0.3s ease;">
+                        Reset Selection
+                    </button>
+                </div>
+                
+                <!-- Selected Branch Display -->
+                <div id="selected-branch-info" style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 6px; border-left: 4px solid #02478c; min-height: 100px;">
+                    <div style="color: #666; font-size: 14px;">
+                        Select a state from the map or dropdown to view branches
                     </div>
+                </div>
                 </div>
             </div>
         </div>
@@ -883,21 +890,38 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Handle window resize for mobile orientation changes
-    let resizeTimer;
-    window.addEventListener('resize', function() {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(function() {
-            // Only reload map if screen size category changed significantly
-            const newMapWidth = window.innerWidth < 576 ? 300 : (window.innerWidth < 992 ? 400 : 600);
-            const currentMapWidth = window.indiaMapSelectorInstance.options.width;
-            
-            if (Math.abs(newMapWidth - currentMapWidth) > 50) {
-                // Reload the page or reinitialize map
-                location.reload();
+        // Handle window resize for mobile orientation changes
+        let resizeTimer;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function() {
+                // Only reload map if screen size category changed significantly
+                const newMapWidth = window.innerWidth < 576 ? 300 : (window.innerWidth < 992 ? 400 : 600);
+                const currentMapWidth = window.indiaMapSelectorInstance.options.width;
+                
+                if (Math.abs(newMapWidth - currentMapWidth) > 50) {
+                    // Reload the page or reinitialize map
+                    location.reload();
+                }
+            }, 500);
+        });
+        
+        // Reset button functionality
+        document.getElementById('reset-selection').addEventListener('click', function() {
+            if (window.indiaMapSelectorInstance) {
+                window.indiaMapSelectorInstance.resetSelection();
+                
+                // Clear form fields
+                document.getElementById('state').value = '';
+                document.getElementById('district').value = '';
+                
+                // Clear right panel
+                document.getElementById('state-selector').value = '';
+                document.getElementById('city-selector').innerHTML = '<option value="">Select City</option>';
+                document.getElementById('selected-branch-info').innerHTML = 
+                    '<div style="color: #666; font-size: 14px;">Select a state from the map or dropdown to view branches</div>';
             }
-        }, 500);
-    });
+        });
 });
 </script>
 

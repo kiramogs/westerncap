@@ -379,6 +379,49 @@ class IndiaMapSelector {
                         .attr('opacity', 0.95);
                 })
                 .style('cursor', 'pointer')
+                .on('mouseover', (event, d) => {
+                    const stateName = d.properties.ST_NM || d.properties.NAME_1;
+                    const isOperational = this.operationalStates.hasOwnProperty(stateName);
+                    
+                    if (isOperational) {
+                        // Highlight the corresponding state on hover
+                        this.mapGroup.selectAll('path')
+                            .filter(function() {
+                                const state = d3.select(this).attr('data-state');
+                                return state === stateName;
+                            })
+                            .transition()
+                            .duration(200)
+                            .attr('fill', '#ff8a00')
+                            .attr('stroke-width', 2);
+                        
+                        // Show tooltip
+                        const branchCount = this.operationalStates[stateName].length;
+                        this.tooltip
+                            .style('display', 'block')
+                            .html(`<strong>${stateName}</strong><br/>${branchCount} branches available<br/><small>Click to view branches</small>`);
+                    }
+                })
+                .on('mouseout', (event, d) => {
+                    const stateName = d.properties.ST_NM || d.properties.NAME_1;
+                    const isOperational = this.operationalStates.hasOwnProperty(stateName);
+                    
+                    if (isOperational && stateName !== this.selectedState) {
+                        // Reset state highlighting if not selected
+                        this.mapGroup.selectAll('path')
+                            .filter(function() {
+                                const state = d3.select(this).attr('data-state');
+                                return state === stateName;
+                            })
+                            .transition()
+                            .duration(200)
+                            .attr('fill', '#4CAF50')
+                            .attr('stroke-width', 1.5);
+                    }
+                    
+                    // Hide tooltip
+                    this.tooltip.style('display', 'none');
+                })
                 .on('click', (event, d) => {
                     const stateName = d.properties.ST_NM || d.properties.NAME_1;
                     console.log('Pin clicked for state:', stateName);
@@ -408,22 +451,45 @@ class IndiaMapSelector {
     }
     
     async selectState(stateName) {
-        // Reset previous selection highlighting
+        // Reset previous selection highlighting (but keep selected state marked)
         this.mapGroup.selectAll('path')
             .transition()
             .duration(300)
             .attr('fill', (d) => {
                 const state = d.properties.ST_NM || d.properties.NAME_1 || 'Unknown';
                 const isOperational = this.operationalStates.hasOwnProperty(state);
+                if (state === this.selectedState) {
+                    return '#ff4444'; // Keep selected state red
+                }
                 return isOperational ? '#4CAF50' : '#cccccc';
+            })
+            .attr('stroke', (d) => {
+                const state = d.properties.ST_NM || d.properties.NAME_1 || 'Unknown';
+                return state === this.selectedState ? '#ffffff' : '#ffffff';
+            })
+            .attr('stroke-width', (d) => {
+                const state = d.properties.ST_NM || d.properties.NAME_1 || 'Unknown';
+                return state === this.selectedState ? 3 : 1.5;
             });
         
-        // Reset pin highlighting
+        // Reset pin highlighting (but keep selected state's pin marked)
         this.mapGroup.selectAll('.state-pin')
-            .selectAll('image')
-            .transition()
-            .duration(300)
-            .style('filter', 'none');
+            .each(function(d) {
+                const pinState = d.properties.ST_NM || d.properties.NAME_1;
+                if (pinState === this.selectedState) {
+                    d3.select(this)
+                        .selectAll('image')
+                        .transition()
+                        .duration(300)
+                        .style('filter', 'brightness(1.3) drop-shadow(0 0 8px rgba(255, 0, 0, 0.6))');
+                } else {
+                    d3.select(this)
+                        .selectAll('image')
+                        .transition()
+                        .duration(300)
+                        .style('filter', 'none');
+                }
+            }.bind(this));
         
         // Highlight selected state in red
         this.mapGroup.selectAll('path')
@@ -454,6 +520,29 @@ class IndiaMapSelector {
         this.options.onStateSelect(stateName);
         
         // Don't show branch list overlay - let the right panel handle it
+    }
+    
+    resetSelection() {
+        this.selectedState = null;
+        
+        // Reset all states to default colors
+        this.mapGroup.selectAll('path')
+            .transition()
+            .duration(300)
+            .attr('fill', (d) => {
+                const state = d.properties.ST_NM || d.properties.NAME_1 || 'Unknown';
+                const isOperational = this.operationalStates.hasOwnProperty(state);
+                return isOperational ? '#4CAF50' : '#cccccc';
+            })
+            .attr('stroke', '#ffffff')
+            .attr('stroke-width', 1.5);
+        
+        // Reset all pins
+        this.mapGroup.selectAll('.state-pin')
+            .selectAll('image')
+            .transition()
+            .duration(300)
+            .style('filter', 'none');
     }
     
     showBranchList(stateName) {
