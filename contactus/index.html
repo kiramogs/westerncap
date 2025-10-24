@@ -831,25 +831,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             // Reset map highlighting when no state is selected
             if (window.indiaMapSelectorInstance) {
-                window.indiaMapSelectorInstance.mapGroup.selectAll('path')
-                    .transition()
-                    .duration(300)
-                    .attr('fill', (d) => {
-                        const state = d.properties.ST_NM || d.properties.NAME_1 || 'Unknown';
-                        const isOperational = window.indiaMapSelectorInstance.operationalStates.hasOwnProperty(state);
-                        return isOperational ? '#4CAF50' : '#cccccc';
-                    })
-                    .attr('stroke-width', 1.5);
-                
-                // Reset pin highlighting
-                window.indiaMapSelectorInstance.mapGroup.selectAll('.state-pin')
-                    .transition()
-                    .duration(300)
-                    .style('transform', 'scale(1)')
-                    .selectAll('circle, path')
-                    .transition()
-                    .duration(300)
-                    .attr('fill', '#FF6B35');
+                window.indiaMapSelectorInstance.resetSelection();
             }
             
             // Clear right panel
