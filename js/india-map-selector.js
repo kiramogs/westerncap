@@ -371,7 +371,7 @@ class IndiaMapSelector {
                     
                     // Use your custom pin image - increased size by 2.5x (16 * 2.5 = 40)
                     pinGroup.append('image')
-                        .attr('href', '/generated-image-removebg-preview.png')
+                        .attr('href', '/Untitled_design__1_-removebg-preview.png')
                         .attr('x', -20)
                         .attr('y', -20)
                         .attr('width', 40)
