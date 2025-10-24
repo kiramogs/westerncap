@@ -941,22 +941,15 @@
                 const marker = L.marker([branch.lat, branch.lng], { icon: branchIcon })
                     .addTo(map);
                 
-                // Create popup content with unique ID
-                const popupId = `popup-${stateName.replace(/\s+/g, '-')}-${branchName.replace(/\s+/g, '-')}`;
+                // Create popup content
                 const popupContent = `
-                    <div style="min-width: 200px;">
+                    <div style="min-width: 200px; padding: 5px;">
                         <h4 style="margin: 0 0 10px 0; color: #02478c; font-size: 16px; font-weight: 600;">
                             ${branchName}
                         </h4>
-                        <p style="margin: 0 0 10px 0; color: #666; font-size: 13px; line-height: 1.5;">
+                        <p style="margin: 0; color: #666; font-size: 13px; line-height: 1.5;">
                             ${branch.address}
                         </p>
-                        <div id="${popupId}-btn-container">
-                            <button onclick="selectBranch('${stateName}', '${branchName}', '${popupId}')" 
-                                style="width: 100%; padding: 8px; background: #02478c; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 600;">
-                                Select This Branch
-                            </button>
-                        </div>
                     </div>
                 `;
                 
@@ -994,38 +987,6 @@
             });
         });
         
-        // Global function for selecting branch from popup
-        window.selectBranch = function(stateName, branchName, popupId) {
-            const branch = branchLocations[stateName][branchName];
-            
-            // Update form fields
-            document.getElementById('state').value = stateName;
-            document.getElementById('district').value = branchName;
-            
-            // Update right panel
-            document.getElementById('state-selector').value = stateName;
-            populateCityDropdown(stateName);
-            document.getElementById('city-selector').value = branchName;
-            
-            // Display branch info
-            displayBranchInfo(stateName, branchName, branch.address);
-            
-            // Replace button with success message
-            const btnContainer = document.getElementById(popupId + '-btn-container');
-            if (btnContainer) {
-                btnContainer.innerHTML = `
-                    <div style="text-align: center; padding: 10px; background: #e8f5e9; border-radius: 4px; color: #4CAF50; font-weight: 600; font-size: 13px;">
-                        ✓ Branch Selected
-                    </div>
-                `;
-            }
-            
-            // Close popup after a short delay
-            setTimeout(function() {
-                map.closePopup();
-            }, 1500);
-        };
-    
     // State selector change handler
     document.getElementById('state-selector').addEventListener('change', function() {
         const selectedState = this.value;
