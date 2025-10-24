@@ -828,8 +828,8 @@
                 `;
                 infoDiv.innerHTML = branchesHTML;
                 
-                // Add click handlers to branch items - target only items within selected-branch-info
-                document.querySelectorAll('#selected-branch-info .branch-item').forEach(item => {
+                // Add click handlers to branch items
+                document.querySelectorAll('.branch-item').forEach(item => {
                     item.addEventListener('mouseenter', function() {
                         this.style.background = '#f0f8ff';
                         this.style.borderColor = '#02478c';
@@ -1130,8 +1130,8 @@
         
         document.getElementById('selected-branch-info').innerHTML = resultsHTML;
         
-        // Add click handlers to search results - target only items within selected-branch-info
-        document.querySelectorAll('#selected-branch-info .branch-item').forEach(item => {
+        // Add click handlers to search results
+        document.querySelectorAll('.branch-item').forEach(item => {
             item.addEventListener('mouseenter', function() {
                 this.style.background = '#f0f8ff';
                 this.style.borderColor = '#02478c';
@@ -1158,9 +1158,6 @@
                 populateCityDropdown(state);
                 document.getElementById('city-selector').value = branch;
                 displayBranchInfo(state, branch, address);
-                
-                // Clear the search box after selection
-                document.getElementById('branch-search').value = '';
                 
                 // Zoom map to branch location
                 const branchData = branchLocations[state][branch];
@@ -1207,9 +1204,6 @@
             // Clear form fields
             document.getElementById('state').value = '';
             document.getElementById('district').value = '';
-            
-            // Clear search box
-            document.getElementById('branch-search').value = '';
             
             // Clear right panel
             document.getElementById('state-selector').value = '';
