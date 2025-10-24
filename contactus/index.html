@@ -665,26 +665,33 @@
         // Define helper functions BEFORE initializing the map
         // Function to populate city dropdown based on selected state
         function populateCityDropdown(stateName) {
+            console.log('populateCityDropdown called with:', stateName);
             const citySelector = document.getElementById('city-selector');
             citySelector.innerHTML = '<option value="">Select City</option>';
             
             if (window.indiaMapSelectorInstance && window.indiaMapSelectorInstance.operationalStates[stateName]) {
                 const branches = window.indiaMapSelectorInstance.operationalStates[stateName];
+                console.log('Found', branches.length, 'branches for', stateName);
                 branches.forEach(branch => {
                     const option = document.createElement('option');
                     option.value = branch;
                     option.textContent = branch;
                     citySelector.appendChild(option);
                 });
+                console.log('City dropdown populated successfully');
+            } else {
+                console.log('No branches found for', stateName);
             }
         }
         
         // Function to display all branches in a state
         function displayStateBranches(stateName) {
+            console.log('displayStateBranches called with:', stateName);
             const infoDiv = document.getElementById('selected-branch-info');
             
             if (window.indiaMapSelectorInstance && window.indiaMapSelectorInstance.operationalStates[stateName]) {
                 const branches = window.indiaMapSelectorInstance.operationalStates[stateName];
+                console.log('Displaying', branches.length, 'branches for', stateName);
                 
                 let branchesHTML = `
                 <div style="margin-bottom: 20px; text-align: center;">
@@ -786,19 +793,27 @@
             width: mapWidth,
             height: mapHeight,
             onStateSelect: function(stateName) {
+                console.log('=== onStateSelect called ===');
                 console.log('State selected:', stateName);
+                console.log('Map instance available:', !!window.indiaMapSelectorInstance);
                 
                 // Update right panel state selector
                 document.getElementById('state-selector').value = stateName;
+                console.log('State selector updated');
                 
                 // Update form state
                 document.getElementById('state').value = stateName;
+                console.log('Form state updated');
                 
                 // Populate city dropdown with branches from selected state
+                console.log('Calling populateCityDropdown...');
                 populateCityDropdown(stateName);
+                console.log('populateCityDropdown completed');
                 
                 // Show branches in the info panel
+                console.log('Calling displayStateBranches...');
                 displayStateBranches(stateName);
+                console.log('displayStateBranches completed');
             },
             onDistrictSelect: function(stateName, branchName, branchAddress) {
                 console.log('Branch selected:', stateName, branchName, branchAddress);

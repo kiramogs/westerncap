@@ -451,6 +451,10 @@ class IndiaMapSelector {
     }
     
     async selectState(stateName) {
+        console.log('=== selectState called in india-map-selector.js ===');
+        console.log('State name:', stateName);
+        console.log('Has onStateSelect callback:', typeof this.options.onStateSelect);
+        
         // Reset previous selection highlighting (but keep selected state marked)
         this.mapGroup.selectAll('path')
             .transition()
@@ -517,7 +521,9 @@ class IndiaMapSelector {
             });
         
         this.selectedState = stateName;
+        console.log('Calling onStateSelect callback...');
         this.options.onStateSelect(stateName);
+        console.log('onStateSelect callback completed');
         
         // Don't show branch list overlay - let the right panel handle it
     }
