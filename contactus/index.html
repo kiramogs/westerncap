@@ -318,11 +318,31 @@
                 </div>
             </div>
 
+            <!-- Bottom Row: NCD Investor (Full Width) -->
+            <div class="col-12 mb-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="350">
+                <!-- NCD Investor -->
+                <div class="contact-card" style="background: linear-gradient(135deg, #e8f5e8, #c8e6c9); padding: 25px; border-radius: 12px; border-left: 4px solid #4CAF50; min-height: 150px;">
+                    <div class="d-flex align-items-center" style="margin-bottom: 12px;">
+                        <img src="/img/mail.png" alt="" style="width: 24px; height: 24px; margin-right: 10px;">
+                        <strong style="color: #2e7d32; font-size: 16px;">💼 NCD Investor Relations</strong>
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <strong style="color: #02478c; font-size: 14px;">Email:</strong>
+                        <a href="mailto:ncdops@westerncap.in" style="font-size: 15px; color: #0066cc; text-decoration: none; display: block; margin-top: 4px; font-weight: 500;">
+                            ✉️ ncdops@westerncap.in
+                        </a>
+                    </div>
+                    <p style="margin: 0; font-size: 12px; color: #666; line-height: 1.4;">
+                        For NCD (Non-Convertible Debentures) investor queries and communications
+                    </p>
+                </div>
+            </div>
+
             <!-- Map Section -->
-            <div class="col-12" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
+            <div class="col-12" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
                 <div style="text-align: center; margin-top: 20px;">
-                    <a href="https://maps.app.goo.gl/msYq7gPaVRf9ag1y9" target="_blank" style="display: inline-block; cursor: pointer; transition: transform 0.3s ease; text-decoration: none;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
-                        <img src="/img/map.jpeg" class="d-block mx-auto" alt="Click to view on Google Maps" style="border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); max-width: 100%; height: auto;">
+                    <a href="https://maps.app.goo.gl/msYq7gPaVRf9ag1y9" target="_blank" style="display: inline-block; cursor: pointer; transition: transform 0.3s ease; text-decoration: none;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                        <img src="/img/map.jpeg" class="d-block mx-auto" alt="Click to view on Google Maps" style="border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); width: 300px; height: 200px; object-fit: cover;">
                     </a>
                     <p style="margin-top: 15px; font-size: 14px; color: #666; font-weight: 500;">
                         🗺️ Click the map above to open our location in Google Maps
@@ -430,6 +450,26 @@
 
                 .contact-card h5 {
                     font-size: 16px !important;
+                }
+
+                /* Map size adjustment for mobile */
+                .map-container img,
+                img[src*="map.jpeg"] {
+                    width: 250px !important;
+                    height: 150px !important;
+                }
+            }
+
+            @media screen and (max-width: 576px) {
+                /* Stack all cards vertically on very small screens */
+                .contact-card {
+                    min-height: 160px;
+                }
+
+                /* Smaller map on mobile */
+                img[src*="map.jpeg"] {
+                    width: 200px !important;
+                    height: 120px !important;
                 }
             }
 
