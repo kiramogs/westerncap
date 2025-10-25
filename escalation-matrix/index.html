@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+    <title>Escalation Matrix | Grievance Redressal | Western Capital Advisors Pvt Ltd</title>
+    <meta name="description" content="Grievance Redressal Escalation Matrix - Customer complaint resolution process and escalation levels at Western Capital Advisors">
+    <meta name="keyword" content="escalation matrix, grievance redressal, customer complaint, complaint resolution">
+
+    <meta property="og:url" content="/escalation-matrix/">
+    <meta property="og:title" content="Escalation Matrix | Grievance Redressal | Western Capital Advisors Pvt Ltd">
+    <meta property="og:description" content="Grievance Redressal Escalation Matrix - Customer complaint resolution process and escalation levels at Western Capital Advisors">
+    <meta property="og:image" content="/img/logo-url.png">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Escalation Matrix | Grievance Redressal | Western Capital Advisors Pvt Ltd">
+    <meta name="twitter:description" content="Grievance Redressal Escalation Matrix - Customer complaint resolution process and escalation levels at Western Capital Advisors">
+    <meta name="twitter:image" content="/img/logo-url.png">
+
+    <link href="/vendor/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/css/style.min.6f636b8ef12719d6701c77b8b748f6294ac2c81466f09f7d5245d6da4d27b7de.css">
+    <link rel="stylesheet" href="/vendor/slick/slick.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/img/favicon.png">
+
+    <style>
+        /* Corporate styling */
+        .escalation-header {
+            background: linear-gradient(135deg, #02478c, #243a5a);
+            color: white;
+            padding: 40px 0;
+        }
+
+        .escalation-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .escalation-subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .matrix-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin: 40px 0;
+        }
+
+        .matrix-header {
+            background: #02478c;
+            color: white;
+            padding: 20px 30px;
+            text-align: center;
+        }
+
+        .matrix-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .escalation-level {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            border-bottom: 1px solid #e0e0e0;
+            transition: background-color 0.3s ease;
+        }
+
+        .escalation-level:hover {
+            background-color: #f8f9fa;
+        }
+
+        .escalation-level:last-child {
+            border-bottom: none;
+        }
+
+        .level-number {
+            background: #02478c;
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .level-number::before {
+            content: 'Level ';
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .level-details {
+            padding: 25px 30px;
+            border-right: 1px solid #e0e0e0;
+        }
+
+        .level-details:last-child {
+            border-right: none;
+        }
+
+        .level-title {
+            color: #02478c;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .level-description {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .contact-info {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-radius: 6px;
+            border-left: 4px solid #02478c;
+            margin-top: 10px;
+        }
+
+        .contact-name {
+            font-weight: 600;
+            color: #02478c;
+            margin-bottom: 5px;
+        }
+
+        .contact-email {
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .contact-phone {
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .contact-email:hover {
+            text-decoration: underline;
+        }
+
+        .timeline {
+            text-align: center;
+            color: #4CAF50;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .process-note {
+            background: #e8f5e9;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .process-title {
+            color: #2e7d32;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        /* Mobile responsiveness */
+        @media screen and (max-width: 768px) {
+            .escalation-title {
+                font-size: 28px;
+            }
+
+            .escalation-level {
+                grid-template-columns: 1fr;
+                border-right: none;
+            }
+
+            .level-details {
+                border-right: none;
+                border-top: 1px solid #e0e0e0;
+            }
+
+            .level-number {
+                background: #02478c;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <nav class="navbar navbar-expand-lg border-bottom scrolled-down header-2">
+            <div class="container justify-content-start justify-content-md-between">
+                <img alt="" src="/img/bars-invert.png" class="navbar-toggler bg-transparent"  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse">
+                <a class="navbar-brand  " href="/"><img alt="" src="/img/onscroll.png" class="logo"></a>
+                <div class="collapse navbar-collapse justify-content-md-end" id="navbarSupportedContent">
+                    <ul class="navbar-nav text-capitalize mb-2 mb-lg-0">
+                        <li class="nav-item ">
+                            <a aria-current="page" class="nav-link " href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="/#services">services</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a aria-expanded="false" class="nav-link  dropdown-toggle" data-bs-toggle="dropdown" href="#" id="navbarDropdown" role="button" disabled>company</a>
+                            <ul aria-labelledby="navbarDropdown" class="dropdown-menu px-2">
+                                <li class="">
+                                    <a class="dropdown-item" href="/aboutus">about us</a>
+                                </li>
+                                <li class="">
+                                    <a class="dropdown-item" href="/advisors">our advisors</a>
+                                </li>
+                                <li class="">
+                                    <a class="dropdown-item" href="/promoters">our promoters</a>
+                                </li>
+                                <li class="">
+                                    <a class="dropdown-item" href="/partners">our partners</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item nav-item-contact">
+                            <a class="nav-link active" href="/contactus">contact us</a>
+                        </li>
+                        <li class="nav-item dropdown dropdown-investor-relations">
+                            <a aria-expanded="false" class="nav-link  dropdown-toggle" data-bs-toggle="dropdown" href="#" id="navbarDropdownInvestor" role="button" disabled>investor relations</a>
+                            <ul aria-labelledby="navbarDropdownInvestor" class="dropdown-menu dropdown-menu-investor px-2">
+                                <li class="">
+                                    <a class="dropdown-item" href="/financial-results">financial results</a>
+                                </li>
+                                <li class="">
+                                    <a class="dropdown-item" href="/annual-report">annual report</a>
+                                </li>
+                                <li class="">
+                                    <a class="dropdown-item" href="/corp-announcements">corp announcements</a>
+                                </li>
+                                <li class="">
+                                    <a class="dropdown-item" href="/annual-return-ir">annual return</a>
+                                </li>
+                                <li class="">
+                                    <a class="dropdown-item" href="/credit-rating">credit rating</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Header Section -->
+        <div class="escalation-header">
+            <div class="container">
+                <div class="text-center">
+                    <div class="escalation-title">Grievance Redressal</div>
+                    <div class="escalation-subtitle">Customer Complaint Resolution Process</div>
+                </div>
+            </div>
+        </div>
+
+        <section class="py-5">
+            <div class="container">
+                <!-- Process Note -->
+                <div class="process-note">
+                    <div class="process-title">📋 Complaint Resolution Process</div>
+                    <p style="margin: 0; color: #333; line-height: 1.6;">
+                        We are committed to resolving customer grievances efficiently. If you have any complaints or concerns,
+                        please follow the escalation matrix below. Each level has a designated timeline for resolution.
+                    </p>
+                </div>
+
+                <!-- Escalation Matrix -->
+                <div class="matrix-container">
+                    <div class="matrix-header">
+                        <h2 class="matrix-title">Escalation Matrix</h2>
+                    </div>
+
+                    <!-- Level 1 -->
+                    <div class="escalation-level">
+                        <div class="level-number">1</div>
+                        <div class="level-details">
+                            <div class="level-title">Customer Service Executive</div>
+                            <div class="level-description">First point of contact for all customer complaints and queries.</div>
+                            <div class="contact-info">
+                                <div class="contact-name">Customer Engagement Manager</div>
+                                <div class="contact-name">Mrs. Sharmila D'souza</div>
+                                <a href="mailto:contact@westerncap.in" class="contact-email">contact@westerncap.in</a><br>
+                                <a href="tel:+9118002681111" class="contact-phone">+91 1800 26 81111</a>
+                            </div>
+                        </div>
+                        <div class="level-details">
+                            <div class="timeline">Resolution: 3-5 Working Days</div>
+                        </div>
+                    </div>
+
+                    <!-- Level 2 -->
+                    <div class="escalation-level">
+                        <div class="level-number">2</div>
+                        <div class="level-details">
+                            <div class="level-title">Grievance Redressal Officer</div>
+                            <div class="level-description">Escalation for unresolved complaints from Level 1.</div>
+                            <div class="contact-info">
+                                <div class="contact-name">Grievance Redressal Officer</div>
+                                <div class="contact-name">Mr. Shushant Dash</div>
+                                <a href="mailto:grievanceredressalofficer@westerncap.in" class="contact-email">grievanceredressalofficer@westerncap.in</a><br>
+                                <a href="tel:+912228256772" class="contact-phone">+91 22 2825 6772</a>
+                            </div>
+                        </div>
+                        <div class="level-details">
+                            <div class="timeline">Resolution: 7 Working Days</div>
+                        </div>
+                    </div>
+
+                    <!-- Level 3 -->
+                    <div class="escalation-level">
+                        <div class="level-number">3</div>
+                        <div class="level-details">
+                            <div class="level-title">Nodal Officer & Principal Nodal Officer</div>
+                            <div class="level-description">Final internal escalation for complex or unresolved grievances.</div>
+                            <div class="contact-info">
+                                <div class="contact-name">Nodal Officer</div>
+                                <div class="contact-name">Mr. Anirudh Saxena</div>
+                                <a href="mailto:nodalofficer@westerncap.in" class="contact-email">nodalofficer@westerncap.in</a><br>
+                                <a href="tel:+912240176772" class="contact-phone">+91 22 4017 6772</a>
+                            </div>
+                        </div>
+                        <div class="level-details">
+                            <div class="timeline">Resolution: 15 Working Days</div>
+                        </div>
+                    </div>
+
+                    <!-- Level 4 -->
+                    <div class="escalation-level">
+                        <div class="level-number">4</div>
+                        <div class="level-details">
+                            <div class="level-title">Banking Ombudsman</div>
+                            <div class="level-description">External escalation for unresolved complaints after internal process.</div>
+                            <div class="contact-info">
+                                <div class="contact-name">Reserve Bank of India Ombudsman</div>
+                                <div style="font-size: 13px; color: #666; margin-bottom: 10px;">
+                                    If the complaint is not resolved within 30 days or if you are not satisfied with the resolution
+                                </div>
+                                <a href="https://rbi.org.in/Scripts/Complaints.aspx" target="_blank" class="contact-email">Visit RBI Ombudsman Portal</a><br>
+                                <a href="https://cms.rbi.org.in/cms/indexpage.html#eng" target="_blank" class="contact-email">File Complaint Online</a>
+                            </div>
+                        </div>
+                        <div class="level-details">
+                            <div class="timeline">Resolution: 30 Days</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Information -->
+                <div style="background: #f8f9fa; padding: 30px; border-radius: 8px; border-left: 4px solid #02478c;">
+                    <h4 style="color: #02478c; margin-bottom: 15px;">💡 Important Notes:</h4>
+                    <ul style="color: #333; line-height: 1.8; margin: 0; padding-left: 20px;">
+                        <li>Please provide complete details of your complaint including your contact information</li>
+                        <li>Keep reference numbers for all your communications with us</li>
+                        <li>All complaints are tracked and monitored for timely resolution</li>
+                        <li>You can also visit our office for in-person grievance submission</li>
+                        <li>We value your feedback and are committed to improving our services</li>
+                    </ul>
+                </div>
+
+                <!-- Contact Information Summary -->
+                <div style="text-align: center; margin-top: 40px; padding: 30px; background: linear-gradient(135deg, #02478c, #243a5a); color: white; border-radius: 8px;">
+                    <h4 style="margin-bottom: 15px;">📞 Quick Contact</h4>
+                    <p style="margin-bottom: 10px; font-size: 16px;">
+                        <strong>Customer Care:</strong> <a href="tel:+9118002681111" style="color: #FFC107; text-decoration: none;">+91 1800 26 81111</a>
+                    </p>
+                    <p style="margin-bottom: 0; font-size: 16px;">
+                        <strong>Email:</strong> <a href="mailto:contact@westerncap.in" style="color: #FFC107; text-decoration: none;">contact@westerncap.in</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="position-relative">
+        <div class="container">
+            <div class="footer-brand">
+                <a href="/"><img alt="logo" src="/img/LOGO1.png" class="footer-logo"></a>
+            </div>
+            <div class="vertical-line"></div>
+
+            <div class="row">
+                <div class="col-12 col-md-4 col-left">
+                    <ul class="text-md-start">
+                        <li>
+                            <a href="/aboutus">About us</a>
+                        </li>
+                        <li>
+                            <a href="/advisors">Advisors</a>
+                        </li>
+                        <li>
+                            <a href="/promoters">Promoters</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-4 col-mid pt-10">
+                    <ul class="social-login justify-content-center">
+                        <li>
+                            <a href="https://in.linkedin.com/company/western-capital-advisors-pvt-ltd">
+                                <img src="/img/linkdin.png" alt="linkdin">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-12 col-md-4 col-right">
+                    <ul class="text-md-end">
+                        <li>
+                            <a href="/regulatory">regulatory</a>
+                        </li>
+                        <li>
+                            <a href="/terms-and-condition">Terms & Conditions</a>
+                        </li>
+                        <li>
+                            <a href="/contactus">Contact us</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <img src="/img/footer_pattern.png" class="footer-pattern" alt="">
+        </div>
+        <div class="copyright-footer">
+            <div class="container">
+                <img src="/img/copyright.png" alt="">
+                <div class="d-inline-block">2021. Western Capital Advisors Private Limited</div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://code.jquery.com/jquery-migrate-3.3.2.min.js" integrity="sha256-Ap4KLoCf1rXb52q+i3p0k2vjBsmownyBTE1EqlRiMwA=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/1.1.6/waypoints.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/vendor/slick/slick.min.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/slider.js"></script>
+    <script src="/js/scripts.js"></script>
+
+    <script>
+        AOS.init();
+
+        // Enhanced dropdown with smooth animations and proper hotspot detection
+        $(document).ready(function() {
+            // Disable Bootstrap's default dropdown behavior
+            $('.navbar .dropdown-toggle').attr('data-bs-toggle', '').attr('data-toggle', '');
+
+            var closeTimers = {};
+
+            // Handle hover events with extended hotspot
+            $('.navbar .dropdown').each(function(index) {
+                var $dropdown = $(this);
+                var dropdownId = 'dropdown_' + index;
+
+                // Hover on dropdown container (including toggle and menu)
+                $dropdown.on('mouseenter', function() {
+                    // Clear any pending close timer for this dropdown
+                    if (closeTimers[dropdownId]) {
+                        clearTimeout(closeTimers[dropdownId]);
+                        delete closeTimers[dropdownId];
+                    }
+
+                    // Close all other dropdowns
+                    $('.navbar .dropdown').not($dropdown).each(function() {
+                        $(this).find('.dropdown-menu').removeClass('show');
+                        $(this).find('.dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
+                    });
+
+                    // Open this dropdown with animation
+                    $dropdown.find('.dropdown-menu').addClass('show');
+                    $dropdown.find('.dropdown-toggle').addClass('show').attr('aria-expanded', 'true');
+                });
+
+                $dropdown.on('mouseleave', function() {
+                    // Close after delay for smooth UX
+                    closeTimers[dropdownId] = setTimeout(function() {
+                        $dropdown.find('.dropdown-menu').removeClass('show');
+                        $dropdown.find('.dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
+                        delete closeTimers[dropdownId];
+                    }, 400);
+                });
+
+                // Also handle hover on dropdown menu items to ensure it stays open
+                $dropdown.find('.dropdown-menu').on('mouseenter', function() {
+                    if (closeTimers[dropdownId]) {
+                        clearTimeout(closeTimers[dropdownId]);
+                        delete closeTimers[dropdownId];
+                    }
+                });
+            });
+
+            // Close dropdown when clicking outside
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('.navbar .dropdown').length) {
+                    $('.navbar .dropdown-menu').removeClass('show');
+                    $('.navbar .dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
+                    // Clear all timers
+                    Object.keys(closeTimers).forEach(function(key) {
+                        clearTimeout(closeTimers[key]);
+                    });
+                    closeTimers = {};
+                }
+            });
+
+            // Prevent dropdown from closing when clicking inside
+            $('.navbar .dropdown-menu').on('click', function(e) {
+                e.stopPropagation();
+            });
+        });
+    </script>
+</body>
+</html>
