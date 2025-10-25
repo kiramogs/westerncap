@@ -232,29 +232,6 @@
     </div>
         </nav><section class="contact-us pb-3 pb-lg-5">
     <div class="container">
-        <!-- Breadcrumb Navigation -->
-        <div class="row mb-4">
-            <div class="col-12">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb" style="background: #f8f9fa; padding: 12px 20px; border-radius: 8px; margin-bottom: 0;">
-                        <li class="breadcrumb-item">
-                            <a href="/" style="color: #02478c; text-decoration: none; font-weight: 500;">
-                                <i class="fas fa-home" style="margin-right: 5px;"></i>Home
-                            </a>
-                        </li>
-                        <li class="breadcrumb-item active" aria-current="page" style="color: #6c757d; font-weight: 600;">
-                            Contact Us
-                        </li>
-                        <li class="ms-auto">
-                            <button onclick="goBack()" style="background: #02478c; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.background='#243a5a'" onmouseout="this.style.background='#02478c'">
-                                ← Back
-                            </button>
-                        </li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-
         <div class="row ">
             <div class="col-md-3 ">
                 <div class="title text-center text-md-start mb-4 mb-md-2 mb-lg-4">
@@ -1338,15 +1315,6 @@
 </script>
 
 <script>
-// Back button functionality
-function goBack() {
-    if (document.referrer && document.referrer !== window.location.href) {
-        window.history.back();
-    } else {
-        window.location.href = '/';
-    }
-}
-
 // Enhanced dropdown with smooth animations and proper hotspot detection
 $(document).ready(function() {
     // Disable Bootstrap's default dropdown behavior
