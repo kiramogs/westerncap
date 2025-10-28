@@ -215,59 +215,64 @@
             }
         }
     </style>
-</head>
-
-<body class="d-flex flex-column h-100">
-    <div class="layout-main">
-        <nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container nav-container position-relative">
-        <a href="/" class="navbar-brand">
-            <img src="/img/LOGO1.png" alt="Western Capital" class="logo">
-        </a>
-        <button class="navbar-toggler custom collapsed" type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbar11" aria-controls="navbar11" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="icon-bar top-bar"></span>
-            <span class="icon-bar middle-bar"></span>
-            <span class="icon-bar bottom-bar"></span>
-        </button>
-        <div class="navbar-collapse collapse" id="navbar11">
-            <ul class="navbar-nav ms-auto">
+</head><body>
+        <div id="content"><nav class="navbar navbar-expand-lg border-bottom scrolled-down header-2">
+    <div class="container justify-content-start justify-content-md-between">
+        <img alt="" src="/img/bars-invert.png" class="navbar-toggler bg-transparent"  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse">
+        <a class="navbar-brand  " href="/"><img alt="" src="/img/onscroll.png" class="logo"></a>
+        <div class="collapse navbar-collapse justify-content-md-end" id="navbarSupportedContent">
+            <ul class="navbar-nav text-capitalize mb-2 mb-lg-0">
+                <li class="nav-item ">
+                    <a aria-current="page" class="nav-link " href="/">Home</a>
+                </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link " href="/#services">services</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarCompanyDropdown" role="button">
-                        Company
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/aboutus">About us</a>
-                        <a class="dropdown-item" href="/advisors">Advisors</a>
-                        <a class="dropdown-item" href="/promoters">Promoters</a>
-                        <a class="dropdown-item" href="/partners">Partners</a>
-                    </div>
+                    <a aria-expanded="false" class="nav-link  dropdown-toggle" data-bs-toggle="dropdown" href="#" id="navbarDropdown" role="button" disabled>company</a>
+                    <ul aria-labelledby="navbarDropdown" class="dropdown-menu px-2">
+                        <li class="">
+                            <a class="dropdown-item" href="/aboutus">about us</a>
+                        </li>
+                        <li class="">
+                            <a class="dropdown-item" href="/advisors">our advisors</a>
+                        </li>
+                        <li class="">
+                            <a class="dropdown-item" href="/promoters">our promoters</a>
+                        </li>
+                         <li class="">
+                            <a class="dropdown-item" href="/partners">our partners</a>
+                        </li>
+                    </ul>
                 </li>
+                    <li class="nav-item nav-item-contact">
+                        <a class="nav-link " href="/contactus">contact us</a>
+                    </li>
                 <li class="nav-item dropdown dropdown-investor-relations">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarInvestorDropdown" role="button">
-                        Investor Relations
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-investor">
-                        <a class="dropdown-item" href="/financial-results">Financial Results</a>
-                        <a class="dropdown-item" href="/annual-report">Annual Reports</a>
-                        <a class="dropdown-item" href="/corp-announcements">Corporate Announcements (Stock Exchange)</a>
-                        <a class="dropdown-item" href="/annual-return-ir">Annual Return</a>
-                        <a class="dropdown-item" href="/credit-rating">Credit Rating</a>
-                    </div>
+                    <a aria-expanded="false" class="nav-link  dropdown-toggle" data-bs-toggle="dropdown" href="#" id="navbarDropdownInvestor" role="button" disabled>investor relations</a>
+                    <ul aria-labelledby="navbarDropdownInvestor" class="dropdown-menu dropdown-menu-investor px-2">
+                        <li class="">
+                            <a class="dropdown-item" href="/financial-results">financial results</a>
+                        </li>
+                        <li class="">
+                            <a class="dropdown-item" href="/annual-report">annual report</a>
+                        </li>
+                        <li class="">
+                            <a class="dropdown-item" href="/corp-announcements">corp announcements</a>
+                        </li>
+                        <li class="">
+                            <a class="dropdown-item" href="/annual-return-ir">annual return</a>
+                        </li>
+                        <li class="">
+                            <a class="dropdown-item" href="/credit-rating">credit rating</a>
+                        </li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/regulatory">Regulatory</a>
-                </li>
-                <li class="nav-item nav-item-contact">
-                    <a class="nav-link" href="/contactus">Contact us</a>
-                </li>
+                
             </ul>
         </div>
     </div>
-</nav>
+        </nav>
         
         <section class="contact-form pt-5 pb-5" style="background: #f8f9fa;">
             <div class="container">
@@ -347,12 +352,14 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
 
-        </div><footer class="position-relative">
+        </div>
+        
+        <footer class="position-relative">
     <div class="container">
         <div class="footer-brand">
             <a href="/"><img alt="logo" src="/img/LOGO1.png" class="footer-logo"></a>
@@ -424,6 +431,9 @@
  crossorigin=""></script>
 
 <script>
+// Initialize AOS
+AOS.init();
+
 // Branch Locator with Leaflet.js
 document.addEventListener('DOMContentLoaded', function() {
     // Define branch coordinates
@@ -945,29 +955,26 @@ $(document).ready(function() {
             }
             
             // Close all other dropdowns
-            $('.navbar .dropdown').not(this).each(function() {
+            $('.navbar .dropdown').not($dropdown).each(function() {
                 $(this).find('.dropdown-menu').removeClass('show');
                 $(this).find('.dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
             });
             
-            // Open this dropdown
-            var $menu = $dropdown.find('.dropdown-menu');
-            var $toggle = $dropdown.find('.dropdown-toggle');
-            
-            $menu.addClass('show');
-            $toggle.addClass('show').attr('aria-expanded', 'true');
+            // Open this dropdown with animation
+            $dropdown.find('.dropdown-menu').addClass('show');
+            $dropdown.find('.dropdown-toggle').addClass('show').attr('aria-expanded', 'true');
         });
         
         $dropdown.on('mouseleave', function() {
-            // Set a timer to close this dropdown
+            // Close after delay for smooth UX
             closeTimers[dropdownId] = setTimeout(function() {
                 $dropdown.find('.dropdown-menu').removeClass('show');
                 $dropdown.find('.dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
                 delete closeTimers[dropdownId];
-            }, 400); // Increased delay for better UX
+            }, 400); // 400ms delay before closing
         });
         
-        // Also handle mouseenter on menu items to prevent closing
+        // Also handle hover on dropdown menu items to ensure it stays open
         $dropdown.find('.dropdown-menu').on('mouseenter', function() {
             if (closeTimers[dropdownId]) {
                 clearTimeout(closeTimers[dropdownId]);
@@ -976,7 +983,7 @@ $(document).ready(function() {
         });
     });
     
-    // Close dropdowns when clicking outside
+    // Close dropdown when clicking outside
     $(document).on('click', function(e) {
         if (!$(e.target).closest('.navbar .dropdown').length) {
             $('.navbar .dropdown-menu').removeClass('show');
@@ -997,4 +1004,9 @@ $(document).ready(function() {
 </script>
 </body>
 </html>
+
+
+
+
+
 
