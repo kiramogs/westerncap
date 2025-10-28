@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    
+    <title>Branch Locator | Find Our Nearest Branch | Western Capital</title>
+    <meta name="description" content="Find Western Capital branches near you. Search from 100+ locations across India with interactive map, address, phone numbers, working hours, and directions.">
+    <meta name="keyword" content="western capital branches, branch locator, find branch, nearest branch, western capital locations">
+  
+    <meta property="og:url" content="/branch-locator/">
+    <meta property="og:title" content="Branch Locator | Find Our Nearest Branch | Western Capital">
+    <meta property="og:description" content="Find Western Capital branches near you. Search from 100+ locations across India with interactive map.">
+    <meta property="og:image" content="/img/logo-url.png">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Branch Locator | Find Our Nearest Branch | Western Capital">
+    <meta name="twitter:description" content="Find Western Capital branches near you. Search from 100+ locations across India with interactive map.">
+    <meta name="twitter:image" content="/img/logo-url.png">
+
+    <link href="/vendor/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/css/style.min.6f636b8ef12719d6701c77b8b748f6294ac2c81466f09f7d5245d6da4d27b7de.css"> 
+    <link rel="stylesheet" href="/vendor/slick/slick.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/img/favicon.png">
+    
+    <!-- Leaflet.js for interactive map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+    
+    <style>
+        /* Investor Relations Dropdown Styling */
+        .dropdown-menu-investor {
+            width: 240px !important;
+            max-width: 240px !important;
+        }
+        
+        .dropdown-menu-investor .dropdown-item {
+            white-space: normal;
+            line-height: 1.3;
+            padding: 12px 20px !important;
+        }
+        
+        .dropdown-menu-investor::after {
+            right: 50px !important;
+        }
+        
+        @media screen and (max-width: 992px) {
+            .dropdown-menu-investor {
+                width: 220px !important;
+                max-width: 220px !important;
+            }
+            
+            .navbar .nav-link {
+                opacity: 100% !important;
+                color: #02478c !important;
+            }
+        }
+        
+        @media screen and (min-width: 992px) {
+            .scrolled-down .dropdown-menu-investor .dropdown-item {
+                color: #02478c;
+            }
+            
+            .scrolled-down .dropdown-menu-investor .dropdown-item:hover {
+                color: #243a5a;
+            }
+        }
+        
+        .navbar .dropdown {
+            position: relative;
+        }
+        
+        .navbar .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+        }
+        
+        .navbar .dropdown:nth-child(3) .dropdown-menu {
+            left: -35px;
+        }
+        
+        .dropdown-menu-investor {
+            left: -50px !important;
+        }
+    </style>
+    <style>
+        /* Dropdown Animation CSS */
+        .navbar .dropdown {
+            position: relative;
+        }
+        
+        .navbar .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: 0;
+            overflow: hidden;
+        }
+        
+        .navbar .dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            max-height: 500px;
+        }
+        
+        .navbar .dropdown:nth-child(3) .dropdown-menu {
+            left: -35px;
+        }
+        
+        @media screen and (min-width: 992px) {
+            .nav-item-contact {
+                margin-left: 50px !important;
+            }
+        }
+        
+        .dropdown-investor-relations {
+            margin-left: auto !important;
+        }
+        
+        .dropdown-menu-investor {
+            right: 0 !important;
+            left: auto !important;
+        }
+        
+        .navbar .dropdown::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -10px;
+            right: -10px;
+            bottom: -20px;
+            z-index: -1;
+        }
+        
+        .dropdown-investor-relations::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 20px;
+            z-index: 999;
+        }
+        
+        /* Branch Locator Styling */
+        #india-map-selector {
+            height: 550px;
+            border-radius: 8px;
+        }
+        
+        .branch-popup .leaflet-popup-content-wrapper {
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* Mobile-friendly styles for branch selector */
+        @media screen and (max-width: 991px) {
+            .branch-selector-map {
+                margin-bottom: 30px !important;
+            }
+            
+            .branch-selector-map h3,
+            .branch-selector-panel h3 {
+                font-size: 22px !important;
+            }
+            
+            .branch-selector-map .map-description {
+                font-size: 14px !important;
+            }
+            
+            #india-map-selector {
+                min-height: 400px !important;
+            }
+            
+            .branch-selector-panel {
+                padding: 20px !important;
+            }
+            
+            #selected-branch-info {
+                max-height: 300px !important;
+                overflow-y: auto !important;
+            }
+        }
+        
+        @media screen and (max-width: 576px) {
+            .branch-selector-map,
+            .branch-selector-panel {
+                padding: 15px !important;
+            }
+            
+            .branch-selector-map h3,
+            .branch-selector-panel h3 {
+                font-size: 18px !important;
+            }
+            
+            #india-map-selector {
+                min-height: 350px !important;
+            }
+            
+            #branch-search,
+            #state-selector,
+            #city-selector {
+                font-size: 16px !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column h-100">
+    <div class="layout-main">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container nav-container position-relative">
+        <a href="/" class="navbar-brand">
+            <img src="/img/LOGO1.png" alt="Western Capital" class="logo">
+        </a>
+        <button class="navbar-toggler custom collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbar11" aria-controls="navbar11" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="icon-bar top-bar"></span>
+            <span class="icon-bar middle-bar"></span>
+            <span class="icon-bar bottom-bar"></span>
+        </button>
+        <div class="navbar-collapse collapse" id="navbar11">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarCompanyDropdown" role="button">
+                        Company
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/aboutus">About us</a>
+                        <a class="dropdown-item" href="/advisors">Advisors</a>
+                        <a class="dropdown-item" href="/promoters">Promoters</a>
+                        <a class="dropdown-item" href="/partners">Partners</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown dropdown-investor-relations">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarInvestorDropdown" role="button">
+                        Investor Relations
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-investor">
+                        <a class="dropdown-item" href="/financial-results">Financial Results</a>
+                        <a class="dropdown-item" href="/annual-report">Annual Reports</a>
+                        <a class="dropdown-item" href="/corp-announcements">Corporate Announcements (Stock Exchange)</a>
+                        <a class="dropdown-item" href="/annual-return-ir">Annual Return</a>
+                        <a class="dropdown-item" href="/credit-rating">Credit Rating</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/regulatory">Regulatory</a>
+                </li>
+                <li class="nav-item nav-item-contact">
+                    <a class="nav-link" href="/contactus">Contact us</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+        
+        <section class="contact-form pt-5 pb-5" style="background: #f8f9fa;">
+            <div class="container">
+                <!-- Page Title -->
+                <div class="text-center mb-5" data-aos="fade-down" data-aos-duration="1000">
+                    <h1 style="color: #02478c; font-size: 42px; font-weight: 700; margin-bottom: 15px;">
+                        🗺️ Branch Locator
+                    </h1>
+                    <p style="color: #666; font-size: 18px; max-width: 700px; margin: 0 auto;">
+                        Find your nearest Western Capital branch from our network of 100+ locations across India
+                    </p>
+                </div>
+
+                <!-- Branch Locator with Map -->
+                <div id="branch-locator-section" class="row mt-5" data-aos="fade-up" data-aos-duration="1000" style="margin-bottom: 40px;">
+                    <!-- Left Side - Map -->
+                    <div class="col-lg-7 col-md-12">
+                        <div class="branch-selector-map" style="background: white; border-radius: 8px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <h3 style="color: #FF6B35; font-size: 28px; font-weight: 700; margin-bottom: 10px; border-bottom: 3px solid #FF6B35; display: inline-block; padding-bottom: 5px;">
+                                WIDE NETWORK OF BRANCHES
+                            </h3>
+                            <p class="map-description" style="color: #666; font-size: 16px; margin-bottom: 20px;">A network of 100+ branches is spread across the country.</p>
+                            
+                            <div id="india-map-selector" style="position: relative; min-height: 550px;"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Side - Branch Locator -->
+                    <div class="col-lg-5 col-md-12">
+                        <div class="branch-selector-panel" style="background: white; border-radius: 8px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); height: 100%;">
+                            <h3 style="color: #FF6B35; font-size: 28px; font-weight: 700; margin-bottom: 20px; border-bottom: 3px solid #FF6B35; display: inline-block; padding-bottom: 5px;">
+                                BRANCH LOCATOR
+                            </h3>
+                            
+                            <!-- Search Box -->
+                            <div style="margin-bottom: 20px;">
+                                <input type="text" id="branch-search" placeholder="Search for a branch..." 
+                                    style="width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;">
+                            </div>
+                            
+                            <!-- State Dropdown -->
+                            <div style="margin-bottom: 20px;">
+                                <label style="display: block; margin-bottom: 8px; color: #333; font-weight: 600;">Select State</label>
+                                <select id="state-selector" 
+                                    style="width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; background: white;">
+                                    <option value="">Select State</option>
+                                    <option value="Rajasthan">Rajasthan</option>
+                                    <option value="Maharashtra">Maharashtra</option>
+                                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                    <option value="Tamil Nadu">Tamil Nadu</option>
+                                    <option value="Telangana">Telangana</option>
+                                    <option value="Karnataka">Karnataka</option>
+                                </select>
+                            </div>
+                            
+                            <!-- City Dropdown -->
+                            <div style="margin-bottom: 20px;">
+                                <label style="display: block; margin-bottom: 8px; color: #333; font-weight: 600;">Select City</label>
+                                <select id="city-selector" 
+                                    style="width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; background: white;">
+                                    <option value="">Select City</option>
+                                </select>
+                                <p style="font-size: 12px; color: #999; margin-top: 8px;">Choose the city from the list.</p>
+                            </div>
+                            
+                            <!-- Reset Button -->
+                            <div style="margin-bottom: 20px; text-align: center;">
+                                <button id="reset-selection" style="background: #6c757d; color: white; border: none; padding: 8px 16px; border-radius: 4px; font-size: 14px; cursor: pointer; transition: all 0.3s ease;">
+                                    Reset Selection
+                                </button>
+                            </div>
+                            
+                            <!-- Selected Branch Display -->
+                            <div id="selected-branch-info" style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 6px; border-left: 4px solid #02478c; min-height: 100px;">
+                                <div style="color: #666; font-size: 14px;">
+                                    Select a state from the map or dropdown to view branches
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        </div><footer class="position-relative">
+    <div class="container">
+        <div class="footer-brand">
+            <a href="/"><img alt="logo" src="/img/LOGO1.png" class="footer-logo"></a>
+        </div>
+        <div class="vertical-line"></div>
+
+        <div class="row ">
+            <div class="col-12 col-md-4 col-left">
+                <ul class="text-md-start">
+                    <li>
+                        <a href="/aboutus">About us</a>
+                    </li>
+                    <li>
+                        <a href="/advisors">Advisors</a>
+                    </li>
+                    <li>
+                        <a href="/promoters">Promoters</a>
+                    </li>
+                    <li>
+                        <a href="/partners">Partners</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-12 col-md-4 col-center">
+                <ul class="text-md-center">
+                    <li>
+                        <a href="/financial-results">Financial Results</a>
+                    </li>
+                    <li>
+                        <a href="/annual-report">Annual Reports</a>
+                    </li>
+                    <li>
+                        <a href="/credit-rating">Credit Rating</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-12 col-md-4 col-right">
+                <ul class="text-md-end">
+                    <li>
+                        <a href="/policies">Policies</a>
+                    </li>
+                    <li>
+                        <a href="/notices">Notices</a>
+                    </li>
+                    <li>
+                        <a href="/contactus">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <hr class="my-md-0 my-3">
+        <div class="copyright">
+            ©2024, WESTERN CAPITAL ADVISORS PVT LTD. ALL RIGHTS RESERVED
+        </div>
+    </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/vendor/slick/slick.min.js"></script>
+<script src="/js/app.js"></script>
+<script src="/js/slider.js"></script>
+<script src="/js/scripts.js"></script>
+
+<!-- Leaflet.js -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+ integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+ crossorigin=""></script>
+
+<script>
+// Branch Locator with Leaflet.js
+document.addEventListener('DOMContentLoaded', function() {
+    // Define branch coordinates
+    const branchLocations = {
+        'Rajasthan': {
+            'Ajmer': { lat: 26.4499, lng: 74.6399, address: 'Shop No. 201-202, Second Floor, Rajdarshan Complex, Near Old Power House, Jaipur Road, Ajmer, Rajasthan - 305001' },
+            'Chittorgarh': { lat: 24.8887, lng: 74.6269, address: 'First Floor, Shop No. 5, Opposite Collector Office, Station Road, Chittorgarh, Rajasthan - 312001' },
+            'Chomu': { lat: 27.1598, lng: 75.7208, address: 'Shop No. 15-16, First Floor, Shree Ram Complex, Jaipur Road, Chomu, Rajasthan - 303702' },
+            'Fatehnagar': { lat: 24.8995, lng: 73.7381, address: 'Khasra No. 287, Village Fatehnagar, Udaipur, Rajasthan - 313205' },
+            'Gulabpura': { lat: 25.8738, lng: 74.6625, address: 'Shop No. 1, Pehli Manzil, Krishna Complex, Bhilwara Road, Gulabpura, Rajasthan - 311021' },
+            'Jhunjhunu': { lat: 28.1304, lng: 75.3976, address: 'Shop No. 201-202, Second Floor, Opposite SBI Bank, Main Market, Jhunjhunu, Rajasthan - 333001' },
+            'Beawar': { lat: 26.1014, lng: 74.3204, address: 'Shop No. 302, Third Floor, Above Bank of Baroda, Ajmer Road, Beawar, Rajasthan - 305901' },
+            'Kotputli': { lat: 27.7008, lng: 76.1982, address: 'Shop No. 201, Second Floor, Near Bus Stand, Jaipur Road, Kotputli, Rajasthan - 303108' },
+            'Rajsamand': { lat: 25.0717, lng: 73.8800, address: 'Shop No. 7-8, First Floor, Near Circuit House, NH 8, Rajsamand, Rajasthan - 313326' },
+            'Kuchaman': { lat: 27.1472, lng: 74.8587, address: 'Shop No. 12, Second Floor, Station Road, Kuchaman City, Rajasthan - 341508' },
+            'Sojat': { lat: 25.9245, lng: 73.6684, address: 'Shop No. 15, First Floor, Near ICICI Bank, Pali Road, Sojat City, Rajasthan - 306104' },
+            'Neem Ka Thana': { lat: 27.7417, lng: 75.7850, address: 'Shop No. 201, Second Floor, Sikar Road, Neem Ka Thana, Rajasthan - 332713' },
+            'Sujangarh': { lat: 27.7000, lng: 74.4667, address: 'Shop No. 19, Second Floor, Near SBI, Station Road, Sujangarh, Rajasthan - 331507' },
+            'Jaipur': { lat: 26.9124, lng: 75.7873, address: 'Shop No. 301-302, Third Floor, Kalyan Complex, MI Road, Jaipur, Rajasthan - 302001' },
+            'Sikar': { lat: 27.6119, lng: 75.1399, address: 'Shop No. 201, Second Floor, Near Government Hospital, Jaipur Road, Sikar, Rajasthan - 332001' },
+            'Kekri': { lat: 25.9767, lng: 75.1460, address: 'Shop No. 5, First Floor, Near Bus Stand, Ajmer Road, Kekri, Rajasthan - 305404' },
+            'Nimbahera': { lat: 24.6211, lng: 74.6813, address: 'Shop No. 8, First Floor, Near ICICI Bank, Station Road, Nimbahera, Rajasthan - 312601' },
+            'Udaipur': { lat: 24.5854, lng: 73.7125, address: 'Shop No. 401-402, Fourth Floor, Near Clock Tower, City Centre, Udaipur, Rajasthan - 313001' },
+            'Sumerpur': { lat: 25.1442, lng: 73.0928, address: 'Shop No. 10, First Floor, Pali Road, Sumerpur, Rajasthan - 306902' },
+            'Ratangarh': { lat: 28.0811, lng: 74.6158, address: 'Shop No. 15, Second Floor, Main Market, Ratangarh, Rajasthan - 331022' },
+            'Nokha': { lat: 27.5648, lng: 73.4723, address: 'Shop No. 7, First Floor, Bikaner Road, Nokha, Rajasthan - 334803' },
+            'Phalodi': { lat: 27.1312, lng: 72.3677, address: 'Shop No. 12, First Floor, Station Road, Phalodi, Rajasthan - 342301' }
+        },
+        'Maharashtra': {
+            'Akola': { lat: 20.7002, lng: 77.0082, address: 'Shop No. 301, Third Floor, Rajkamal Square, Civil Lines, Akola, Maharashtra - 444001' },
+            'Baramati': { lat: 18.1522, lng: 74.5775, address: 'Shop No. 15-16, First Floor, Near ST Stand, Pune Road, Baramati, Maharashtra - 413102' },
+            'Dhule': { lat: 20.9042, lng: 74.7749, address: 'Shop No. 201, Second Floor, Kukreja Plaza, Agra Road, Dhule, Maharashtra - 424001' },
+            'Buldhana': { lat: 20.5307, lng: 76.1809, address: 'Shop No. 12, First Floor, Main Road, Near Bank of Maharashtra, Buldhana - 443001' },
+            'Karad': { lat: 17.2889, lng: 74.1820, address: 'Shop No. 8, Second Floor, Pune Bangalore Highway, Karad, Maharashtra - 415110' },
+            'Nagpur': { lat: 21.1458, lng: 79.0882, address: 'Shop No. 501, Fifth Floor, Kailash Towers, South Ambazari Road, Nagpur - 440010' },
+            'Jalgaon': { lat: 21.0077, lng: 75.5626, address: 'Shop No. 201-202, Second Floor, M.G. Road, Jalgaon, Maharashtra - 425001' },
+            'Kalyan': { lat: 19.2403, lng: 73.1305, address: 'Shop No. 301, Third Floor, Bhimnagar, Near Railway Station, Kalyan West - 421301' },
+            'Kolhapur': { lat: 16.7050, lng: 74.2433, address: 'Shop No. 15, Second Floor, Station Road, Near ST Stand, Kolhapur - 416012' },
+            'Nashik': { lat: 19.9975, lng: 73.7898, address: 'Shop No. 401, Fourth Floor, Suyojit Sankul, Sharanpur Road, Nashik - 422002' },
+            'Pune': { lat: 18.5204, lng: 73.8567, address: 'Shop No. 501, Fifth Floor, Dhananjay Tower, Shivaji Nagar, Pune - 411005' },
+            'Sangli': { lat: 16.8524, lng: 74.5815, address: 'Shop No. 201, Second Floor, Miraj Road, Near Market Yard, Sangli - 416416' },
+            'Satara': { lat: 17.6869, lng: 73.9913, address: 'Shop No. 301, Third Floor, Powai Naka, Satara, Maharashtra - 415002' },
+            'Yavatmal': { lat: 20.3897, lng: 78.1308, address: 'Shop No. 12, First Floor, Main Road, Yavatmal, Maharashtra - 445001' },
+            'Sangamner': { lat: 19.5667, lng: 74.2167, address: 'Shop No. 8, First Floor, Nagar Manmad Road, Sangamner, Maharashtra - 422605' },
+            'HO - Maharashtra ISD': { lat: 19.0760, lng: 72.8777, address: 'Head Office, 4th Floor, Trade Centre, Bandra Kurla Complex, Mumbai - 400051' },
+            'OPS HUB - Maharashtra ISD': { lat: 18.5912, lng: 73.7389, address: 'Operations Hub, 3rd Floor, IT Park, Hinjewadi, Pune - 411057' }
+        },
+        'Madhya Pradesh': {
+            'Dewas': { lat: 22.9658, lng: 76.0548, address: 'Shop No. 201, Second Floor, Near Old Palasia, Dewas, Madhya Pradesh - 455001' },
+            'Dhamnod': { lat: 22.2094, lng: 75.4710, address: 'Shop No. 5, First Floor, Ratlam Road, Dhamnod, Madhya Pradesh - 457335' },
+            'Indore': { lat: 22.7196, lng: 75.8577, address: 'Shop No. 501-502, Fifth Floor, Amar Plaza, M.G. Road, Indore - 452001' },
+            'Khargone': { lat: 21.8236, lng: 75.6131, address: 'Shop No. 15, Second Floor, Main Road, Khargone, Madhya Pradesh - 451001' },
+            'Jaora': { lat: 23.6382, lng: 75.1274, address: 'Shop No. 8, First Floor, Ratlam Road, Jaora, Madhya Pradesh - 457226' },
+            'Sehore': { lat: 23.2000, lng: 77.0833, address: 'Shop No. 201, Second Floor, Ashta Road, Sehore, Madhya Pradesh - 466001' },
+            'Ujjain': { lat: 23.1765, lng: 75.7885, address: 'Shop No. 301, Third Floor, Freeganj, Ujjain, Madhya Pradesh - 456010' },
+            'Hoshangabad': { lat: 22.7500, lng: 77.7333, address: 'Shop No. 12, First Floor, Harda Road, Hoshangabad, Madhya Pradesh - 461001' },
+            'Mandsaur': { lat: 24.0733, lng: 75.0666, address: 'Shop No. 201, Second Floor, Gandhi Chowk, Mandsaur, Madhya Pradesh - 458001' },
+            'Shamgarh': { lat: 24.1895, lng: 75.6397, address: 'Shop No. 7, First Floor, Main Market, Shamgarh, Madhya Pradesh - 458883' },
+            'Manasa': { lat: 24.4770, lng: 75.1427, address: 'Shop No. 5, First Floor, Near Bus Stand, Manasa, Madhya Pradesh - 455001' },
+            'Shujalpur': { lat: 23.4080, lng: 76.7105, address: 'Shop No. 10, Second Floor, Shajapur Road, Shujalpur, Madhya Pradesh - 465333' },
+            'Khandwa': { lat: 21.8307, lng: 76.3504, address: 'Shop No. 301, Third Floor, Near Railway Station, Khandwa, Madhya Pradesh - 450001' },
+            'Khategaon': { lat: 22.5978, lng: 76.9167, address: 'Shop No. 8, First Floor, Dewas Road, Khategaon, Madhya Pradesh - 455336' }
+        },
+        'Tamil Nadu': {
+            'Nagarcoil': { lat: 8.1790, lng: 77.4068, address: 'Shop No. 301, Third Floor, Vetri Towers, NSK Road, Nagercoil - 629001' },
+            'Madurai': { lat: 9.9252, lng: 78.1198, address: 'Shop No. 401, Fourth Floor, TPK Road, Near Railway Station, Madurai - 625003' },
+            'Theni': { lat: 10.0104, lng: 77.4977, address: 'Shop No. 201, Second Floor, Periyakulam Road, Theni, Tamil Nadu - 625531' },
+            'Tirunelveli': { lat: 8.7139, lng: 77.7567, address: 'Shop No. 301, Third Floor, Trivandrum Road, Tirunelveli - 627001' },
+            'Sivakasi': { lat: 9.4532, lng: 77.8009, address: 'Shop No. 15, Second Floor, Near New Bus Stand, Sivakasi - 626123' },
+            'Thoothukudi': { lat: 8.7642, lng: 78.1348, address: 'Shop No. 201, Second Floor, Palayamkottai Road, Thoothukudi - 628002' },
+            'Karaikudi': { lat: 10.0660, lng: 78.7685, address: 'Shop No. 12, First Floor, Devakottai Road, Karaikudi, Tamil Nadu - 630001' },
+            'Namakkal': { lat: 11.2189, lng: 78.1677, address: 'Shop No. 201, Second Floor, Salem Main Road, Namakkal, Tamil Nadu - 637001' },
+            'Salem': { lat: 11.6643, lng: 78.1460, address: 'Shop No. 401, Fourth Floor, Cherry Road, Salem, Tamil Nadu - 636007' },
+            'Krishnagiri': { lat: 12.5266, lng: 78.2150, address: 'Shop No. 301, Third Floor, Bangalore Road, Krishnagiri - 635001' },
+            'Erode': { lat: 11.3410, lng: 77.7172, address: 'Shop No. 201, Second Floor, Perundurai Road, Erode, Tamil Nadu - 638001' },
+            'Viluppuram': { lat: 11.9401, lng: 79.4861, address: 'Shop No. 15, First Floor, Cuddalore Main Road, Viluppuram - 605602' },
+            'Kallakurichi': { lat: 11.7380, lng: 78.9597, address: 'Shop No. 8, First Floor, Ulundurpet Road, Kallakurichi - 606213' },
+            'Dharmapuri': { lat: 12.1211, lng: 78.1582, address: 'Shop No. 201, Second Floor, Salem Main Road, Dharmapuri - 636701' }
+        },
+        'Telangana': {
+            'Medchal': { lat: 17.6240, lng: 78.4813, address: 'Shop No. 301, Third Floor, Near Bus Depot, Kompally, Medchal - 501401' },
+            'Ibrahimpatnam': { lat: 17.4227, lng: 78.7019, address: 'Shop No. 15, First Floor, Main Road, Ibrahimpatnam, Ranga Reddy - 501506' },
+            'Siddipet': { lat: 18.1018, lng: 78.8529, address: 'Shop No. 201, Second Floor, Hyderabad Road, Siddipet, Telangana - 502103' },
+            'Jangaon': { lat: 17.7226, lng: 79.1514, address: 'Shop No. 12, First Floor, Main Road, Jangaon, Telangana - 506167' },
+            'Kamareddy': { lat: 18.3220, lng: 78.3395, address: 'Shop No. 201, Second Floor, Near Bus Stand, Kamareddy - 503111' },
+            'Jagtial': { lat: 18.7939, lng: 78.9109, address: 'Shop No. 15, First Floor, Main Road, Jagtial, Telangana - 505327' },
+            'Karimnagar': { lat: 18.4386, lng: 79.1288, address: 'Shop No. 301, Third Floor, Rajeev Chowk, Karimnagar - 505001' }
+        },
+        'Karnataka': {
+            'Belgaum': { lat: 15.8497, lng: 74.4977, address: 'Shop No. 401, Fourth Floor, Hindwadi, Belgaum, Karnataka - 590011' },
+            'Davanagere': { lat: 14.4644, lng: 75.9218, address: 'Shop No. 201, Second Floor, P.J. Extension, Davanagere - 577002' },
+            'Haveri': { lat: 14.7951, lng: 75.4005, address: 'Shop No. 15, First Floor, Ranibennur Road, Haveri, Karnataka - 581110' },
+            'Chitradurga': { lat: 14.2226, lng: 76.4018, address: 'Shop No. 201, Second Floor, Near Court Circle, Chitradurga - 577501' },
+            'Hospet': { lat: 15.2695, lng: 76.3870, address: 'Shop No. 301, Third Floor, Station Road, Hospet, Karnataka - 583201' },
+            'Shimoga': { lat: 13.9299, lng: 75.5681, address: 'Shop No. 201, Second Floor, Kuvempu Road, Shimoga, Karnataka - 577201' },
+            'Gadag': { lat: 15.4394, lng: 75.6389, address: 'Shop No. 12, First Floor, Station Road, Gadag, Karnataka - 582101' }
+        }
+    };
+    
+    // Function to populate city dropdown based on selected state
+    function populateCityDropdown(stateName) {
+        const citySelector = document.getElementById('city-selector');
+        citySelector.innerHTML = '<option value="">Select City</option>';
+        
+        if (branchLocations[stateName]) {
+            const branches = Object.keys(branchLocations[stateName]);
+            branches.forEach(branch => {
+                const option = document.createElement('option');
+                option.value = branch;
+                option.textContent = branch;
+                citySelector.appendChild(option);
+            });
+        }
+    }
+    
+    // Function to display all branches in a state
+    function displayStateBranches(stateName) {
+        const infoDiv = document.getElementById('selected-branch-info');
+        
+        if (branchLocations[stateName]) {
+            const branches = Object.keys(branchLocations[stateName]);
+            
+            let branchesHTML = `
+            <div style="margin-bottom: 20px; text-align: center;">
+                <h4 style="color: #02478c; font-size: 20px; font-weight: 700; margin-bottom: 8px;">
+                    ${stateName}
+                </h4>
+                <div style="color: #666; font-size: 14px; background: #f0f8ff; padding: 8px 12px; border-radius: 20px; display: inline-block;">
+                    ${branches.length} Branches Available
+                </div>
+            </div>
+            <div style="max-height: 400px; overflow-y: auto; padding-right: 8px;">
+                <div style="display: grid; gap: 12px;">
+            `;
+            
+            branches.forEach((branch, index) => {
+                const branchAddress = branchLocations[stateName][branch].address;
+                branchesHTML += `
+                    <div class="branch-item" data-state="${stateName}" data-branch="${branch}" 
+                        style="padding: 16px; background: white; border: 2px solid #e8f4fd; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; position: relative;">
+                        <div style="display: flex; align-items: flex-start; gap: 12px;">
+                            <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #02478c, #024070); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 14px; flex-shrink: 0;">
+                                ${index + 1}
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; color: #02478c; font-size: 16px; margin-bottom: 6px;">${branch}</div>
+                                <div style="color: #666; font-size: 12px; line-height: 1.5; margin-bottom: 6px;">${branchAddress}</div>
+                                <div style="color: #4CAF50; font-size: 12px; font-weight: 600;">📍 Click to view on map</div>
+                            </div>
+                            <div style="color: #02478c; font-size: 18px; flex-shrink: 0;">→</div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            branchesHTML += `
+                </div>
+            </div>
+            <div style="margin-top: 15px; text-align: center; padding: 12px; background: #e8f5e9; border-radius: 6px;">
+                <span style="color: #4CAF50; font-size: 13px; font-weight: 600;">💡 Click any branch above to select it</span>
+            </div>
+            `;
+            infoDiv.innerHTML = branchesHTML;
+            
+            // Add click handlers to branch items
+            document.querySelectorAll('.branch-item').forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.background = '#f0f8ff';
+                    this.style.borderColor = '#02478c';
+                    this.style.transform = 'translateY(-2px)';
+                    this.style.boxShadow = '0 4px 12px rgba(2, 71, 140, 0.15)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.background = 'white';
+                    this.style.borderColor = '#e8f4fd';
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = 'none';
+                });
+                
+                item.addEventListener('click', function() {
+                    const state = this.dataset.state;
+                    const branch = this.dataset.branch;
+                    const address = branchLocations[state][branch].address;
+                    
+                    // Update form and display
+                    document.getElementById('state-selector').value = state;
+                    document.getElementById('city-selector').value = branch;
+                    displayBranchInfo(state, branch, address);
+                    
+                    // Zoom map to branch location
+                    const branchData = branchLocations[state][branch];
+                    map.setView([branchData.lat, branchData.lng], 12);
+                    
+                    // Find and open the marker popup
+                    allMarkers.forEach(({ marker, stateName, branchName }) => {
+                        if (stateName === state && branchName === branch) {
+                            marker.openPopup();
+                        }
+                    });
+                });
+            });
+        }
+    }
+
+    // Function to display selected branch info
+    function displayBranchInfo(stateName, branchName, branchAddress) {
+        const infoDiv = document.getElementById('selected-branch-info');
+        const branchData = branchLocations[stateName] && branchLocations[stateName][branchName];
+        
+        // Get Google Maps directions URL
+        const directionsUrl = branchData 
+            ? `https://www.google.com/maps/dir/?api=1&destination=${branchData.lat},${branchData.lng}`
+            : '#';
+        
+        infoDiv.innerHTML = `
+            <div style="margin-bottom: 15px;">
+                <h4 style="color: #02478c; font-size: 18px; font-weight: 600; margin-bottom: 10px;">
+                    📍 ${branchName}, ${stateName}
+                </h4>
+            </div>
+            
+            <!-- Address -->
+            <div style="padding: 15px; background: white; border-radius: 6px; border: 1px solid #e0e0e0; margin-bottom: 12px;">
+                <div style="color: #555; font-size: 14px; line-height: 1.6;">
+                    <strong style="color: #02478c;">Address:</strong><br>
+                    ${branchAddress}
+                </div>
+            </div>
+            
+            <!-- Phone Number -->
+            <div style="padding: 12px; background: white; border-radius: 6px; border: 1px solid #e0e0e0; margin-bottom: 12px;">
+                <strong style="color: #02478c; font-size: 14px;">📞 Phone:</strong><br>
+                <a href="tel:+9118002681111" style="color: #0066cc; font-size: 14px; text-decoration: none;">+91 1800 26 81111 (Toll Free)</a>
+            </div>
+            
+            <!-- Working Hours -->
+            <div style="padding: 12px; background: white; border-radius: 6px; border: 1px solid #e0e0e0; margin-bottom: 15px;">
+                <strong style="color: #02478c; font-size: 14px;">🕒 Working Hours:</strong><br>
+                <span style="color: #555; font-size: 13px;">Monday - Saturday: 10:00 AM - 6:00 PM</span><br>
+                <span style="color: #999; font-size: 12px; font-style: italic;">Sunday: Closed</span>
+            </div>
+            
+            <!-- Get Directions Button -->
+            <div style="text-align: center;">
+                <a href="${directionsUrl}" target="_blank" style="display: inline-block; padding: 12px 24px; background: #4CAF50; color: white; text-decoration: none; border-radius: 6px; font-size: 14px; font-weight: 600; transition: all 0.3s ease;" onmouseover="this.style.background='#45a049'" onmouseout="this.style.background='#4CAF50'">
+                    🗺️ Get Directions
+                </a>
+            </div>
+        `;
+    }
+    
+    // Initialize Leaflet Map
+    const indiaCenter = [22.5937, 78.9629];
+    const indiaBounds = [
+        [6.5, 68.1],
+        [35.5, 97.4]
+    ];
+    
+    const map = L.map('india-map-selector', {
+        center: indiaCenter,
+        zoom: 5,
+        scrollWheelZoom: true,
+        zoomControl: true,
+        maxBounds: indiaBounds,
+        maxBoundsViscosity: 1.0,
+        minZoom: 5,
+        maxZoom: 18
+    });
+    
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 18,
+        minZoom: 5,
+        bounds: indiaBounds
+    }).addTo(map);
+    
+    // Custom pin icon
+    const branchIcon = L.icon({
+        iconUrl: '/Untitled_design__1_-removebg-preview.png',
+        iconSize: [40, 40],
+        iconAnchor: [20, 40],
+        popupAnchor: [0, -40]
+    });
+    
+    // Store all markers
+    const allMarkers = [];
+    const markersByState = {};
+    
+    // Add markers for all branches
+    Object.keys(branchLocations).forEach(stateName => {
+        markersByState[stateName] = [];
+        
+        Object.keys(branchLocations[stateName]).forEach(branchName => {
+            const branch = branchLocations[stateName][branchName];
+            
+            const marker = L.marker([branch.lat, branch.lng], { icon: branchIcon })
+                .addTo(map);
+            
+            const popupContent = `
+                <div style="min-width: 200px; padding: 5px;">
+                    <h4 style="margin: 0 0 10px 0; color: #02478c; font-size: 16px; font-weight: 600;">
+                        ${branchName}
+                    </h4>
+                    <p style="margin: 0; color: #666; font-size: 13px; line-height: 1.5;">
+                        ${branch.address}
+                    </p>
+                </div>
+            `;
+            
+            marker.bindPopup(popupContent, {
+                maxWidth: 300,
+                className: 'branch-popup'
+            });
+            
+            marker.on('click', function() {
+                document.getElementById('state-selector').value = stateName;
+                populateCityDropdown(stateName);
+                document.getElementById('city-selector').value = branchName;
+                displayBranchInfo(stateName, branchName, branch.address);
+                map.setView([branch.lat, branch.lng], 12);
+            });
+            
+            allMarkers.push({ marker, stateName, branchName });
+            markersByState[stateName].push(marker);
+        });
+    });
+    
+    // State selector change handler
+    document.getElementById('state-selector').addEventListener('change', function() {
+        const selectedState = this.value;
+        if (selectedState) {
+            populateCityDropdown(selectedState);
+            displayStateBranches(selectedState);
+            
+            if (markersByState[selectedState] && markersByState[selectedState].length > 0) {
+                const group = L.featureGroup(markersByState[selectedState]);
+                map.fitBounds(group.getBounds().pad(0.1));
+            }
+        } else {
+            map.setView(indiaCenter, 5);
+            document.getElementById('selected-branch-info').innerHTML = 
+                '<div style="color: #666; font-size: 14px;">Select a state from the map or dropdown to view branches</div>';
+        }
+    });
+    
+    // City selector change handler
+    document.getElementById('city-selector').addEventListener('change', function() {
+        const selectedCity = this.value;
+        const selectedState = document.getElementById('state-selector').value;
+        
+        if (selectedCity && selectedState && branchLocations[selectedState] && branchLocations[selectedState][selectedCity]) {
+            const branch = branchLocations[selectedState][selectedCity];
+            displayBranchInfo(selectedState, selectedCity, branch.address);
+            map.setView([branch.lat, branch.lng], 12);
+            
+            allMarkers.forEach(({ marker, stateName, branchName }) => {
+                if (stateName === selectedState && branchName === selectedCity) {
+                    marker.openPopup();
+                }
+            });
+        }
+    });
+    
+    // Search functionality
+    document.getElementById('branch-search').addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase().trim();
+        
+        if (searchTerm === '') {
+            document.getElementById('state-selector').value = '';
+            document.getElementById('city-selector').innerHTML = '<option value="">Select City</option>';
+            document.getElementById('selected-branch-info').innerHTML = 
+                '<div style="color: #666; font-size: 14px;">Select a state from the map or dropdown to view branches</div>';
+            map.setView(indiaCenter, 5);
+            return;
+        }
+        
+        const matchedBranches = [];
+        Object.keys(branchLocations).forEach(stateName => {
+            Object.keys(branchLocations[stateName]).forEach(branchName => {
+                const branch = branchLocations[stateName][branchName];
+                if (branchName.toLowerCase().includes(searchTerm) || 
+                    stateName.toLowerCase().includes(searchTerm) ||
+                    branch.address.toLowerCase().includes(searchTerm)) {
+                    matchedBranches.push({ stateName, branchName, branch });
+                }
+            });
+        });
+        
+        if (matchedBranches.length === 0) {
+            document.getElementById('selected-branch-info').innerHTML = 
+                '<div style="text-align: center; padding: 20px; color: #999;">' +
+                '<div style="font-size: 48px; margin-bottom: 10px;">🔍</div>' +
+                '<div style="font-size: 16px; font-weight: 600; margin-bottom: 5px;">No branches found</div>' +
+                '<div style="font-size: 13px;">Try searching with different keywords</div>' +
+                '</div>';
+            return;
+        }
+        
+        let resultsHTML = `
+            <div style="margin-bottom: 20px; text-align: center;">
+                <h4 style="color: #02478c; font-size: 18px; font-weight: 700; margin-bottom: 8px;">
+                    Search Results
+                </h4>
+                <div style="color: #666; font-size: 14px; background: #f0f8ff; padding: 8px 12px; border-radius: 20px; display: inline-block;">
+                    ${matchedBranches.length} ${matchedBranches.length === 1 ? 'Branch' : 'Branches'} Found
+                </div>
+            </div>
+            <div style="max-height: 400px; overflow-y: auto; padding-right: 8px;">
+                <div style="display: grid; gap: 12px;">
+        `;
+        
+        matchedBranches.forEach((match, index) => {
+            const { stateName, branchName, branch } = match;
+            resultsHTML += `
+                <div class="branch-item" data-state="${stateName}" data-branch="${branchName}" 
+                    style="padding: 16px; background: white; border: 2px solid #e8f4fd; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; position: relative;">
+                    <div style="display: flex; align-items: flex-start; gap: 12px;">
+                        <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #02478c, #024070); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 14px; flex-shrink: 0;">
+                            ${index + 1}
+                        </div>
+                        <div style="flex: 1;">
+                            <div style="font-weight: 600; color: #02478c; font-size: 16px; margin-bottom: 4px;">${branchName}, ${stateName}</div>
+                            <div style="color: #666; font-size: 12px; line-height: 1.5; margin-bottom: 6px;">${branch.address}</div>
+                            <div style="color: #4CAF50; font-size: 12px; font-weight: 600;">📍 Click to view on map</div>
+                        </div>
+                        <div style="color: #02478c; font-size: 18px; flex-shrink: 0;">→</div>
+                    </div>
+                </div>
+            `;
+        });
+        
+        resultsHTML += `
+                </div>
+            </div>
+        `;
+        
+        document.getElementById('selected-branch-info').innerHTML = resultsHTML;
+        
+        // Add click handlers to search results
+        document.querySelectorAll('.branch-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.background = '#f0f8ff';
+                this.style.borderColor = '#02478c';
+                this.style.transform = 'translateY(-2px)';
+                this.style.boxShadow = '0 4px 12px rgba(2, 71, 140, 0.15)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.background = 'white';
+                this.style.borderColor = '#e8f4fd';
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = 'none';
+            });
+            
+            item.addEventListener('click', function() {
+                const state = this.dataset.state;
+                const branch = this.dataset.branch;
+                const address = branchLocations[state][branch].address;
+                
+                document.getElementById('state-selector').value = state;
+                populateCityDropdown(state);
+                document.getElementById('city-selector').value = branch;
+                displayBranchInfo(state, branch, address);
+                
+                const branchData = branchLocations[state][branch];
+                map.setView([branchData.lat, branchData.lng], 12);
+                
+                allMarkers.forEach(({ marker, stateName, branchName }) => {
+                    if (stateName === state && branchName === branch) {
+                        marker.openPopup();
+                    }
+                });
+            });
+        });
+        
+        if (matchedBranches.length === 1) {
+            const { branch } = matchedBranches[0];
+            map.setView([branch.lat, branch.lng], 12);
+        } else {
+            const bounds = L.latLngBounds(matchedBranches.map(m => [m.branch.lat, m.branch.lng]));
+            map.fitBounds(bounds.pad(0.1));
+        }
+    });
+    
+    // Reset button functionality
+    document.getElementById('reset-selection').addEventListener('click', function() {
+        document.getElementById('state-selector').value = '';
+        document.getElementById('city-selector').innerHTML = '<option value="">Select City</option>';
+        document.getElementById('branch-search').value = '';
+        document.getElementById('selected-branch-info').innerHTML = 
+            '<div style="color: #666; font-size: 14px;">Select a state from the map or dropdown to view branches</div>';
+        map.setView(indiaCenter, 5);
+        map.closePopup();
+    });
+});
+</script>
+
+<script>
+// Enhanced dropdown with smooth animations and proper hotspot detection
+$(document).ready(function() {
+    // Disable Bootstrap's default dropdown behavior
+    $('.navbar .dropdown-toggle').attr('data-bs-toggle', '').attr('data-toggle', '');
+    
+    var closeTimers = {};
+    
+    // Handle hover events with extended hotspot
+    $('.navbar .dropdown').each(function(index) {
+        var $dropdown = $(this);
+        var dropdownId = 'dropdown_' + index;
+        
+        // Hover on dropdown container (including toggle and menu)
+        $dropdown.on('mouseenter', function() {
+            // Clear any pending close timer for this dropdown
+            if (closeTimers[dropdownId]) {
+                clearTimeout(closeTimers[dropdownId]);
+                delete closeTimers[dropdownId];
+            }
+            
+            // Close all other dropdowns
+            $('.navbar .dropdown').not(this).each(function() {
+                $(this).find('.dropdown-menu').removeClass('show');
+                $(this).find('.dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
+            });
+            
+            // Open this dropdown
+            var $menu = $dropdown.find('.dropdown-menu');
+            var $toggle = $dropdown.find('.dropdown-toggle');
+            
+            $menu.addClass('show');
+            $toggle.addClass('show').attr('aria-expanded', 'true');
+        });
+        
+        $dropdown.on('mouseleave', function() {
+            // Set a timer to close this dropdown
+            closeTimers[dropdownId] = setTimeout(function() {
+                $dropdown.find('.dropdown-menu').removeClass('show');
+                $dropdown.find('.dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
+                delete closeTimers[dropdownId];
+            }, 400); // Increased delay for better UX
+        });
+        
+        // Also handle mouseenter on menu items to prevent closing
+        $dropdown.find('.dropdown-menu').on('mouseenter', function() {
+            if (closeTimers[dropdownId]) {
+                clearTimeout(closeTimers[dropdownId]);
+                delete closeTimers[dropdownId];
+            }
+        });
+    });
+    
+    // Close dropdowns when clicking outside
+    $(document).on('click', function(e) {
+        if (!$(e.target).closest('.navbar .dropdown').length) {
+            $('.navbar .dropdown-menu').removeClass('show');
+            $('.navbar .dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
+            // Clear all timers
+            Object.keys(closeTimers).forEach(function(key) {
+                clearTimeout(closeTimers[key]);
+            });
+            closeTimers = {};
+        }
+    });
+    
+    // Prevent dropdown from closing when clicking inside
+    $('.navbar .dropdown-menu').on('click', function(e) {
+        e.stopPropagation();
+    });
+});
+</script>
+</body>
+</html>
+
