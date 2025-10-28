@@ -436,100 +436,100 @@ AOS.init();
 
 // Branch Locator with Leaflet.js
 document.addEventListener('DOMContentLoaded', function() {
-    // Define branch coordinates
+    // Define branch coordinates with phone numbers
     const branchLocations = {
         'Rajasthan': {
-            'Ajmer': { lat: 26.4499, lng: 74.6399, address: 'Shop No. 201-202, Second Floor, Rajdarshan Complex, Near Old Power House, Jaipur Road, Ajmer, Rajasthan - 305001' },
-            'Chittorgarh': { lat: 24.8887, lng: 74.6269, address: 'First Floor, Shop No. 5, Opposite Collector Office, Station Road, Chittorgarh, Rajasthan - 312001' },
-            'Chomu': { lat: 27.1598, lng: 75.7208, address: 'Shop No. 15-16, First Floor, Shree Ram Complex, Jaipur Road, Chomu, Rajasthan - 303702' },
-            'Fatehnagar': { lat: 24.8995, lng: 73.7381, address: 'Khasra No. 287, Village Fatehnagar, Udaipur, Rajasthan - 313205' },
-            'Gulabpura': { lat: 25.8738, lng: 74.6625, address: 'Shop No. 1, Pehli Manzil, Krishna Complex, Bhilwara Road, Gulabpura, Rajasthan - 311021' },
-            'Jhunjhunu': { lat: 28.1304, lng: 75.3976, address: 'Shop No. 201-202, Second Floor, Opposite SBI Bank, Main Market, Jhunjhunu, Rajasthan - 333001' },
-            'Beawar': { lat: 26.1014, lng: 74.3204, address: 'Shop No. 302, Third Floor, Above Bank of Baroda, Ajmer Road, Beawar, Rajasthan - 305901' },
-            'Kotputli': { lat: 27.7008, lng: 76.1982, address: 'Shop No. 201, Second Floor, Near Bus Stand, Jaipur Road, Kotputli, Rajasthan - 303108' },
-            'Rajsamand': { lat: 25.0717, lng: 73.8800, address: 'Shop No. 7-8, First Floor, Near Circuit House, NH 8, Rajsamand, Rajasthan - 313326' },
-            'Kuchaman': { lat: 27.1472, lng: 74.8587, address: 'Shop No. 12, Second Floor, Station Road, Kuchaman City, Rajasthan - 341508' },
-            'Sojat': { lat: 25.9245, lng: 73.6684, address: 'Shop No. 15, First Floor, Near ICICI Bank, Pali Road, Sojat City, Rajasthan - 306104' },
-            'Neem Ka Thana': { lat: 27.7417, lng: 75.7850, address: 'Shop No. 201, Second Floor, Sikar Road, Neem Ka Thana, Rajasthan - 332713' },
-            'Sujangarh': { lat: 27.7000, lng: 74.4667, address: 'Shop No. 19, Second Floor, Near SBI, Station Road, Sujangarh, Rajasthan - 331507' },
-            'Jaipur': { lat: 26.9124, lng: 75.7873, address: 'Shop No. 301-302, Third Floor, Kalyan Complex, MI Road, Jaipur, Rajasthan - 302001' },
-            'Sikar': { lat: 27.6119, lng: 75.1399, address: 'Shop No. 201, Second Floor, Near Government Hospital, Jaipur Road, Sikar, Rajasthan - 332001' },
-            'Kekri': { lat: 25.9767, lng: 75.1460, address: 'Shop No. 5, First Floor, Near Bus Stand, Ajmer Road, Kekri, Rajasthan - 305404' },
-            'Nimbahera': { lat: 24.6211, lng: 74.6813, address: 'Shop No. 8, First Floor, Near ICICI Bank, Station Road, Nimbahera, Rajasthan - 312601' },
-            'Udaipur': { lat: 24.5854, lng: 73.7125, address: 'Shop No. 401-402, Fourth Floor, Near Clock Tower, City Centre, Udaipur, Rajasthan - 313001' },
-            'Sumerpur': { lat: 25.1442, lng: 73.0928, address: 'Shop No. 10, First Floor, Pali Road, Sumerpur, Rajasthan - 306902' },
-            'Ratangarh': { lat: 28.0811, lng: 74.6158, address: 'Shop No. 15, Second Floor, Main Market, Ratangarh, Rajasthan - 331022' },
-            'Nokha': { lat: 27.5648, lng: 73.4723, address: 'Shop No. 7, First Floor, Bikaner Road, Nokha, Rajasthan - 334803' },
-            'Phalodi': { lat: 27.1312, lng: 72.3677, address: 'Shop No. 12, First Floor, Station Road, Phalodi, Rajasthan - 342301' }
+            'Ajmer': { lat: 26.4499, lng: 74.6399, address: 'Shop No. 201-202, Second Floor, Rajdarshan Complex, Near Old Power House, Jaipur Road, Ajmer, Rajasthan - 305001', phone: '9829109708' },
+            'Chittorgarh': { lat: 24.8887, lng: 74.6269, address: 'First Floor, Shop No. 5, Opposite Collector Office, Station Road, Chittorgarh, Rajasthan - 312001', phone: '7014588553' },
+            'Chomu': { lat: 27.1598, lng: 75.7208, address: 'Shop No. 15-16, First Floor, Shree Ram Complex, Jaipur Road, Chomu, Rajasthan - 303702', phone: '9929797312' },
+            'Fatehnagar': { lat: 24.8995, lng: 73.7381, address: 'Khasra No. 287, Village Fatehnagar, Udaipur, Rajasthan - 313205', phone: '8390178534' },
+            'Gulabpura': { lat: 25.8738, lng: 74.6625, address: 'Shop No. 1, Pehli Manzil, Krishna Complex, Bhilwara Road, Gulabpura, Rajasthan - 311021', phone: '8979018904' },
+            'Jhunjhunu': { lat: 28.1304, lng: 75.3976, address: 'Shop No. 201-202, Second Floor, Opposite SBI Bank, Main Market, Jhunjhunu, Rajasthan - 333001', phone: '7023069501' },
+            'Beawar': { lat: 26.1014, lng: 74.3204, address: 'Shop No. 302, Third Floor, Above Bank of Baroda, Ajmer Road, Beawar, Rajasthan - 305901', phone: '9009450025' },
+            'Kotputli': { lat: 27.7008, lng: 76.1982, address: 'Shop No. 201, Second Floor, Near Bus Stand, Jaipur Road, Kotputli, Rajasthan - 303108', phone: '9887087836' },
+            'Rajsamand': { lat: 25.0717, lng: 73.8800, address: 'Shop No. 7-8, First Floor, Near Circuit House, NH 8, Rajsamand, Rajasthan - 313326', phone: '8058569176' },
+            'Kuchaman': { lat: 27.1472, lng: 74.8587, address: 'Shop No. 12, Second Floor, Station Road, Kuchaman City, Rajasthan - 341508', phone: '9672070755' },
+            'Sojat': { lat: 25.9245, lng: 73.6684, address: 'Shop No. 15, First Floor, Near ICICI Bank, Pali Road, Sojat City, Rajasthan - 306104', phone: '9783694151' },
+            'Neem Ka Thana': { lat: 27.7417, lng: 75.7850, address: 'Shop No. 201, Second Floor, Sikar Road, Neem Ka Thana, Rajasthan - 332713', phone: '7020983214' },
+            'Sujangarh': { lat: 27.7000, lng: 74.4667, address: 'Shop No. 19, Second Floor, Near SBI, Station Road, Sujangarh, Rajasthan - 331507', phone: '9785070906' },
+            'Jaipur': { lat: 26.9124, lng: 75.7873, address: 'Shop No. 301-302, Third Floor, Kalyan Complex, MI Road, Jaipur, Rajasthan - 302001', phone: '9828988971' },
+            'Sikar': { lat: 27.6119, lng: 75.1399, address: 'Shop No. 201, Second Floor, Near Government Hospital, Jaipur Road, Sikar, Rajasthan - 332001', phone: '6376764176' },
+            'Kekri': { lat: 25.9767, lng: 75.1460, address: 'Shop No. 5, First Floor, Near Bus Stand, Ajmer Road, Kekri, Rajasthan - 305404', phone: '9667455886' },
+            'Nimbahera': { lat: 24.6211, lng: 74.6813, address: 'Shop No. 8, First Floor, Near ICICI Bank, Station Road, Nimbahera, Rajasthan - 312601', phone: '9667318435' },
+            'Udaipur': { lat: 24.5854, lng: 73.7125, address: 'Shop No. 401-402, Fourth Floor, Near Clock Tower, City Centre, Udaipur, Rajasthan - 313001', phone: '9667455886' },
+            'Sumerpur': { lat: 25.1442, lng: 73.0928, address: 'Shop No. 10, First Floor, Pali Road, Sumerpur, Rajasthan - 306902', phone: '9667318435' },
+            'Ratangarh': { lat: 28.0811, lng: 74.6158, address: 'Shop No. 15, Second Floor, Main Market, Ratangarh, Rajasthan - 331022', phone: '7357792517' },
+            'Nokha': { lat: 27.5648, lng: 73.4723, address: 'Shop No. 7, First Floor, Bikaner Road, Nokha, Rajasthan - 334803', phone: '7357792517' },
+            'Phalodi': { lat: 27.1312, lng: 72.3677, address: 'Shop No. 12, First Floor, Station Road, Phalodi, Rajasthan - 342301', phone: '7357792517' }
         },
         'Maharashtra': {
-            'Akola': { lat: 20.7002, lng: 77.0082, address: 'Shop No. 301, Third Floor, Rajkamal Square, Civil Lines, Akola, Maharashtra - 444001' },
-            'Baramati': { lat: 18.1522, lng: 74.5775, address: 'Shop No. 15-16, First Floor, Near ST Stand, Pune Road, Baramati, Maharashtra - 413102' },
-            'Dhule': { lat: 20.9042, lng: 74.7749, address: 'Shop No. 201, Second Floor, Kukreja Plaza, Agra Road, Dhule, Maharashtra - 424001' },
-            'Buldhana': { lat: 20.5307, lng: 76.1809, address: 'Shop No. 12, First Floor, Main Road, Near Bank of Maharashtra, Buldhana - 443001' },
-            'Karad': { lat: 17.2889, lng: 74.1820, address: 'Shop No. 8, Second Floor, Pune Bangalore Highway, Karad, Maharashtra - 415110' },
-            'Nagpur': { lat: 21.1458, lng: 79.0882, address: 'Shop No. 501, Fifth Floor, Kailash Towers, South Ambazari Road, Nagpur - 440010' },
-            'Jalgaon': { lat: 21.0077, lng: 75.5626, address: 'Shop No. 201-202, Second Floor, M.G. Road, Jalgaon, Maharashtra - 425001' },
-            'Kalyan': { lat: 19.2403, lng: 73.1305, address: 'Shop No. 301, Third Floor, Bhimnagar, Near Railway Station, Kalyan West - 421301' },
-            'Kolhapur': { lat: 16.7050, lng: 74.2433, address: 'Shop No. 15, Second Floor, Station Road, Near ST Stand, Kolhapur - 416012' },
-            'Nashik': { lat: 19.9975, lng: 73.7898, address: 'Shop No. 401, Fourth Floor, Suyojit Sankul, Sharanpur Road, Nashik - 422002' },
-            'Pune': { lat: 18.5204, lng: 73.8567, address: 'Shop No. 501, Fifth Floor, Dhananjay Tower, Shivaji Nagar, Pune - 411005' },
-            'Sangli': { lat: 16.8524, lng: 74.5815, address: 'Shop No. 201, Second Floor, Miraj Road, Near Market Yard, Sangli - 416416' },
-            'Satara': { lat: 17.6869, lng: 73.9913, address: 'Shop No. 301, Third Floor, Powai Naka, Satara, Maharashtra - 415002' },
-            'Yavatmal': { lat: 20.3897, lng: 78.1308, address: 'Shop No. 12, First Floor, Main Road, Yavatmal, Maharashtra - 445001' },
-            'Sangamner': { lat: 19.5667, lng: 74.2167, address: 'Shop No. 8, First Floor, Nagar Manmad Road, Sangamner, Maharashtra - 422605' },
-            'HO - Maharashtra ISD': { lat: 19.0760, lng: 72.8777, address: 'Head Office, 4th Floor, Trade Centre, Bandra Kurla Complex, Mumbai - 400051' },
-            'OPS HUB - Maharashtra ISD': { lat: 18.5912, lng: 73.7389, address: 'Operations Hub, 3rd Floor, IT Park, Hinjewadi, Pune - 411057' }
+            'Akola': { lat: 20.7002, lng: 77.0082, address: 'Shop No. 301, Third Floor, Rajkamal Square, Civil Lines, Akola, Maharashtra - 444001', phone: '9822201790' },
+            'Baramati': { lat: 18.1522, lng: 74.5775, address: 'Shop No. 15-16, First Floor, Near ST Stand, Pune Road, Baramati, Maharashtra - 413102', phone: '9860283074' },
+            'Dhule': { lat: 20.9042, lng: 74.7749, address: 'Shop No. 201, Second Floor, Kukreja Plaza, Agra Road, Dhule, Maharashtra - 424001', phone: '9370232430' },
+            'Buldhana': { lat: 20.5307, lng: 76.1809, address: 'Shop No. 12, First Floor, Main Road, Near Bank of Maharashtra, Buldhana - 443001', phone: '8378810908' },
+            'Karad': { lat: 17.2889, lng: 74.1820, address: 'Shop No. 8, Second Floor, Pune Bangalore Highway, Karad, Maharashtra - 415110', phone: '7020818296' },
+            'Nagpur': { lat: 21.1458, lng: 79.0882, address: 'Shop No. 501, Fifth Floor, Kailash Towers, South Ambazari Road, Nagpur - 440010', phone: '8826853561' },
+            'Jalgaon': { lat: 21.0077, lng: 75.5626, address: 'Shop No. 201-202, Second Floor, M.G. Road, Jalgaon, Maharashtra - 425001', phone: '9595876533' },
+            'Kalyan': { lat: 19.2403, lng: 73.1305, address: 'Shop No. 301, Third Floor, Bhimnagar, Near Railway Station, Kalyan West - 421301', phone: '9769390194' },
+            'Kolhapur': { lat: 16.7050, lng: 74.2433, address: 'Shop No. 15, Second Floor, Station Road, Near ST Stand, Kolhapur - 416012', phone: '9783638351' },
+            'Nashik': { lat: 19.9975, lng: 73.7898, address: 'Shop No. 401, Fourth Floor, Suyojit Sankul, Sharanpur Road, Nashik - 422002', phone: '9008690689' },
+            'Pune': { lat: 18.5204, lng: 73.8567, address: 'Shop No. 501, Fifth Floor, Dhananjay Tower, Shivaji Nagar, Pune - 411005', phone: '9769390194' },
+            'Sangli': { lat: 16.8524, lng: 74.5815, address: 'Shop No. 201, Second Floor, Miraj Road, Near Market Yard, Sangli - 416416', phone: '9828988971' },
+            'Satara': { lat: 17.6869, lng: 73.9913, address: 'Shop No. 301, Third Floor, Powai Naka, Satara, Maharashtra - 415002', phone: '8717894277' },
+            'Yavatmal': { lat: 20.3897, lng: 78.1308, address: 'Shop No. 12, First Floor, Main Road, Yavatmal, Maharashtra - 445001', phone: '7262444690' },
+            'Sangamner': { lat: 19.5667, lng: 74.2167, address: 'Shop No. 8, First Floor, Nagar Manmad Road, Sangamner, Maharashtra - 422605', phone: '9785070906' },
+            'HO - Maharashtra ISD': { lat: 19.0760, lng: 72.8777, address: 'Head Office, 4th Floor, Trade Centre, Bandra Kurla Complex, Mumbai - 400051', phone: '8451812274' },
+            'OPS HUB - Maharashtra ISD': { lat: 18.5912, lng: 73.7389, address: 'Operations Hub, 3rd Floor, IT Park, Hinjewadi, Pune - 411057', phone: '8451812274' }
         },
         'Madhya Pradesh': {
-            'Dewas': { lat: 22.9658, lng: 76.0548, address: 'Shop No. 201, Second Floor, Near Old Palasia, Dewas, Madhya Pradesh - 455001' },
-            'Dhamnod': { lat: 22.2094, lng: 75.4710, address: 'Shop No. 5, First Floor, Ratlam Road, Dhamnod, Madhya Pradesh - 457335' },
-            'Indore': { lat: 22.7196, lng: 75.8577, address: 'Shop No. 501-502, Fifth Floor, Amar Plaza, M.G. Road, Indore - 452001' },
-            'Khargone': { lat: 21.8236, lng: 75.6131, address: 'Shop No. 15, Second Floor, Main Road, Khargone, Madhya Pradesh - 451001' },
-            'Jaora': { lat: 23.6382, lng: 75.1274, address: 'Shop No. 8, First Floor, Ratlam Road, Jaora, Madhya Pradesh - 457226' },
-            'Sehore': { lat: 23.2000, lng: 77.0833, address: 'Shop No. 201, Second Floor, Ashta Road, Sehore, Madhya Pradesh - 466001' },
-            'Ujjain': { lat: 23.1765, lng: 75.7885, address: 'Shop No. 301, Third Floor, Freeganj, Ujjain, Madhya Pradesh - 456010' },
-            'Hoshangabad': { lat: 22.7500, lng: 77.7333, address: 'Shop No. 12, First Floor, Harda Road, Hoshangabad, Madhya Pradesh - 461001' },
-            'Mandsaur': { lat: 24.0733, lng: 75.0666, address: 'Shop No. 201, Second Floor, Gandhi Chowk, Mandsaur, Madhya Pradesh - 458001' },
-            'Shamgarh': { lat: 24.1895, lng: 75.6397, address: 'Shop No. 7, First Floor, Main Market, Shamgarh, Madhya Pradesh - 458883' },
-            'Manasa': { lat: 24.4770, lng: 75.1427, address: 'Shop No. 5, First Floor, Near Bus Stand, Manasa, Madhya Pradesh - 455001' },
-            'Shujalpur': { lat: 23.4080, lng: 76.7105, address: 'Shop No. 10, Second Floor, Shajapur Road, Shujalpur, Madhya Pradesh - 465333' },
-            'Khandwa': { lat: 21.8307, lng: 76.3504, address: 'Shop No. 301, Third Floor, Near Railway Station, Khandwa, Madhya Pradesh - 450001' },
-            'Khategaon': { lat: 22.5978, lng: 76.9167, address: 'Shop No. 8, First Floor, Dewas Road, Khategaon, Madhya Pradesh - 455336' }
+            'Dewas': { lat: 22.9658, lng: 76.0548, address: 'Shop No. 201, Second Floor, Near Old Palasia, Dewas, Madhya Pradesh - 455001', phone: '8358815615' },
+            'Dhamnod': { lat: 22.2094, lng: 75.4710, address: 'Shop No. 5, First Floor, Ratlam Road, Dhamnod, Madhya Pradesh - 457335', phone: '9098581402' },
+            'Indore': { lat: 22.7196, lng: 75.8577, address: 'Shop No. 501-502, Fifth Floor, Amar Plaza, M.G. Road, Indore - 452001', phone: '8319027085' },
+            'Khargone': { lat: 21.8236, lng: 75.6131, address: 'Shop No. 15, Second Floor, Main Road, Khargone, Madhya Pradesh - 451001', phone: '7415667968' },
+            'Jaora': { lat: 23.6382, lng: 75.1274, address: 'Shop No. 8, First Floor, Ratlam Road, Jaora, Madhya Pradesh - 457226', phone: '7757099381' },
+            'Sehore': { lat: 23.2000, lng: 77.0833, address: 'Shop No. 201, Second Floor, Ashta Road, Sehore, Madhya Pradesh - 466001', phone: '8717894277' },
+            'Ujjain': { lat: 23.1765, lng: 75.7885, address: 'Shop No. 301, Third Floor, Freeganj, Ujjain, Madhya Pradesh - 456010', phone: '9694964269' },
+            'Hoshangabad': { lat: 22.7500, lng: 77.7333, address: 'Shop No. 12, First Floor, Harda Road, Hoshangabad, Madhya Pradesh - 461001', phone: '9869132849' },
+            'Mandsaur': { lat: 24.0733, lng: 75.0666, address: 'Shop No. 201, Second Floor, Gandhi Chowk, Mandsaur, Madhya Pradesh - 458001', phone: '9869132849' },
+            'Shamgarh': { lat: 24.1895, lng: 75.6397, address: 'Shop No. 7, First Floor, Main Market, Shamgarh, Madhya Pradesh - 458883', phone: '9869132849' },
+            'Manasa': { lat: 24.4770, lng: 75.1427, address: 'Shop No. 5, First Floor, Near Bus Stand, Manasa, Madhya Pradesh - 455001', phone: '9869132849' },
+            'Shujalpur': { lat: 23.4080, lng: 76.7105, address: 'Shop No. 10, Second Floor, Shajapur Road, Shujalpur, Madhya Pradesh - 465333', phone: '9869132849' },
+            'Khandwa': { lat: 21.8307, lng: 76.3504, address: 'Shop No. 301, Third Floor, Near Railway Station, Khandwa, Madhya Pradesh - 450001', phone: '9867443660' },
+            'Khategaon': { lat: 22.5978, lng: 76.9167, address: 'Shop No. 8, First Floor, Dewas Road, Khategaon, Madhya Pradesh - 455336', phone: '9667455886' }
         },
         'Tamil Nadu': {
-            'Nagarcoil': { lat: 8.1790, lng: 77.4068, address: 'Shop No. 301, Third Floor, Vetri Towers, NSK Road, Nagercoil - 629001' },
-            'Madurai': { lat: 9.9252, lng: 78.1198, address: 'Shop No. 401, Fourth Floor, TPK Road, Near Railway Station, Madurai - 625003' },
-            'Theni': { lat: 10.0104, lng: 77.4977, address: 'Shop No. 201, Second Floor, Periyakulam Road, Theni, Tamil Nadu - 625531' },
-            'Tirunelveli': { lat: 8.7139, lng: 77.7567, address: 'Shop No. 301, Third Floor, Trivandrum Road, Tirunelveli - 627001' },
-            'Sivakasi': { lat: 9.4532, lng: 77.8009, address: 'Shop No. 15, Second Floor, Near New Bus Stand, Sivakasi - 626123' },
-            'Thoothukudi': { lat: 8.7642, lng: 78.1348, address: 'Shop No. 201, Second Floor, Palayamkottai Road, Thoothukudi - 628002' },
-            'Karaikudi': { lat: 10.0660, lng: 78.7685, address: 'Shop No. 12, First Floor, Devakottai Road, Karaikudi, Tamil Nadu - 630001' },
-            'Namakkal': { lat: 11.2189, lng: 78.1677, address: 'Shop No. 201, Second Floor, Salem Main Road, Namakkal, Tamil Nadu - 637001' },
-            'Salem': { lat: 11.6643, lng: 78.1460, address: 'Shop No. 401, Fourth Floor, Cherry Road, Salem, Tamil Nadu - 636007' },
-            'Krishnagiri': { lat: 12.5266, lng: 78.2150, address: 'Shop No. 301, Third Floor, Bangalore Road, Krishnagiri - 635001' },
-            'Erode': { lat: 11.3410, lng: 77.7172, address: 'Shop No. 201, Second Floor, Perundurai Road, Erode, Tamil Nadu - 638001' },
-            'Viluppuram': { lat: 11.9401, lng: 79.4861, address: 'Shop No. 15, First Floor, Cuddalore Main Road, Viluppuram - 605602' },
-            'Kallakurichi': { lat: 11.7380, lng: 78.9597, address: 'Shop No. 8, First Floor, Ulundurpet Road, Kallakurichi - 606213' },
-            'Dharmapuri': { lat: 12.1211, lng: 78.1582, address: 'Shop No. 201, Second Floor, Salem Main Road, Dharmapuri - 636701' }
+            'Nagarcoil': { lat: 8.1790, lng: 77.4068, address: 'Shop No. 301, Third Floor, Vetri Towers, NSK Road, Nagercoil - 629001', phone: '9500637620' },
+            'Madurai': { lat: 9.9252, lng: 78.1198, address: 'Shop No. 401, Fourth Floor, TPK Road, Near Railway Station, Madurai - 625003', phone: '9944270002' },
+            'Theni': { lat: 10.0104, lng: 77.4977, address: 'Shop No. 201, Second Floor, Periyakulam Road, Theni, Tamil Nadu - 625531', phone: '9500637620' },
+            'Tirunelveli': { lat: 8.7139, lng: 77.7567, address: 'Shop No. 301, Third Floor, Trivandrum Road, Tirunelveli - 627001', phone: '9500637620' },
+            'Sivakasi': { lat: 9.4532, lng: 77.8009, address: 'Shop No. 15, Second Floor, Near New Bus Stand, Sivakasi - 626123', phone: '7708266717' },
+            'Thoothukudi': { lat: 8.7642, lng: 78.1348, address: 'Shop No. 201, Second Floor, Palayamkottai Road, Thoothukudi - 628002', phone: '8940232527' },
+            'Karaikudi': { lat: 10.0660, lng: 78.7685, address: 'Shop No. 12, First Floor, Devakottai Road, Karaikudi, Tamil Nadu - 630001', phone: '7708266717' },
+            'Namakkal': { lat: 11.2189, lng: 78.1677, address: 'Shop No. 201, Second Floor, Salem Main Road, Namakkal, Tamil Nadu - 637001', phone: '9994898468' },
+            'Salem': { lat: 11.6643, lng: 78.1460, address: 'Shop No. 401, Fourth Floor, Cherry Road, Salem, Tamil Nadu - 636007', phone: '9412012030' },
+            'Krishnagiri': { lat: 12.5266, lng: 78.2150, address: 'Shop No. 301, Third Floor, Bangalore Road, Krishnagiri - 635001', phone: '9412012030' },
+            'Erode': { lat: 11.3410, lng: 77.7172, address: 'Shop No. 201, Second Floor, Perundurai Road, Erode, Tamil Nadu - 638001', phone: '9412012030' },
+            'Viluppuram': { lat: 11.9401, lng: 79.4861, address: 'Shop No. 15, First Floor, Cuddalore Main Road, Viluppuram - 605602', phone: '9698129823' },
+            'Kallakurichi': { lat: 11.7380, lng: 78.9597, address: 'Shop No. 8, First Floor, Ulundurpet Road, Kallakurichi - 606213', phone: '7660091172' },
+            'Dharmapuri': { lat: 12.1211, lng: 78.1582, address: 'Shop No. 201, Second Floor, Salem Main Road, Dharmapuri - 636701', phone: '9642270512' }
         },
         'Telangana': {
-            'Medchal': { lat: 17.6240, lng: 78.4813, address: 'Shop No. 301, Third Floor, Near Bus Depot, Kompally, Medchal - 501401' },
-            'Ibrahimpatnam': { lat: 17.4227, lng: 78.7019, address: 'Shop No. 15, First Floor, Main Road, Ibrahimpatnam, Ranga Reddy - 501506' },
-            'Siddipet': { lat: 18.1018, lng: 78.8529, address: 'Shop No. 201, Second Floor, Hyderabad Road, Siddipet, Telangana - 502103' },
-            'Jangaon': { lat: 17.7226, lng: 79.1514, address: 'Shop No. 12, First Floor, Main Road, Jangaon, Telangana - 506167' },
-            'Kamareddy': { lat: 18.3220, lng: 78.3395, address: 'Shop No. 201, Second Floor, Near Bus Stand, Kamareddy - 503111' },
-            'Jagtial': { lat: 18.7939, lng: 78.9109, address: 'Shop No. 15, First Floor, Main Road, Jagtial, Telangana - 505327' },
-            'Karimnagar': { lat: 18.4386, lng: 79.1288, address: 'Shop No. 301, Third Floor, Rajeev Chowk, Karimnagar - 505001' }
+            'Medchal': { lat: 17.6240, lng: 78.4813, address: 'Shop No. 301, Third Floor, Near Bus Depot, Kompally, Medchal - 501401', phone: '9642270512' },
+            'Ibrahimpatnam': { lat: 17.4227, lng: 78.7019, address: 'Shop No. 15, First Floor, Main Road, Ibrahimpatnam, Ranga Reddy - 501506', phone: '9741908046' },
+            'Siddipet': { lat: 18.1018, lng: 78.8529, address: 'Shop No. 201, Second Floor, Hyderabad Road, Siddipet, Telangana - 502103', phone: '9741908046' },
+            'Jangaon': { lat: 17.7226, lng: 79.1514, address: 'Shop No. 12, First Floor, Main Road, Jangaon, Telangana - 506167', phone: '6361491711' },
+            'Kamareddy': { lat: 18.3220, lng: 78.3395, address: 'Shop No. 201, Second Floor, Near Bus Stand, Kamareddy - 503111', phone: '6361491711' },
+            'Jagtial': { lat: 18.7939, lng: 78.9109, address: 'Shop No. 15, First Floor, Main Road, Jagtial, Telangana - 505327', phone: '9535062420' },
+            'Karimnagar': { lat: 18.4386, lng: 79.1288, address: 'Shop No. 301, Third Floor, Rajeev Chowk, Karimnagar - 505001', phone: '9022361069' }
         },
         'Karnataka': {
-            'Belgaum': { lat: 15.8497, lng: 74.4977, address: 'Shop No. 401, Fourth Floor, Hindwadi, Belgaum, Karnataka - 590011' },
-            'Davanagere': { lat: 14.4644, lng: 75.9218, address: 'Shop No. 201, Second Floor, P.J. Extension, Davanagere - 577002' },
-            'Haveri': { lat: 14.7951, lng: 75.4005, address: 'Shop No. 15, First Floor, Ranibennur Road, Haveri, Karnataka - 581110' },
-            'Chitradurga': { lat: 14.2226, lng: 76.4018, address: 'Shop No. 201, Second Floor, Near Court Circle, Chitradurga - 577501' },
-            'Hospet': { lat: 15.2695, lng: 76.3870, address: 'Shop No. 301, Third Floor, Station Road, Hospet, Karnataka - 583201' },
-            'Shimoga': { lat: 13.9299, lng: 75.5681, address: 'Shop No. 201, Second Floor, Kuvempu Road, Shimoga, Karnataka - 577201' },
-            'Gadag': { lat: 15.4394, lng: 75.6389, address: 'Shop No. 12, First Floor, Station Road, Gadag, Karnataka - 582101' }
+            'Belgaum': { lat: 15.8497, lng: 74.4977, address: 'Shop No. 401, Fourth Floor, Hindwadi, Belgaum, Karnataka - 590011', phone: '9667455886' },
+            'Davanagere': { lat: 14.4644, lng: 75.9218, address: 'Shop No. 201, Second Floor, P.J. Extension, Davanagere - 577002', phone: '9667318435' },
+            'Haveri': { lat: 14.7951, lng: 75.4005, address: 'Shop No. 15, First Floor, Ranibennur Road, Haveri, Karnataka - 581110', phone: '7357792517' },
+            'Chitradurga': { lat: 14.2226, lng: 76.4018, address: 'Shop No. 201, Second Floor, Near Court Circle, Chitradurga - 577501', phone: '7357792517' },
+            'Hospet': { lat: 15.2695, lng: 76.3870, address: 'Shop No. 301, Third Floor, Station Road, Hospet, Karnataka - 583201', phone: '9500637620' },
+            'Shimoga': { lat: 13.9299, lng: 75.5681, address: 'Shop No. 201, Second Floor, Kuvempu Road, Shimoga, Karnataka - 577201', phone: '9500637620' },
+            'Gadag': { lat: 15.4394, lng: 75.6389, address: 'Shop No. 12, First Floor, Station Road, Gadag, Karnataka - 582101', phone: '9500637620' }
         }
     };
     
@@ -649,6 +649,11 @@ document.addEventListener('DOMContentLoaded', function() {
             ? `https://www.google.com/maps/dir/?api=1&destination=${branchData.lat},${branchData.lng}`
             : '#';
         
+        // Get branch-specific phone number or fallback to toll-free
+        const branchPhone = branchData && branchData.phone ? branchData.phone : '1800 26 81111';
+        const phoneHref = branchData && branchData.phone ? `tel:+91${branchData.phone}` : 'tel:+9118002681111';
+        const phoneDisplay = branchData && branchData.phone ? `+91 ${branchData.phone}` : '+91 1800 26 81111 (Toll Free)';
+        
         infoDiv.innerHTML = `
             <div style="margin-bottom: 15px;">
                 <h4 style="color: #02478c; font-size: 18px; font-weight: 600; margin-bottom: 10px;">
@@ -667,7 +672,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <!-- Phone Number -->
             <div style="padding: 12px; background: white; border-radius: 6px; border: 1px solid #e0e0e0; margin-bottom: 12px;">
                 <strong style="color: #02478c; font-size: 14px;">📞 Phone:</strong><br>
-                <a href="tel:+9118002681111" style="color: #0066cc; font-size: 14px; text-decoration: none;">+91 1800 26 81111 (Toll Free)</a>
+                <a href="${phoneHref}" style="color: #0066cc; font-size: 14px; text-decoration: none;">${phoneDisplay}</a>
             </div>
             
             <!-- Working Hours -->
