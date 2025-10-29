@@ -782,13 +782,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Add Jammu & Kashmir label on the map (standard text style)
+    // Add Jammu & Kashmir label on the map (standard text style, two lines)
     const jkLabel = L.marker([34.0, 76.5], {
         icon: L.divIcon({
             className: 'territory-label',
-            html: '<div style="color: #333; font-size: 12px; font-weight: 600; white-space: nowrap; text-shadow: 1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;">Jammu & Kashmir</div>',
-            iconSize: [120, 20],
-            iconAnchor: [60, 10]
+            html: '<div style="color: #333; font-size: 10px; font-weight: 600; text-align: center; line-height: 1.2; text-shadow: 1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;">Jammu &<br>Kashmir</div>',
+            iconSize: [60, 30],
+            iconAnchor: [30, 15]
         }),
         interactive: false,
         keyboard: false
