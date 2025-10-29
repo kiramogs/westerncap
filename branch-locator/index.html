@@ -215,26 +215,10 @@
             }
         }
         
-        /* Enhanced marker styling for better clarity */
-        .branch-marker-icon {
-            filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4));
-            transition: all 0.3s ease;
-        }
-        
-        .branch-marker-icon:hover {
-            filter: drop-shadow(0 4px 8px rgba(2, 71, 140, 0.6));
-            transform: scale(1.1);
-        }
-        
         /* Territory label styling */
         .territory-label {
             z-index: 1000 !important;
             pointer-events: none;
-        }
-        
-        .territory-label div {
-            font-family: 'Arial', sans-serif;
-            letter-spacing: 0.5px;
         }
     </style>
 </head>
@@ -747,13 +731,12 @@ document.addEventListener('DOMContentLoaded', function() {
         bounds: indiaBounds
     }).addTo(map);
     
-    // Custom pin icon - 1.5x larger and clearer
+    // Custom pin icon
     const branchIcon = L.icon({
         iconUrl: '/Untitled_design__1_-removebg-preview.png',
-        iconSize: [60, 60],        // Increased from [40, 40] to 1.5x size
-        iconAnchor: [30, 60],      // Adjusted anchor point proportionally
-        popupAnchor: [0, -60],     // Adjusted popup position proportionally
-        className: 'branch-marker-icon'  // For additional styling if needed
+        iconSize: [40, 40],
+        iconAnchor: [20, 40],
+        popupAnchor: [0, -40]
     });
     
     // Store all markers
@@ -799,13 +782,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Add Jammu & Kashmir label on the map
+    // Add Jammu & Kashmir label on the map (standard text style)
     const jkLabel = L.marker([34.0, 76.5], {
         icon: L.divIcon({
             className: 'territory-label',
-            html: '<div style="background: rgba(2, 71, 140, 0.85); color: white; padding: 6px 12px; border-radius: 4px; font-weight: 600; font-size: 13px; white-space: nowrap; box-shadow: 0 2px 6px rgba(0,0,0,0.3); border: 2px solid white;">Jammu & Kashmir</div>',
-            iconSize: [120, 30],
-            iconAnchor: [60, 15]
+            html: '<div style="color: #333; font-size: 12px; font-weight: 600; white-space: nowrap; text-shadow: 1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;">Jammu & Kashmir</div>',
+            iconSize: [120, 20],
+            iconAnchor: [60, 10]
         }),
         interactive: false,
         keyboard: false
