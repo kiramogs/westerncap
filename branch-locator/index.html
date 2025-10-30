@@ -92,15 +92,31 @@
             position: absolute;
             top: 100%;
             left: 0;
-            z-index: 1000;
+            z-index: 9999 !important;
+            display: none;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: 0;
+            overflow: hidden;
+        }
+        
+        .navbar .dropdown-menu.show {
+            display: block !important;
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            max-height: 500px;
         }
         
         .navbar .dropdown:nth-child(3) .dropdown-menu {
-            left: -35px;
+            left: -15px;
         }
         
         .dropdown-menu-investor {
-            left: -50px !important;
+            right: 0 !important;
+            left: auto !important;
         }
     </style>
     <style>
@@ -113,7 +129,8 @@
             position: absolute;
             top: 100%;
             left: 0;
-            z-index: 1000;
+            z-index: 9999 !important;
+            display: none;
             opacity: 0;
             visibility: hidden;
             transform: translateY(-10px);
@@ -123,14 +140,11 @@
         }
         
         .navbar .dropdown-menu.show {
+            display: block !important;
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
             max-height: 500px;
-        }
-        
-        .navbar .dropdown:nth-child(3) .dropdown-menu {
-            left: -35px;
         }
         
         @media screen and (min-width: 992px) {
