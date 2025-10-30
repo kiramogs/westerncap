@@ -254,6 +254,81 @@
                 margin-left: 0 !important;
             }
         }
+        
+        /* Perfect Footer Styling - Two Column Layout */
+        footer .row {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+        
+        .footer-section {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .footer-section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #02478c;
+            letter-spacing: 0.5px;
+            text-transform: capitalize;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .footer-links li {
+            margin: 0;
+        }
+        
+        .footer-links a {
+            text-decoration: none;
+            color: #555;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+            display: inline-block;
+        }
+        
+        .footer-links a:hover {
+            color: #02478c;
+            text-decoration: underline;
+        }
+        
+        /* Footer responsive layout */
+        @media screen and (max-width: 768px) {
+            footer .row {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .footer-section {
+                margin-bottom: 1rem;
+            }
+        }
+        
+        /* Align columns properly */
+        .col-left {
+            padding-right: 1rem;
+        }
+        
+        .col-right {
+            padding-left: 1rem;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .col-left,
+            .col-right {
+                padding: 0;
+            }
+        }
     </style>
 </head><body>
         <div id="content"><nav class="navbar navbar-expand-lg border-bottom scrolled-down header-2">
