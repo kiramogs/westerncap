@@ -67,6 +67,8 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="/img/favicon.png">
     <style>
+        /* ========== STANDARDIZED DROPDOWN & NAVIGATION STYLES ========== */
+        
         /* Investor Relations Dropdown Styling */
         .dropdown-menu-investor {
             width: 240px !important;
@@ -117,30 +119,8 @@
             position: absolute;
             top: 100%;
             left: 0;
-            z-index: 1000;
-        }
-        
-        /* Adjust Company dropdown positioning */
-        .navbar .dropdown:nth-child(3) .dropdown-menu {
-            left: -35px;
-        }
-        
-        /* Adjust Investor Relations dropdown positioning */
-        .dropdown-menu-investor {
-            left: -50px !important;
-        }
-    </style>
-    <style>
-        /* Dropdown Animation CSS */
-        .navbar .dropdown {
-            position: relative;
-        }
-        
-        .navbar .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            z-index: 1000;
+            z-index: 9999 !important;
+            display: none;
             opacity: 0;
             visibility: hidden;
             transform: translateY(-10px);
@@ -150,16 +130,26 @@
         }
         
         .navbar .dropdown-menu.show {
+            display: block !important;
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
             max-height: 500px;
         }
         
+        /* Adjust Company dropdown positioning */
         .navbar .dropdown:nth-child(3) .dropdown-menu {
             left: -35px;
         }
         
+        /* Contact Us - add spacing for better UI */
+        @media screen and (min-width: 992px) {
+            .nav-item-contact {
+                margin-left: 50px !important;
+            }
+        }
+        
+        /* Investor Relations - rightmost positioning */
         .dropdown-investor-relations {
             margin-left: auto !important;
         }
@@ -169,6 +159,7 @@
             left: auto !important;
         }
         
+        /* Extend hover area for better UX */
         .navbar .dropdown::before {
             content: '';
             position: absolute;
@@ -179,6 +170,7 @@
             z-index: -1;
         }
         
+        /* Smooth animation for dropdown items */
         .navbar .dropdown-menu li {
             opacity: 0;
             transform: translateX(-10px);

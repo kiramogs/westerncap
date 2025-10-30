@@ -28,7 +28,50 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="/img/favicon.png">
     <style>
-        /* Dropdown Animation CSS */
+        /* ========== STANDARDIZED DROPDOWN & NAVIGATION STYLES ========== */
+        
+        /* Investor Relations Dropdown Styling */
+        .dropdown-menu-investor {
+            width: 240px !important;
+            max-width: 240px !important;
+        }
+        
+        .dropdown-menu-investor .dropdown-item {
+            white-space: normal;
+            line-height: 1.3;
+            padding: 12px 20px !important;
+        }
+        
+        /* Ensure dropdown arrow positioning for Investor Relations */
+        .dropdown-menu-investor::after {
+            right: 50px !important;
+        }
+        
+        /* Adjust dropdown positioning on mobile */
+        @media screen and (max-width: 992px) {
+            .dropdown-menu-investor {
+                width: 220px !important;
+                max-width: 220px !important;
+            }
+            
+            .navbar .nav-link {
+                opacity: 100% !important;
+                color: #02478c !important;
+            }
+        }
+        
+        /* Fix for scrolled-down state */
+        @media screen and (min-width: 992px) {
+            .scrolled-down .dropdown-menu-investor .dropdown-item {
+                color: #02478c;
+            }
+            
+            .scrolled-down .dropdown-menu-investor .dropdown-item:hover {
+                color: #243a5a;
+            }
+        }
+        
+        /* Fix dropdown positioning to prevent overlap */
         .navbar .dropdown {
             position: relative;
         }
@@ -37,7 +80,8 @@
             position: absolute;
             top: 100%;
             left: 0;
-            z-index: 1000;
+            z-index: 9999 !important;
+            display: none;
             opacity: 0;
             visibility: hidden;
             transform: translateY(-10px);
@@ -47,6 +91,7 @@
         }
         
         .navbar .dropdown-menu.show {
+            display: block !important;
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
@@ -56,6 +101,13 @@
         /* Adjust Company dropdown positioning */
         .navbar .dropdown:nth-child(3) .dropdown-menu {
             left: -35px;
+        }
+        
+        /* Contact Us - add spacing for better UI */
+        @media screen and (min-width: 992px) {
+            .nav-item-contact {
+                margin-left: 50px !important;
+            }
         }
         
         /* Investor Relations - rightmost positioning */
@@ -127,7 +179,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item nav-item-contact">
                     <a class="nav-link" href="/contactus">contact us</a>
                 </li>
                 <li class="nav-item dropdown dropdown-investor-relations">
