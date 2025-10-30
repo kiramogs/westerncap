@@ -92,9 +92,9 @@
             z-index: 1000;
         }
         
-        /* Adjust Company dropdown positioning */
+        /* Adjust Company dropdown positioning - MOVED TO THE RIGHT */
         .navbar .dropdown:nth-child(3) .dropdown-menu {
-            left: -35px;
+            left: -15px;
         }
         
         /* Contact Us - add spacing for better UI */
@@ -119,7 +119,8 @@
             position: absolute;
             top: 100%;
             left: 0;
-            z-index: 1000;
+            z-index: 9999 !important;
+            display: none;
             opacity: 0;
             visibility: hidden;
             transform: translateY(-10px);
@@ -129,14 +130,11 @@
         }
         
         .navbar .dropdown-menu.show {
+            display: block !important;
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
             max-height: 500px;
-        }
-        
-        .navbar .dropdown:nth-child(3) .dropdown-menu {
-            left: -35px;
         }
         
         .dropdown-investor-relations {
