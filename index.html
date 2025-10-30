@@ -84,6 +84,8 @@
             visibility: hidden;
             transform: translateY(-10px);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: 0;
+            overflow: hidden;
         }
         
         .navbar .dropdown-menu.show {
@@ -91,11 +93,12 @@
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
+            max-height: 500px;
         }
         
-        /* Adjust Company dropdown positioning - MOVED TO THE RIGHT */
+        /* Adjust Company dropdown positioning */
         .navbar .dropdown:nth-child(3) .dropdown-menu {
-            left: -15px;
+            left: -20px;
         }
         
         /* Contact Us - add spacing for better UI */
@@ -143,6 +146,17 @@
         .navbar .dropdown-menu.show li:nth-child(3) { transition-delay: 0.15s; }
         .navbar .dropdown-menu.show li:nth-child(4) { transition-delay: 0.2s; }
         .navbar .dropdown-menu.show li:nth-child(5) { transition-delay: 0.25s; }
+        
+        /* Navigation spacing for visual consistency */
+        .navbar-nav .nav-item {
+            margin: 0 8px;
+        }
+        
+        @media screen and (min-width: 992px) {
+            .navbar-nav .nav-item:first-child {
+                margin-left: 0;
+            }
+        }
     </style>
 </head><body>
 
