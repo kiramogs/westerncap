@@ -348,6 +348,73 @@
         .navbar .dropdown-menu.show li:nth-child(3) { transition-delay: 0.15s; }
         .navbar .dropdown-menu.show li:nth-child(4) { transition-delay: 0.2s; }
         .navbar .dropdown-menu.show li:nth-child(5) { transition-delay: 0.25s; }
+        
+        /* Perfect Navigation Spacing & Uniformness */
+        .navbar {
+            padding: 0.75rem 0;
+        }
+        
+        .navbar .container {
+            align-items: center;
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .navbar-nav {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+            margin: 0 !important;
+            flex-wrap: nowrap;
+        }
+        
+        .navbar-nav .nav-item {
+            margin: 0 !important;
+            white-space: nowrap;
+        }
+        
+        .nav-link {
+            padding: 0.5rem 0 !important;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: #02478c !important;
+        }
+        
+        /* Dropdown alignment */
+        .nav-item.dropdown {
+            position: relative;
+        }
+        
+        /* Contact Us special spacing */
+        .nav-item-contact {
+            margin-left: auto !important;
+        }
+        
+        /* Investor Relations on the right */
+        .dropdown-investor-relations {
+            margin-left: 0 !important;
+        }
+        
+        @media screen and (max-width: 992px) {
+            .navbar .container {
+                gap: 0.5rem;
+            }
+            
+            .navbar-nav {
+                gap: 1.5rem;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .nav-item-contact {
+                margin-left: 0 !important;
+            }
+        }
 
         /* Fix for IR pages - ensure nav and dropdowns are above content */
         #content {
