@@ -391,17 +391,17 @@ $(document).ready(function() {
         }
     });
     
-    // Prevent dropdown from closing when clicking inside
-    $('.navbar .dropdown-menu').on('click', function(e) {
+        // Prevent dropdown from closing when clicking inside
+    $('.navbar .dropdown-menu, .navbar .dropend').on('click', function(e) {
         e.stopPropagation();
     });
     
-    // Mobile/tablet: Toggle on click instead of hover
+        // Mobile/tablet: Toggle on click instead of hover
     if ($(window).width() <= 992) {
-        $('.navbar .dropdown-toggle').on('click', function(e) {
+        $('.navbar .dropdown-toggle, .navbar .dropend .dropdown-toggle').on('click', function(e) {
             e.preventDefault();
             var $toggle = $(this);
-            var $dropdown = $toggle.closest('.dropdown');
+            var $dropdown = $toggle.closest('.dropdown, .dropend');
             var isOpen = $dropdown.find('.dropdown-menu').hasClass('show');
             
             // Close all other dropdowns
@@ -412,8 +412,7 @@ $(document).ready(function() {
             if (!isOpen) {
                 $dropdown.find('.dropdown-menu').addClass('show');
                 $toggle.addClass('show').attr('aria-expanded', 'true');
-            }
-        });
+            }        });
     }
 });
 </script>
