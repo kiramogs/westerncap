@@ -24,393 +24,7 @@
     <link rel="stylesheet" href="/vendor/slick/slick.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="/img/favicon.png">
-    <style>
-        /* Investor Relations Dropdown Styling */
-        .dropdown-menu-investor {
-            width: 240px !important;
-            max-width: 240px !important;
-        }
-        
-        .dropdown-menu-investor .dropdown-item {
-            white-space: normal;
-            line-height: 1.3;
-            padding: 12px 20px !important;
-        }
-        
-        /* Ensure dropdown arrow positioning for Investor Relations */
-        .dropdown-menu-investor::after {
-            right: 50px !important;
-        }
-        
-        /* Adjust dropdown positioning on mobile */
-        @media screen and (max-width: 992px) {
-            .dropdown-menu-investor {
-                width: 220px !important;
-                max-width: 220px !important;
-            }
-            
-            .navbar .nav-link {
-                opacity: 100% !important;
-                color: #02478c !important;
-            }
-        }
-        
-        /* Fix for scrolled-down state */
-        @media screen and (min-width: 992px) {
-            .scrolled-down .dropdown-menu-investor .dropdown-item {
-                color: #02478c;
-            }
-            
-            .scrolled-down .dropdown-menu-investor .dropdown-item:hover {
-                color: #243a5a;
-            }
-        }        
-        /* Fix dropdown positioning to prevent overlap */
-        .navbar .dropdown {
-            position: relative;
-        }        
-        /* Nested dropdown (dropend) styling for Our Products */
-        .navbar .dropend {
-            position: relative;
-        }
-        
-        .navbar .dropend > .dropdown-menu {
-            top: 0;
-            left: 100%;
-            margin-top: 0;
-            margin-left: 0.125rem;
-            min-width: 200px;
-        }
-        
-        /* Add arrow indicator for nested dropdowns */
-        .navbar .dropend > .dropdown-toggle::after {
-            margin-left: auto;
-            transform: rotate(-90deg);
-        }
-        
-        /* Ensure nested dropdowns don't get cut off */
-        .navbar .dropend > .dropdown-menu {
-            z-index: 1001;
-        }
-        
-        /* Smooth transitions for nested dropdowns */
-        .navbar .dropend > .dropdown-menu {
-            opacity: 0;
-            visibility: hidden;
-            transform: translateX(-5px);
-            transition: all 0.2s ease;
-            pointer-events: none;
-        }
-        
-        .navbar .dropend:hover > .dropdown-menu,
-        .navbar .dropend > .dropdown-menu.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(0);
-            pointer-events: all;
-        }
-        
-        /* Keep parent dropdown visible when hovering nested items */
-        .navbar .dropdown:hover > .dropdown-menu {
-            display: block;
-        }
-        
-        /* Better spacing for nested items */
-        .navbar .dropend .dropdown-item {
-            padding: 10px 20px;
-            white-space: nowrap;
-        }
-        
-        /* Visual indicator for items with nested menus */
-        .navbar .dropend .dropdown-toggle {
-            cursor: pointer;
-        }
-        
-        /* Mobile: Stack nested dropdowns vertically */
-        @media screen and (max-width: 992px) {
-            .navbar .dropend > .dropdown-menu {
-                position: static;
-                float: none;
-                width: 100%;
-                margin-left: 15px;
-                box-shadow: none;
-                border: none;
-                border-left: 2px solid #02478c;
-            }
-            
-            .navbar .dropend > .dropdown-toggle::after {
-                transform: rotate(0deg);
-            }
-        }
-        
-        .navbar .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            z-index: 1000;
-        }
-        
-        /* Adjust Company dropdown positioning */
-        .navbar .dropdown:nth-child(3) .dropdown-menu {
-            left: -20px;
-        }
-        
-        /* Contact Us - add spacing for better UI */
-        @media screen and (min-width: 992px) {
-            .nav-item-contact {
-                margin-left: 50px !important;
-            }
-        }
-        
-        /* Adjust Investor Relations dropdown positioning */
-        .dropdown-menu-investor {
-            left: -50px !important;
-        }
-    </style>
-    <style>
-        /* Dropdown Animation CSS */
-        .navbar .dropdown {
-            position: relative;
-        }
-        
-        .navbar .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            z-index: 9999 !important;
-            display: none;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            max-height: 0;
-            overflow: hidden;
-        }
-        
-        .navbar .dropdown-menu.show {
-            display: block !important;
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-            max-height: 500px;
-        }
-        
-        .dropdown-investor-relations {
-            margin-left: auto !important;
-        }
-        
-        .dropdown-menu-investor {
-            right: 0 !important;
-            left: auto !important;
-        }
-        
-        .navbar .dropdown::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -10px;
-            right: -10px;
-            bottom: -20px;
-            z-index: -1;
-        }
-        
-        .navbar .dropdown-menu li {
-            opacity: 0;
-            transform: translateX(-10px);
-            transition: all 0.2s ease;
-        }
-        
-        .navbar .dropdown-menu.show li {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        
-        .navbar .dropdown-menu.show li:nth-child(1) { transition-delay: 0.05s; }
-        .navbar .dropdown-menu.show li:nth-child(2) { transition-delay: 0.1s; }
-        .navbar .dropdown-menu.show li:nth-child(3) { transition-delay: 0.15s; }
-        .navbar .dropdown-menu.show li:nth-child(4) { transition-delay: 0.2s; }
-        .navbar .dropdown-menu.show li:nth-child(5) { transition-delay: 0.25s; }
-        
-        /* Perfect Navigation Spacing & Uniformness */
-        .navbar {
-            padding: 0.75rem 0;
-        }
-        
-        .navbar .container {
-            align-items: center;
-            display: flex;
-            gap: 2rem;
-        }
-        
-        .navbar-nav {
-            display: flex;
-            gap: 2.5rem;
-            align-items: center;
-            margin: 0 !important;
-            flex-wrap: nowrap;
-        }
-        
-        .navbar-nav .nav-item {
-            margin: 0 !important;
-            white-space: nowrap;
-        }
-        
-        .nav-link {
-            padding: 0.5rem 0 !important;
-            font-weight: 500;
-            font-size: 0.95rem;
-            letter-spacing: 0.3px;
-            transition: color 0.3s ease;
-        }
-        
-        .nav-link:hover {
-            color: #02478c !important;
-        }
-        
-        /* Dropdown alignment */
-        .nav-item.dropdown {
-            position: relative;
-        }
-        
-        /* Contact Us special spacing */
-        .nav-item-contact {
-            margin-left: auto !important;
-        }
-        
-        /* Investor Relations on the right */
-        .dropdown-investor-relations {
-            margin-left: 0 !important;
-        }
-        
-        @media screen and (max-width: 992px) {
-            .navbar .container {
-                gap: 0.5rem;
-            }
-            
-            .navbar-nav {
-                gap: 1.5rem;
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .nav-item-contact {
-                margin-left: 0 !important;
-            }
-        }
-        
-        /* Fix for IR pages - ensure nav and dropdowns are above content */
-        #content {
-            position: relative;
-            z-index: 1;
-        }
-        
-        .header-2 {
-            position: relative;
-            z-index: 1000 !important;
-        }
-        
-        .navbar-collapse {
-            position: relative;
-            z-index: 1001 !important;
-        }
-        
-        /* Ensure dropdowns work on scrolled header */
-        .scrolled-down .dropdown-menu {
-            z-index: 9999 !important;
-        }
-        
-        .scrolled-down .navbar {
-            z-index: 1000 !important;
-        }
-        
-        /* Perfect Footer Styling - Two Column Layout */
-        footer {
-            background-color: #02478c !important;
-        }
-        
-        footer .row {
-            display: flex;
-            gap: 3rem;
-            align-items: flex-start;
-            justify-content: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
-        
-        .footer-section {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .footer-section-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            color: #ffffff !important;
-            letter-spacing: 0.5px;
-            text-transform: none;
-        }
-        
-        .footer-links {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-        
-        .footer-links li {
-            margin: 0;
-        }
-        
-        .footer-links a {
-            text-decoration: none;
-            color: #ffffff !important;
-            font-size: 0.95rem;
-            font-weight: 400;
-            transition: color 0.3s ease;
-            display: inline-block;
-            text-transform: none !important;
-            letter-spacing: 0.3px;
-        }
-        
-        .footer-links a:hover {
-            color: #87CEEB;
-            text-decoration: underline;
-        }
-        
-        /* Footer responsive layout */
-        @media screen and (max-width: 768px) {
-            footer .row {
-                flex-direction: column;
-                gap: 1.5rem;
-            }
-            
-            .footer-section {
-                margin-bottom: 1rem;
-            }
-        }
-        
-        /* Align columns properly */
-        .col-left {
-            padding-right: 2rem;;
-        
-        }
-        
-        .col-right {
-            padding-left: 2rem;;
-        
-        }
-        
-        @media screen and (max-width: 768px) {
-            .col-left,
-            .col-right {
-                padding: 0;
-            }
-        }
-    </style>
+    
 </head>
 <body>
     <div id="content">
@@ -605,8 +219,7 @@
                     box-shadow: 0 4px 12px rgba(0, 102, 204, 0.15);
                     border-color: #0066cc !important;
                 }
-            </style>
-        </div><footer class="position-relative">
+            </style>                </div><footer class="position-relative">
     <div class="container">
         <div class="footer-brand">
             <a href="/"><img alt="logo" src="/img/LOGO1.png" class="footer-logo"></a>
@@ -614,37 +227,47 @@
         <div class="vertical-line"></div>
 
         <div class="row">
-            <!-- Newsroom and Career Section -->
-            <div class="col-12 col-md-6 col-left footer-section">
-                <h4 class="footer-section-title">Newsroom and Career</h4>
-                <ul class="footer-links">
+            <div class="col-12 col-md-4 col-left">
+                <ul class="text-md-start">
                     <li>
-                        <a href="/newsroom/media-release">Media Release</a>
+                        <a href="/aboutus">About us</a>
                     </li>
                     <li>
-                        <a href="/careers/current-openings">Current Opening</a>
+                        <a href="/advisors">Advisors</a>
                     </li>
                     <li>
-                        <a href="/newsroom/awards-recognition">Awards & Recognition</a>
+                        <a href="/promoters">Promoters</a>
+                    </li>
+                    <li>
+                        <a href="/investors">Investors</a>
                     </li>
                 </ul>
             </div>
+            <div class="col-12 col-md-4 col-mid pt-10">
+                <ul class="social-login justify-content-center">
+                    <li>
+                        <a href="https://in.linkedin.com/company/western-capital-advisors-pvt-ltd">
+                            <img src="/img/linkdin.png" alt="linkdin">
+                        </a>
+                    </li>
 
-            <!-- Downloads Section -->
-            <div class="col-12 col-md-6 col-right footer-section">
-                <h4 class="footer-section-title">Downloads</h4>
-                <ul class="footer-links">
+
+                </ul>
+            </div>
+
+            <div class="col-12 col-md-4 col-right">
+                <ul class="text-md-end">
                     <li>
-                        <a href="/downloads/policies-practices">Policies & Practices</a>
+                        <a href="/regulatory">regulatory</a>
                     </li>
                     <li>
-                        <a href="/downloads/trustee-details">Trustee Details</a>
+                        <a href="/terms-and-condition">Terms & Conditions</a>
                     </li>
                     <li>
-                        <a href="/downloads/rbi-compliance-disclosure">RBI Compliance & Disclosure</a>
+                        <a href="/policies">Privacy Policy</a>
                     </li>
                     <li>
-                        <a href="/downloads/other-disclosures">Other Disclosures</a>
+                        <a href="/contactus">Contact us</a>
                     </li>
                 </ul>
             </div>
