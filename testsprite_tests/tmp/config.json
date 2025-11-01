@@ -1,0 +1,16 @@
+{
+  "status": "init",
+  "scope": "codebase",
+  "type": "frontend",
+  "localEndpoint": "http://localhost:5173/",
+  "serverPort": 58935,
+  "executionArgs": {
+    "projectName": "westerncap",
+    "projectPath": "C:\\Users\\ArmanMadhwani\\westerncap",
+    "testIds": [],
+    "additionalInstruction": "Focus on verifying consistent footer presence and structure across key routes: /, /aboutus, /contactus, /policies, /credit-rating, /annual-report, /regulatory. Checks: footer element exists; contains Newsroom and Career and Downloads sections; links resolve with 200; copyright block present; responsive layout at 375px and 1280px; no console errors on load.",
+    "envs": {
+      "API_KEY": "sk-user-TTyrv3CHM2b0wb2BK-RBTORXF-KUiEKypmcfMASQlKz8b6nzOLzjgCiP3WBLj9Xsif1OUZphoPFNNrxByib17Ow6g1eRZbSvisCPKwft3oSnZJFxag-CnfomHPcXFfKkWcw"
+    }
+  }
+}
