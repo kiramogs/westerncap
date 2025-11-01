@@ -39,26 +39,23 @@
     <link rel="stylesheet" href="/vendor/slick/slick.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="/img/favicon.png">
+    <link rel="stylesheet" href="/css/footer-styles.css">
 
-    <style>
-        /* Corporate styling */
+    <style>/* Corporate styling */
         .escalation-header {
             background: linear-gradient(135deg, #02478c, #243a5a);
             color: white;
             padding: 40px 0;
         }
-
         .escalation-title {
             font-size: 36px;
             font-weight: 700;
             margin-bottom: 10px;
         }
-
         .escalation-subtitle {
             font-size: 18px;
             opacity: 0.9;
         }
-
         .matrix-container {
             background: white;
             border-radius: 12px;
@@ -66,35 +63,29 @@
             overflow: hidden;
             margin: 40px 0;
         }
-
         .matrix-header {
             background: #02478c;
             color: white;
             padding: 20px 30px;
             text-align: center;
         }
-
         .matrix-title {
             font-size: 24px;
             font-weight: 600;
             margin: 0;
         }
-
         .escalation-level {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             border-bottom: 1px solid #e0e0e0;
             transition: background-color 0.3s ease;
         }
-
         .escalation-level:hover {
             background-color: #f8f9fa;
         }
-
         .escalation-level:last-child {
             border-bottom: none;
         }
-
         .level-number {
             background: #02478c;
             color: white;
@@ -107,36 +98,30 @@
             justify-content: center;
             align-items: center;
         }
-
         .level-number::before {
             content: 'Level ';
             font-size: 14px;
             margin-bottom: 5px;
         }
-
         .level-details {
             padding: 25px 30px;
             border-right: 1px solid #e0e0e0;
         }
-
         .level-details:last-child {
             border-right: none;
         }
-
         .level-title {
             color: #02478c;
             font-size: 18px;
             font-weight: 600;
             margin-bottom: 15px;
         }
-
         .level-description {
             color: #666;
             font-size: 14px;
             line-height: 1.6;
             margin-bottom: 10px;
         }
-
         .contact-info {
             background: #f8f9fa;
             padding: 15px 20px;
@@ -144,36 +129,30 @@
             border-left: 4px solid #02478c;
             margin-top: 10px;
         }
-
         .contact-name {
             font-weight: 600;
             color: #02478c;
             margin-bottom: 5px;
         }
-
         .contact-email {
             color: #0066cc;
             text-decoration: none;
             font-size: 14px;
         }
-
         .contact-phone {
             color: #333;
             text-decoration: none;
             font-size: 14px;
         }
-
         .contact-email:hover {
             text-decoration: underline;
         }
-
         .timeline {
             text-align: center;
             color: #4CAF50;
             font-weight: 600;
             font-size: 14px;
         }
-
         .process-note {
             background: #e8f5e9;
             padding: 20px;
@@ -181,99 +160,82 @@
             margin: 30px 0;
             border-left: 4px solid #4CAF50;
         }
-
         .process-title {
             color: #2e7d32;
             font-weight: 600;
             margin-bottom: 10px;
         }
-
         /* Mobile responsiveness */
         @media screen and (max-width: 768px) {
             .escalation-title {
                 font-size: 28px;
             }
-
             .escalation-level {
                 grid-template-columns: 1fr;
                 border-right: none;
             }
-
             .level-details {
                 border-right: none;
                 border-top: 1px solid #e0e0e0;
             }
-
             .level-number {
                 background: #02478c;
                 padding: 15px;
             }
         }
-
         /* Dropdown Styling - Same as contact page */
         /* Investor Relations Dropdown Styling */
         .dropdown-menu-investor {
             width: 240px !important;
             max-width: 240px !important;
         }
-
         .dropdown-menu-investor .dropdown-item {
             white-space: normal;
             line-height: 1.3;
             padding: 12px 20px !important;
         }
-
         /* Ensure dropdown arrow positioning for Investor Relations */
         .dropdown-menu-investor::after {
             right: 50px !important;
         }
-
         /* Adjust dropdown positioning on mobile */
         @media screen and (max-width: 992px) {
             .dropdown-menu-investor {
                 width: 220px !important;
                 max-width: 220px !important;
             }
-
             .navbar .nav-link {
                 opacity: 100% !important;
                 color: #02478c !important;
             }
         }
-
         /* Fix for scrolled-down state */
         @media screen and (min-width: 992px) {
             .scrolled-down .dropdown-menu-investor .dropdown-item {
                 color: #02478c;
             }
-
             .scrolled-down .dropdown-menu-investor .dropdown-item:hover {
                 color: #243a5a;
             }
         }
-
         /* Fix dropdown positioning to prevent overlap */
         .navbar .dropdown {
             position: relative;
         }
-
         .navbar .dropdown-menu {
             position: absolute;
             top: 100%;
             left: 0;
             z-index: 1000;
         }
-
         /* Adjust Company dropdown positioning */
         .navbar .dropdown:nth-child(3) .dropdown-menu {
             left: -20px;
         }
-
         /* Adjust Investor Relations dropdown positioning */
         .dropdown-menu-investor {
             left: -50px !important;
         }
-
         /* Dropdown Animation CSS */
         .navbar .dropdown-menu {
             position: absolute;
@@ -287,30 +249,25 @@
             max-height: 0;
             overflow: hidden;
         }
-
         .navbar .dropdown-menu.show {
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
             max-height: 500px;
         }
-
         /* Contact Us - add spacing for better UI */
         @media screen and (min-width: 992px) {
             .nav-item-contact {
                 margin-left: 50px !important;
             }
         }
-
         .dropdown-investor-relations {
             margin-left: auto !important;
         }
-
         .dropdown-menu-investor {
             right: 0 !important;
             left: auto !important;
         }
-
         .navbar .dropdown::before {
             content: '';
             position: absolute;
@@ -320,7 +277,6 @@
             bottom: -20px;
             z-index: -1;
         }
-
         /* Ensure seamless hover area for investor relations dropdown */
         .dropdown-investor-relations::after {
             content: '';
@@ -331,35 +287,29 @@
             height: 20px;
             z-index: 999;
         }
-
         .navbar .dropdown-menu li {
             opacity: 0;
             transform: translateX(-10px);
             transition: all 0.2s ease;
         }
-
         .navbar .dropdown-menu.show li {
             opacity: 1;
             transform: translateX(0);
         }
-
         .navbar .dropdown-menu.show li:nth-child(1) { transition-delay: 0.05s; }
         .navbar .dropdown-menu.show li:nth-child(2) { transition-delay: 0.1s; }
         .navbar .dropdown-menu.show li:nth-child(3) { transition-delay: 0.15s; }
         .navbar .dropdown-menu.show li:nth-child(4) { transition-delay: 0.2s; }
         .navbar .dropdown-menu.show li:nth-child(5) { transition-delay: 0.25s; }
-        
         /* Perfect Navigation Spacing & Uniformness */
         .navbar {
             padding: 0.75rem 0;
         }
-        
         .navbar .container {
             align-items: center;
             display: flex;
             gap: 2rem;
         }
-        
         .navbar-nav {
             display: flex;
             gap: 2.5rem;
@@ -367,12 +317,10 @@
             margin: 0 !important;
             flex-wrap: nowrap;
         }
-        
         .navbar-nav .nav-item {
             margin: 0 !important;
             white-space: nowrap;
         }
-        
         .nav-link {
             padding: 0.5rem 0 !important;
             font-weight: 500;
@@ -380,142 +328,71 @@
             letter-spacing: 0.3px;
             transition: color 0.3s ease;
         }
-        
         .nav-link:hover {
             color: #02478c !important;
         }
-        
         /* Dropdown alignment */
         .nav-item.dropdown {
             position: relative;
         }
-        
         /* Contact Us special spacing */
         .nav-item-contact {
             margin-left: auto !important;
         }
-        
         /* Investor Relations on the right */
         .dropdown-investor-relations {
             margin-left: 0 !important;
         }
-        
         @media screen and (max-width: 992px) {
             .navbar .container {
                 gap: 0.5rem;
             }
-            
             .navbar-nav {
                 gap: 1.5rem;
                 flex-direction: column;
                 align-items: flex-start;
             }
-            
             .nav-item-contact {
                 margin-left: 0 !important;
             }
         }
-
         /* Fix for IR pages - ensure nav and dropdowns are above content */
         #content {
             position: relative;
             z-index: 1;
         }
-
         .header-2 {
             position: relative;
             z-index: 1000 !important;
         }
-
         .navbar-collapse {
             position: relative;
             z-index: 1001 !important;
         }
-
         /* Ensure dropdowns work on scrolled header */
         .scrolled-down .dropdown-menu {
             z-index: 9999 !important;
         }
-
         .scrolled-down .navbar {
             z-index: 1000 !important;
         }
-        
         /* Perfect Footer Styling - Two Column Layout */
-        footer .row {
-            display: flex;
-            gap: 2rem;
-            align-items: flex-start;
-        }
-        
-        .footer-section {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .footer-section-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 1.2rem;
-            color: #ffffff;
-            letter-spacing: 0.5px;
-            text-transform: capitalize;
-        }
-        
-        .footer-links {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-        
-        .footer-links li {
-            margin: 0;
-        }
-        
-        .footer-links a {
-            text-decoration: none;
-            color: #ffffff;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
-            display: inline-block;
-        }
-        
-        .footer-links a:hover {
-            color: #87CEEB;
-            text-decoration: underline;
-        }
-        
         /* Footer responsive layout */
         @media screen and (max-width: 768px) {
-            footer .row {
-                flex-direction: column;
-                gap: 1.5rem;
-            }
-            
-            .footer-section {
-                margin-bottom: 1rem;
-            }
         }
-        
         /* Align columns properly */
         .col-left {
             padding-right: 1rem;
         }
-        
         .col-right {
             padding-left: 1rem;
         }
-        
         @media screen and (max-width: 768px) {
             .col-left,
             .col-right {
                 padding: 0;
             }
-        }
-    </style>
+        }</style>
 </head>
 <body>
     <div id="content">
@@ -702,10 +579,7 @@
                     </p>
                 </div>
             </div>
-        </section>
-    </div>
-
-    <footer class="position-relative">
+        </section><footer class="position-relative">
     <div class="container">
         <div class="footer-brand">
             <a href="/"><img alt="logo" src="/img/LOGO1.png" class="footer-logo"></a>

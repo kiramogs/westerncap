@@ -1,0 +1,341 @@
+/* Footer Section Styles - Exact from home page */
+
+/* Remove any conflicting inline styles and use these exact styles */
+footer {
+    margin-top: 25px;
+    background-color: #02478c;
+    position: relative;
+}
+
+/* Force white color for section titles and override Bootstrap */
+.footer-section-title,
+footer .footer-section-title,
+footer h4.footer-section-title,
+footer .footer-section h4,
+footer h4 {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    margin-bottom: 1rem !important;
+}
+
+/* Ensure footer sections are properly aligned */
+footer .row {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 3rem;
+}
+
+footer .footer-section {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Ensure consistent link styling */
+footer ul li a {
+    color: #fff !important;
+}
+
+@media screen and (min-width: 992px) {
+    footer {
+        margin-top: 50px;
+    }
+}
+
+footer::after {
+    content: "";
+    position: absolute;
+    left: 2%;
+    height: 1px;
+    width: 23%;
+    background-size: cover;
+    background-color: #fff;
+    top: 8%;
+    z-index: 1;
+}
+
+footer::before {
+    content: "";
+    position: absolute;
+    right: 2%;
+    height: 1px;
+    width: 23%;
+    background-size: cover;
+    background-color: #fff;
+    top: 8%;
+    z-index: 1;
+}
+
+footer .vertical-line {
+    height: 10%;
+    width: 1px;
+    background: #fff;
+    left: 0;
+    right: 0;
+    top: 25%;
+    margin: auto;
+    position: absolute;
+    z-index: 8;
+}
+
+@media screen and (min-width: 768px) {
+    footer::after {
+        height: 1.5px;
+        width: 25%;
+        top: 18%;
+    }
+    
+    footer::before {
+        right: 2%;
+        height: 1.5px;
+        width: 25%;
+        top: 18%;
+    }
+    
+    footer .vertical-line {
+        width: 2px;
+        left: 5px;
+        right: 0;
+        margin: auto;
+        top: 28%;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    footer::after {
+        left: 2%;
+        height: 1.5px;
+        width: 30%;
+        top: 15%;
+    }
+    
+    footer::before {
+        right: 2%;
+        height: 1.5px;
+        width: 30%;
+        top: 15%;
+    }
+    
+    footer .vertical-line {
+        height: 190px;
+        width: 2px;
+        left: 5px;
+        right: 0;
+        margin: auto;
+        top: 50%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    footer .pt-10 {
+        margin: 0 auto 100px!important;
+    }
+}
+
+footer .footer-brand {
+    display: flex;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+footer .footer-brand a {
+    margin: auto;
+}
+
+footer .footer-brand a img {
+    width: 45%;
+    margin: auto;
+    display: flex;
+}
+
+@media screen and (min-width: 768px) {
+    footer .footer-brand a img {
+        width: 318px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    footer .footer-brand {
+        padding-top: 60px;
+        padding-bottom: 70px;
+    }
+}
+
+footer ul {
+    padding-left: 0;
+    margin-bottom: 10px;
+}
+
+footer ul li {
+    list-style-type: none;
+    margin-bottom: 10px;
+}
+
+@media screen and (min-width: 992px) {
+    footer ul li {
+        margin-bottom: 20px;
+    }
+}
+
+footer ul li:last-child {
+    margin-bottom: 0;
+}
+
+footer ul li a {
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #fff;
+    text-decoration: none;
+}
+
+@media screen and (min-width: 768px) {
+    footer ul li a {
+        font-size: 1.1em;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    footer ul li a {
+        font-size: 1.25em;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    footer ul li a {
+        font-size: 1.375em;
+    }
+}
+
+footer ul li a:hover {
+    color: #aeadad;
+}
+
+footer .social-login {
+    width: 50%;
+    margin: auto;
+    padding-left: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+@media screen and (min-width: 768px) {
+    footer .social-login {
+        width: 75%;
+    }
+}
+
+footer .social-login img {
+    width: 20px;
+}
+
+@media screen and (min-width: 768px) {
+    footer .social-login img {
+        width: 32px;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    footer .social-login img {
+        width: 42px;
+    }
+}
+
+footer .footer-pattern {
+    width: 50%;
+    margin: auto;
+    display: flex;
+    position: absolute;
+    bottom: 8%;
+    z-index: 4;
+    left: 0;
+    right: 0;
+}
+
+@media screen and (min-width: 992px) {
+    footer .footer-pattern {
+        width: 30%;
+    }
+}
+
+footer .copyright-footer {
+    background: #04386c;
+    position: relative;
+    z-index: 9;
+}
+
+footer .copyright-footer .container {
+    display: flex;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    justify-content: center;
+    text-transform: uppercase;
+    align-items: center;
+    color: #fff;
+    font-size: .7em;
+}
+
+@media screen and (min-width: 768px) {
+    footer .copyright-footer .container {
+        margin-top: 80px;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    footer .copyright-footer .container {
+        margin-top: 100px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    footer .copyright-footer .container {
+        margin-top: 170px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    footer .copyright-footer .container {
+        display: flex;
+        font-size: 1.25em;
+        align-items: center;
+        align-items: flex-start;
+    }
+}
+
+footer .copyright-footer .container img {
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+}
+
+@media screen and (min-width: 768px) {
+    footer .copyright-footer .container img {
+        width: 25px;
+        height: 25px;
+        margin-top: 3px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .col-left {
+        order: 1;
+        text-align: center;
+        position: relative;
+        z-index: 5;
+    }
+    
+    .col-mid {
+        order: 0;
+        text-align: center;
+        position: relative;
+        z-index: 5;
+    }
+    
+    .col-right {
+        order: 2;
+        text-align: center;
+        position: relative;
+        z-index: 5;
+        margin-bottom: 70px;
+    }
+}
