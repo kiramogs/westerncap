@@ -26,11 +26,12 @@
     <link rel="stylesheet" href="/vendor/slick/slick.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="/img/favicon.png">
-    <link rel="stylesheet" href="/css/footer-styles.css">
-    <style>/* Dropdown Animation CSS */
+    <style>
+        /* Dropdown Animation CSS */
         .navbar .dropdown {
             position: relative;
         }
+        
         .navbar .dropdown-menu {
             position: absolute;
             top: 100%;
@@ -43,24 +44,29 @@
             max-height: 0;
             overflow: hidden;
         }
+        
         .navbar .dropdown-menu.show {
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
             max-height: 500px;
         }
+        
         /* Adjust Company dropdown positioning */
         .navbar .dropdown:nth-child(3) .dropdown-menu {
             left: -20px;
         }
+        
         /* Investor Relations - rightmost positioning */
         .dropdown-investor-relations {
             margin-left: auto !important;
         }
+        
         .dropdown-menu-investor {
             right: 0 !important;
             left: auto !important;
         }
+        
         /* Extend hover area for better UX */
         .navbar .dropdown::before {
             content: '';
@@ -71,38 +77,100 @@
             bottom: -20px;
             z-index: -1;
         }
+        
         /* Smooth animation for dropdown items */
         .navbar .dropdown-menu li {
             opacity: 0;
             transform: translateX(-10px);
             transition: all 0.2s ease;
         }
+        
         .navbar .dropdown-menu.show li {
             opacity: 1;
             transform: translateX(0);
         }
+        
         .navbar .dropdown-menu.show li:nth-child(1) { transition-delay: 0.05s; }
         .navbar .dropdown-menu.show li:nth-child(2) { transition-delay: 0.1s; }
         .navbar .dropdown-menu.show li:nth-child(3) { transition-delay: 0.15s; }
         .navbar .dropdown-menu.show li:nth-child(4) { transition-delay: 0.2s; }
         .navbar .dropdown-menu.show li:nth-child(5) { transition-delay: 0.25s; }
+        
         /* Perfect Footer Styling - Two Column Layout */
+        footer .row {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+        
+        .footer-section {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .footer-section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+            text-transform: capitalize;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .footer-links li {
+            margin: 0;
+        }
+        
+        .footer-links a {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+            display: inline-block;
+        }
+        
+        .footer-links a:hover {
+            color: #87CEEB;
+            text-decoration: underline;
+        }
+        
         /* Footer responsive layout */
         @media screen and (max-width: 768px) {
+            footer .row {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .footer-section {
+                margin-bottom: 1rem;
+            }
         }
+        
         /* Align columns properly */
         .col-left {
             padding-right: 1rem;
         }
+        
         .col-right {
             padding-left: 1rem;
         }
+        
         @media screen and (max-width: 768px) {
             .col-left,
             .col-right {
                 padding: 0;
             }
-        }</style>
+        }
+    </style>
 </head><body>
         <div id="content"><nav class="navbar navbar-expand-lg border-bottom scrolled-down header-2">
     <div class="container justify-content-start justify-content-md-between">
@@ -474,7 +542,10 @@
     </div>
  </section>
 
-</div><footer class="position-relative">
+</div>
+
+
+        </div><footer class="position-relative">
     <div class="container">
         <div class="footer-brand">
             <a href="/"><img alt="logo" src="/img/LOGO1.png" class="footer-logo"></a>

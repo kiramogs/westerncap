@@ -39,7 +39,6 @@
     <link rel="stylesheet" href="/vendor/slick/slick.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="/img/favicon.png">
-    <link rel="stylesheet" href="/css/footer-styles.css">
     <style>
         /* Investor Relations Dropdown Styling */
         .dropdown-menu-investor {
@@ -649,10 +648,81 @@
                     </div>
                 </div>
             </section>
+            
+            <style>
+                .document-card:hover {
+                    transform: translateY(-4px);
+                    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.15);
+                    border-color: #0066cc !important;
+                }
+                
+                /* Vertical Tab Styles */
+                .vertical-tab-btn {
+                    position: relative;
+                    transition: all 0.3s ease;
+                }
+                
+                .vertical-tab-btn:hover {
+                    background: #f0f8ff !important;
+                    color: #02478c !important;
+                    padding-left: 25px !important;
+                }
+                
+                .vertical-tab-btn.active {
+                    background: #02478c !important;
+                    color: white !important;
+                    border-left: 4px solid #FFC107;
+                    font-weight: 600 !important;
+                }
+                
+                .vertical-tab-btn.active::before {
+                    content: '▶';
+                    position: absolute;
+                    right: 15px;
+                    font-size: 12px;
+                }
+                
+                /* Mobile Responsiveness */
+                @media screen and (max-width: 768px) {
+                    .vertical-tabs {
+                        margin-bottom: 20px;
+                    }
+                    
+                    .vertical-tab-btn {
+                        font-size: 13px !important;
+                        padding: 12px 15px !important;
+                    }
+                }
+                
+                /* Smooth transitions for content */
+                .tab-content-section {
+                    animation: fadeIn 0.4s ease-in-out;
+                }
+                
+                @keyframes fadeIn {
+                    from {
+                        opacity: 0;
+                        transform: translateX(20px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateX(0);
+                    }
+                }
+                
+                /* Sticky sidebar on desktop */
+                @media screen and (min-width: 992px) {
+                    .vertical-tabs {
+                        position: sticky;
+                        top: 20px;
+                        max-height: calc(100vh - 40px);
+                        overflow-y: auto;
+                    }
+                }
+            </style>
         </div>
-    </div>
 
-<footer class="position-relative">
+        <footer class="position-relative">
     <div class="container">
         <div class="footer-brand">
             <a href="/"><img alt="logo" src="/img/LOGO1.png" class="footer-logo"></a>
@@ -704,6 +774,7 @@
         </div>
     </div>
 </footer>
+    </div>
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
