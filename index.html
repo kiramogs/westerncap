@@ -1053,7 +1053,7 @@
 <script src="https://www.google.com/recaptcha/api.js"></script>
 
 <script>
-// Enhanced dropdown with smooth animations
+// Enhanced dropdown with smooth animations and proper nested dropdown support
 $(document).ready(function() {
     // Disable Bootstrap's default dropdown behavior
     $('.navbar .dropdown-toggle').attr('data-bs-toggle', '').attr('data-toggle', '');
@@ -1077,6 +1077,8 @@ $(document).ready(function() {
                 var otherId = $(this).find('.dropdown-toggle').attr('id');
                 $(this).find('.dropdown-menu').removeClass('show');
                 $(this).find('.dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
+                // Close all nested dropdowns
+                $(this).find('.dropend .dropdown-menu').removeClass('show');
                 if (closeTimers[otherId]) {
                     clearTimeout(closeTimers[otherId]);
                     delete closeTimers[otherId];
@@ -1096,9 +1098,45 @@ $(document).ready(function() {
                 if (!$dropdown.is(':hover') && !$dropdown.find('.dropdown-menu').is(':hover')) {
                     $dropdown.find('.dropdown-menu').removeClass('show');
                     $dropdown.find('.dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
+                    // Close all nested dropdowns
+                    $dropdown.find('.dropend .dropdown-menu').removeClass('show');
                 }
                 delete closeTimers[dropdownId];
             }, 250);
+        }
+    );
+    
+    // Handle nested dropdown (dropend) hover events
+    $('.navbar .dropend').hover(
+        function() {
+            var $dropend = $(this);
+            var dropendId = $dropend.find('.dropdown-toggle').attr('id') || $dropend.index();
+            
+            // Clear close timer
+            if (closeTimers['dropend_' + dropendId]) {
+                clearTimeout(closeTimers['dropend_' + dropendId]);
+                delete closeTimers['dropend_' + dropendId];
+            }
+            
+            // Close siblings but keep parent open
+            $dropend.siblings('.dropend').find('.dropdown-menu').removeClass('show');
+            
+            // Open this nested dropdown
+            $dropend.find('.dropdown-menu').addClass('show');
+            $dropend.find('.dropdown-toggle').addClass('show').attr('aria-expanded', 'true');
+        },
+        function() {
+            var $dropend = $(this);
+            var dropendId = $dropend.find('.dropdown-toggle').attr('id') || $dropend.index();
+            
+            // Close after delay
+            closeTimers['dropend_' + dropendId] = setTimeout(function() {
+                if (!$dropend.is(':hover') && !$dropend.find('.dropdown-menu').is(':hover')) {
+                    $dropend.find('.dropdown-menu').removeClass('show');
+                    $dropend.find('.dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
+                }
+                delete closeTimers['dropend_' + dropendId];
+            }, 200);
         }
     );
     
@@ -1118,7 +1156,7 @@ $(document).ready(function() {
     
     // Close dropdown when clicking outside
     $(document).on('click', function(e) {
-        if (!$(e.target).closest('.navbar .dropdown').length) {
+        if (!$(e.target).closest('.navbar .dropdown, .navbar .dropend').length) {
             $('.navbar .dropdown-menu').removeClass('show');
             $('.navbar .dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
         }
