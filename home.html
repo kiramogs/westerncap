@@ -93,6 +93,82 @@
     <script src="https://kit.fontawesome.com/b73881b7c2.js" crossorigin="anonymous"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="/img/favicon.png">
+    <style>
+        /* Perfect Footer Styling - Two Column Layout */
+        footer .row {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+        
+        .footer-section {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .footer-section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+            text-transform: capitalize;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .footer-links li {
+            margin: 0;
+        }
+        
+        .footer-links a {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+            display: inline-block;
+        }
+        
+        .footer-links a:hover {
+            color: #87CEEB;
+            text-decoration: underline;
+        }
+        
+        /* Footer responsive layout */
+        @media screen and (max-width: 768px) {
+            footer .row {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .footer-section {
+                margin-bottom: 1rem;
+            }
+        }
+        
+        /* Align columns properly */
+        .col-left {
+            padding-right: 1rem;
+        }
+        
+        .col-right {
+            padding-left: 1rem;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .col-left,
+            .col-right {
+                padding: 0;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -926,62 +1002,6 @@
 
 
 </div>
-<footer class="position-relative">
-    <div class="container">
-        <div class="footer-brand">
-            <a href="/"><img alt="logo" src="/img/LOGO1.png" class="footer-logo"></a>
-        </div>
-        <div class="vertical-line"></div>
-
-        <div class="row">>
-            <div class="col-12 col-md-4 col-left">
-                <ul class="text-md-start">
-                    <li>
-                        <a href="/aboutus">About us</a>
-                    </li>
-                    <li>
-                        <a href="/advisors">Advisors</a>
-                    </li>
-                    <li>
-                        <a href="/promoters">Promoters</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-12 col-md-4 col-mid pt-10">
-                <ul class="social-login justify-content-center">
-                    <li>
-                        <a href="https://in.linkedin.com/company/western-capital-advisors-pvt-ltd">
-                            <img src="/img/linkdin.png" alt="linkdin">
-                        </a>
-                    </li>
-
-
-                </ul>
-            </div>
-
-            <div class="col-12 col-md-4 col-right">
-                <ul class="text-md-end">
-                    <li>
-                        <a href="/regulatory">regulatory</a>
-                    </li>
-                    <li>
-                        <a href="/terms-and-condition">Terms & Conditions</a>
-                    </li>
-                    <li>
-                        <a href="/contactus">Contact us</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <img src="/img/footer_pattern.png" class="footer-pattern" alt="">
-    </div>
-    <div class="copyright-footer">
-        <div class="container">
-            <img src="/img/copyright.png" alt="">
-            <div class="d-inline-block">2021. Western Capital Advisors Private Limited</div>
-        </div>
-    </div>
-</footer>
 <script src="https://code.jquery.com/jquery-1.12.4.js">
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
