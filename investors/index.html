@@ -538,10 +538,18 @@
         .navbar .dropdown-menu.show li:nth-child(5) { transition-delay: 0.25s; }
         
         /* Perfect Footer Styling - Two Column Layout */
+        footer {
+            background-color: #02478c !important;
+        }
+        
         footer .row {
             display: flex;
-            gap: 2rem;
+            gap: 3rem;
             align-items: flex-start;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
         }
         
         .footer-section {
@@ -550,12 +558,12 @@
         }
         
         .footer-section-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 1.2rem;
-            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #ffffff !important;
             letter-spacing: 0.5px;
-            text-transform: capitalize;
+            text-transform: none;
         }
         
         .footer-links {
@@ -573,10 +581,13 @@
         
         .footer-links a {
             text-decoration: none;
-            color: #ffffff;
-            font-size: 0.9rem;
+            color: #ffffff !important;
+            font-size: 0.95rem;
+            font-weight: 400;
             transition: color 0.3s ease;
             display: inline-block;
+            text-transform: none !important;
+            letter-spacing: 0.3px;
         }
         
         .footer-links a:hover {
@@ -598,11 +609,11 @@
         
         /* Align columns properly */
         .col-left {
-            padding-right: 1rem;
+            padding-right: 2rem;
         }
         
         .col-right {
-            padding-left: 1rem;
+            padding-left: 2rem;
         }
         
         @media screen and (max-width: 768px) {
@@ -1308,7 +1319,7 @@
     <div class="copyright-footer">
         <div class="container">
             <img src="/img/copyright.png" alt="">
-            <div class="d-inline-block">2021. Western Capital Advisors Private Limited</div>
+            <div class="d-inline-block">2025. Western Capital Advisors Private Limited</div>
         </div>
     </div>
 </footer>
