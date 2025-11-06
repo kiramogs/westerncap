@@ -122,9 +122,20 @@
         .navbar .dropdown-item {
             transition: background-color 0.2s ease, color 0.2s ease;
         }
-        
+
         .navbar .dropdown-item:hover {
             background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        /* Bootstrap 3 style dropdown-submenu for Our Products */
+        .navbar .dropdown-submenu {
+            position: relative;
+        }
+
+        .navbar .dropdown-submenu .dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -1px;
         }
     </style>
 </head><body>
@@ -150,24 +161,16 @@
                         <li class="">
                             <a class="dropdown-item" href="/#prabhaav-loans">Prabhaav Loans</a>
                         </li>
-                        <li class="dropend">
-                            <a aria-expanded="false" aria-haspopup="true" class="dropdown-item dropdown-toggle" href="#" id="retailPartnershipDropdown" role="button" disabled>Retail Partnership Loans</a>
-                            <ul class="dropdown-menu px-2">
-                                <li class="">
-                                    <a class="dropdown-item" href="/partners">Our Partners</a>
-                                </li>
-                                <li class="dropend">
-                                    <a aria-expanded="false" aria-haspopup="true" class="dropdown-item dropdown-toggle" href="#" id="productsDropdown" role="button" disabled>Products</a>
-                                    <ul class="dropdown-menu px-2">
-                                        <li class="">
-                                            <a class="dropdown-item" href="/#education-loan">Education Loan</a>
-                                        </li>
-                                        <li class="">
-                                            <a class="dropdown-item" href="/#business-loan">Business Loan</a>
-                                        </li>
-                                        <li class="">
-                                            <a class="dropdown-item" href="/#lap">LAP</a>
-                                        </li>
+                        <li class="dropdown-submenu">
+                            <a class="dropdown-submenu-toggle" tabindex="-1" href="#">Retail Partnership Loans <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a tabindex="-1" href="/partners">Our Partners</a></li>
+                                <li class="dropdown-submenu">
+                                    <a class="dropdown-submenu-toggle" href="#">Products <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/#education-loan">Education Loan</a></li>
+                                        <li><a href="/#business-loan">Business Loan</a></li>
+                                        <li><a href="/#lap">LAP</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -222,6 +225,7 @@
         </div>
     </div>
 </nav>
+
 
 <div id="content">
         	<main class="main-content">
@@ -1408,7 +1412,14 @@
                 }
             });
         }
-        
+
+        // Bootstrap 3 style click handler for Our Products submenus
+        $('.navbar .dropdown-submenu-toggle').on("click", function(e) {
+            $(this).next('ul').toggle();
+            e.stopPropagation();
+            e.preventDefault();
+        });
+
         // Close dropdown when clicking outside
         $(document).on('click', function(e) {
             if (!$(e.target).closest('.navbar .dropdown, .navbar .dropend').length) {
