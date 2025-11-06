@@ -276,10 +276,14 @@
             list-style: none;
             padding: 0;
             margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
         
         .escalation-ombudsman-links li {
-            margin-bottom: 15px;
+            margin: 0;
+            width: 100%;
         }
         
         .escalation-ombudsman-links a {
@@ -290,10 +294,12 @@
             text-decoration: none;
             font-size: 1.1rem;
             font-weight: 500;
-            padding: 12px;
+            padding: 14px 16px;
             background: rgba(255, 255, 255, 0.15);
             border-radius: 8px;
             transition: all 0.3s ease;
+            width: 100%;
+            min-height: 50px;
         }
         
         .escalation-ombudsman-links a:hover {
@@ -304,20 +310,35 @@
         
         .escalation-ombudsman-links li:first-child a::before {
             content: '📋';
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .escalation-ombudsman-links li:nth-child(2) a::before {
             content: '🏛️';
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .escalation-ombudsman-links li:nth-child(3) a::before {
             content: '🏛️';
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .escalation-ombudsman-description {
