@@ -14,3 +14,10 @@ __MACOSX/
 *.bak
 *~
 
+# Environment variables and sensitive config
+.env
+.env.local
+.env.production
+.env.development
+bitbucket-config.json
+
