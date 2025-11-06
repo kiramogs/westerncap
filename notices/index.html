@@ -69,6 +69,36 @@
         .navbar .dropdown-menu.show {
             display: block !important;
         }
+    
+        /* Nested dropdown positioning (dropend) */
+        .navbar .dropend {
+            position: relative;
+        }
+        
+        .navbar .dropend > .dropdown-menu {
+            left: 100% !important;
+            top: 0 !important;
+            margin-top: 0 !important;
+            margin-left: 0.125rem !important;
+        }
+        
+        /* Arrow indicator for nested dropdowns */
+        .navbar .dropend > .dropdown-toggle::after {
+            content: "";
+            display: inline-block;
+            margin-left: 0.255em;
+            vertical-align: 0.255em;
+            border-top: 0.3em solid transparent;
+            border-right: 0;
+            border-bottom: 0.3em solid transparent;
+            border-left: 0.3em solid;
+            transform: rotate(0deg);
+        }
+        
+        /* Ensure Our Products dropdown stays in default position */
+        .navbar #navbarDropdownProducts + .dropdown-menu {
+            left: 0 !important;
+        }
     </style>
 </head>
 
@@ -82,8 +112,39 @@
                 <li class="nav-item ">
                     <a aria-current="page" class="nav-link " href="/">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="/#services">services</a>
+                
+                <li class="nav-item dropdown">
+                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="navbarDropdownProducts" role="button" disabled>our products</a>
+                    <ul aria-labelledby="navbarDropdownProducts" class="dropdown-menu px-2">
+                        <li class="">
+                            <a class="dropdown-item" href="/#prabhaav-loans">Prabhaav Loans</a>
+                        </li>
+                        <li class="dropend">
+                            <a class="dropdown-item dropdown-toggle" href="#" id="retailPartnershipDropdown" role="button" disabled>Retail Partnership Loans</a>
+                            <ul class="dropdown-menu px-2">
+                                <li class="">
+                                    <a class="dropdown-item" href="/partners">Our Partners</a>
+                                </li>
+                                <li class="dropend">
+                                    <a class="dropdown-item dropdown-toggle" href="#" id="productsDropdown" role="button" disabled>Products</a>
+                                    <ul class="dropdown-menu px-2">
+                                        <li class="">
+                                            <a class="dropdown-item" href="/#education-loan">Education Loan</a>
+                                        </li>
+                                        <li class="">
+                                            <a class="dropdown-item" href="/#business-loan">Business Loan</a>
+                                        </li>
+                                        <li class="">
+                                            <a class="dropdown-item" href="/#lap">LAP</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="">
+                            <a class="dropdown-item" href="/#financial-institutions-loans">Financial Institutions Loans</a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a aria-expanded="false" class="nav-link  dropdown-toggle" data-bs-toggle="dropdown" href="#" id="navbarDropdown" role="button" disabled>company</a>
@@ -418,30 +479,38 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     
+    
     <script>
-    // Robust dropdown system - only one dropdown opens at a time
+    // Robust dropdown system with nested dropdown support
     $(document).ready(function() {
         // Completely disable Bootstrap's dropdown behavior
         $('.navbar .dropdown-toggle').removeAttr('data-bs-toggle').removeAttr('data-toggle').removeAttr('role');
+        $('.navbar .dropend .dropdown-toggle').removeAttr('data-bs-toggle').removeAttr('data-toggle').removeAttr('role');
         $('.navbar .dropdown').off('click.bs.dropdown');
         $('.navbar .dropdown-menu').off('click.bs.dropdown');
         
         var openDropdownId = null;
         var closeTimer = null;
+        var nestedCloseTimers = {};
         
         // Function to close all dropdowns
         function closeAllDropdowns() {
             $('.navbar .dropdown-menu').removeClass('show');
             $('.navbar .dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
+            $('.navbar .dropend .dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
             openDropdownId = null;
+            nestedCloseTimers = {};
         }
         
         // Function to open a specific dropdown
         function openDropdown($dropdown, dropdownId) {
-            // First, close ALL dropdowns
-            closeAllDropdowns();
+            // Close other top-level dropdowns but keep this one open
+            $('.navbar > .navbar-nav > .dropdown').not($dropdown).each(function() {
+                $(this).find('.dropdown-menu').removeClass('show');
+                $(this).find('.dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
+            });
             
-            // Then open this one
+            // Open this dropdown
             $dropdown.find('> .dropdown-menu').first().addClass('show');
             $dropdown.find('> .dropdown-toggle').first().addClass('show').attr('aria-expanded', 'true');
             openDropdownId = dropdownId;
@@ -449,6 +518,7 @@ document.addEventListener("DOMContentLoaded", function () {
         
         // Desktop: Hover to open/close
         if ($(window).width() > 992) {
+            // Top-level dropdowns
             $('.navbar > .navbar-nav > .dropdown').hover(
                 function() {
                     var $dropdown = $(this);
@@ -468,10 +538,50 @@ document.addEventListener("DOMContentLoaded", function () {
                     
                     // Delay closing to allow moving to dropdown menu
                     closeTimer = setTimeout(function() {
-                        if (!$dropdown.is(':hover')) {
+                        if (!$dropdown.is(':hover') && !$dropdown.find('.dropdown-menu').is(':hover')) {
                             closeAllDropdowns();
                         }
                     }, 300);
+                }
+            );
+            
+            // Nested dropdowns (dropend)
+            $('.navbar .dropend').hover(
+                function() {
+                    var $dropend = $(this);
+                    var dropendId = $dropend.find('.dropdown-toggle').attr('id');
+                    
+                    // Clear any pending close timer for this nested dropdown
+                    if (nestedCloseTimers[dropendId]) {
+                        clearTimeout(nestedCloseTimers[dropendId]);
+                        delete nestedCloseTimers[dropendId];
+                    }
+                    
+                    // Keep parent dropdown open
+                    var $parentDropdown = $dropend.closest('.dropdown-menu').closest('.dropdown, .dropend');
+                    if ($parentDropdown.length) {
+                        $parentDropdown.find('> .dropdown-menu').first().addClass('show');
+                    }
+                    
+                    // Close sibling nested dropdowns
+                    $dropend.siblings('.dropend').find('.dropdown-menu').removeClass('show');
+                    
+                    // Open this nested dropdown
+                    $dropend.find('> .dropdown-menu').first().addClass('show');
+                    $dropend.find('> .dropdown-toggle').first().addClass('show').attr('aria-expanded', 'true');
+                },
+                function() {
+                    var $dropend = $(this);
+                    var dropendId = $dropend.find('.dropdown-toggle').attr('id');
+                    
+                    // Delay closing nested dropdown
+                    nestedCloseTimers[dropendId] = setTimeout(function() {
+                        if (!$dropend.is(':hover') && !$dropend.find('.dropdown-menu').is(':hover')) {
+                            $dropend.find('.dropdown-menu').removeClass('show');
+                            $dropend.find('.dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
+                        }
+                        delete nestedCloseTimers[dropendId];
+                    }, 200);
                 }
             );
             
@@ -481,6 +591,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (closeTimer) {
                         clearTimeout(closeTimer);
                         closeTimer = null;
+                    }
+                    
+                    // Keep parent dropdown open
+                    var $parentDropdown = $(this).closest('.dropdown, .dropend');
+                    if ($parentDropdown.length) {
+                        $parentDropdown.find('> .dropdown-menu').first().addClass('show');
                     }
                 },
                 function() {
@@ -493,32 +609,41 @@ document.addEventListener("DOMContentLoaded", function () {
         
         // Mobile/tablet: Click to toggle
         if ($(window).width() <= 992) {
-            $('.navbar .dropdown-toggle').on('click', function(e) {
+            $('.navbar .dropdown-toggle, .navbar .dropend .dropdown-toggle').on('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
                 
                 var $toggle = $(this);
-                var $dropdown = $toggle.closest('.dropdown');
+                var $dropdown = $toggle.closest('.dropdown, .dropend');
                 var dropdownId = $toggle.attr('id');
-                var isOpen = $dropdown.find('.dropdown-menu').hasClass('show');
+                var isOpen = $dropdown.find('> .dropdown-menu').first().hasClass('show');
                 
                 if (isOpen) {
-                    closeAllDropdowns();
+                    $dropdown.find('.dropdown-menu').removeClass('show');
+                    $toggle.removeClass('show').attr('aria-expanded', 'false');
                 } else {
-                    openDropdown($dropdown, dropdownId);
+                    // Close other dropdowns at same level
+                    if ($dropdown.hasClass('dropend')) {
+                        $dropdown.siblings('.dropend').find('.dropdown-menu').removeClass('show');
+                    } else {
+                        $('.navbar > .navbar-nav > .dropdown').not($dropdown).find('.dropdown-menu').removeClass('show');
+                    }
+                    
+                    $dropdown.find('> .dropdown-menu').first().addClass('show');
+                    $toggle.addClass('show').attr('aria-expanded', 'true');
                 }
             });
         }
         
         // Close dropdown when clicking outside
         $(document).on('click', function(e) {
-            if (!$(e.target).closest('.navbar .dropdown').length) {
+            if (!$(e.target).closest('.navbar .dropdown, .navbar .dropend').length) {
                 closeAllDropdowns();
             }
         });
         
         // Prevent dropdown from closing when clicking inside
-        $('.navbar .dropdown-menu').on('click', function(e) {
+        $('.navbar .dropdown-menu, .navbar .dropend').on('click', function(e) {
             e.stopPropagation();
         });
         
@@ -528,6 +653,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
     </script>
+
 
 
 </body>
