@@ -182,6 +182,33 @@
                     }, 300);
                 }
             );
+                    if ($parentDropdown.length) {
+                        $parentDropdown.find('> .dropdown-menu').first().addClass('show');
+                        // Keep grandparent open too
+                        var $grandparent = $parentDropdown.closest('.dropdown-menu').closest('.dropdown, .dropend');
+                        if ($grandparent.length) {
+                            $grandparent.find('> .dropdown-menu').first().addClass('show');
+                        }
+                    }
+                    
+                    // Don't auto-open child dropdowns - only show on hover of parent item
+                    // This ensures progressive reveal - child menus only open when their parent is hovered
+                },
+                function() {
+                    var $menu = $(this);
+                    // Delay closing to allow moving to nested menus
+                    closeTimer = setTimeout(function() {
+                        // Only close if not hovering over any dropdown item or nested menu
+                        if (!$menu.is(':hover') && !$menu.find('.dropend').is(':hover')) {
+                            // Check if we're still hovering over any parent dropdown
+                            var $parent = $menu.closest('.dropdown, .dropend');
+                            if (!$parent.is(':hover')) {
+                                closeAllDropdowns();
+                            }
+                        }
+                    }, 300);
+                }
+            );
         }
         
         // Mobile/tablet: Click to toggle
