@@ -55,13 +55,69 @@
             left: 0 !important;
         }
         
-        /* Prevent dropdown flickering */
+                /* Prevent dropdown flickering and add smooth transitions */
         .navbar .dropdown-menu {
             display: none !important;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+            visibility: hidden;
         }
         
         .navbar .dropdown-menu.show {
             display: block !important;
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+            visibility: visible !important;
+        }
+        
+        /* Nested dropdown positioning (dropend) */
+        .navbar .dropend {
+            position: relative;
+        }
+        
+        .navbar .dropend > .dropdown-menu {
+            left: 100% !important;
+            top: 0 !important;
+            margin-top: 0 !important;
+            margin-left: 0.125rem !important;
+            transform: translateX(-10px) translateY(0);
+        }
+        
+        .navbar .dropend > .dropdown-menu.show {
+            transform: translateX(0) translateY(0) !important;
+        }
+        
+        /* Arrow indicator for nested dropdowns */
+        .navbar .dropend > .dropdown-toggle::after {
+            content: "";
+            display: inline-block;
+            margin-left: 0.255em;
+            vertical-align: 0.255em;
+            border-top: 0.3em solid transparent;
+            border-right: 0;
+            border-bottom: 0.3em solid transparent;
+            border-left: 0.3em solid;
+            transform: rotate(0deg);
+            transition: transform 0.2s ease;
+        }
+        
+        .navbar .dropend > .dropdown-toggle[aria-expanded="true"]::after {
+            transform: rotate(90deg);
+        }
+        
+        /* Ensure Our Products dropdown stays in default position */
+        .navbar #navbarDropdownProducts + .dropdown-menu {
+            left: 0 !important;
+        }
+        
+        /* Smooth hover effects for dropdown items */
+        .navbar .dropdown-item {
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        
+        .navbar .dropdown-item:hover {
+            background-color: rgba(0, 0, 0, 0.05);
         }
     
         /* Nested dropdown positioning (dropend) */
@@ -119,19 +175,19 @@
                         </li>
                         
                 <li class="nav-item dropdown">
-                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="navbarDropdownProducts" role="button" disabled>our products</a>
+                    <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="navbarDropdownProducts" role="button" disabled>our products</a>
                     <ul aria-labelledby="navbarDropdownProducts" class="dropdown-menu px-2">
                         <li class="">
                             <a class="dropdown-item" href="/#prabhaav-loans">Prabhaav Loans</a>
                         </li>
                         <li class="dropend">
-                            <a class="dropdown-item dropdown-toggle" href="#" id="retailPartnershipDropdown" role="button" disabled>Retail Partnership Loans</a>
+                            <a aria-expanded="false" aria-haspopup="true" class="dropdown-item dropdown-toggle" href="#" id="retailPartnershipDropdown" role="button" disabled role="button" disabled>Retail Partnership Loans</a>
                             <ul class="dropdown-menu px-2">
                                 <li class="">
                                     <a class="dropdown-item" href="/partners">Our Partners</a>
                                 </li>
                                 <li class="dropend">
-                                    <a class="dropdown-item dropdown-toggle" href="#" id="productsDropdown" role="button" disabled>Products</a>
+                                    <a aria-expanded="false" aria-haspopup="true" class="dropdown-item dropdown-toggle" href="#" id="productsDropdown" role="button" disabled role="button" disabled>Products</a>
                                     <ul class="dropdown-menu px-2">
                                         <li class="">
                                             <a class="dropdown-item" href="/#education-loan">Education Loan</a>
