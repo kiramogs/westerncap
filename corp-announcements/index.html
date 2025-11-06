@@ -41,16 +41,46 @@
     <link rel="icon" type="image/png" href="/img/favicon.png">
     
 
+    
     <style>
+        /* Perfect and consistent navbar spacing */
+        .navbar-nav .nav-item {
+            margin-right: 1.8rem !important;
+            margin-left: 0 !important;
+        }
+        
+        .navbar-nav .nav-item:last-child {
+            margin-right: 0 !important;
+        }
+        
+        /* Adjust spacing for longer text items */
+        .navbar-nav .nav-item.dropdown {
+            margin-right: 1.5rem !important;
+        }
+        
+        .navbar-nav .nav-item-contact {
+            margin-right: 1.8rem !important;
+        }
+        
         /* Position company dropdown to the left for better visibility */
         .navbar .dropdown-menu {
             left: -20px !important;
             right: auto !important;
+            margin-top: 0.5rem !important;
         }
         
         /* Ensure investor relations dropdown stays in default position */
         .navbar .dropdown-investor-relations .dropdown-menu {
             left: 0 !important;
+        }
+        
+        /* Prevent dropdown flickering */
+        .navbar .dropdown-menu {
+            display: none !important;
+        }
+        
+        .navbar .dropdown-menu.show {
+            display: block !important;
         }
     </style>
 </head>
