@@ -83,6 +83,186 @@
         .navbar .dropdown-menu.show {
             display: block !important;
         }
+        
+        /* Escalation Matrix Page Styles */
+        .escalation-header {
+            background: linear-gradient(135deg, #02478c 0%, #243a5a 100%);
+            padding: 60px 0;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .escalation-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .escalation-subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            opacity: 0.95;
+        }
+        
+        .process-note {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        .process-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #02478c;
+            margin-bottom: 12px;
+        }
+        
+        .matrix-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+        
+        .matrix-header {
+            text-align: center;
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #02478c;
+        }
+        
+        .matrix-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #02478c;
+            margin: 0;
+        }
+        
+        .escalation-level {
+            display: flex;
+            align-items: flex-start;
+            gap: 25px;
+            padding: 25px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-radius: 10px;
+            border-left: 5px solid #02478c;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .escalation-level:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+        }
+        
+        .level-number {
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #02478c 0%, #0360c7 100%);
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(2,71,140,0.3);
+        }
+        
+        .level-details {
+            flex: 1;
+        }
+        
+        .level-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #02478c;
+            margin-bottom: 8px;
+        }
+        
+        .level-description {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .contact-info {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .contact-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .contact-email, .contact-phone {
+            display: inline-block;
+            font-size: 0.95rem;
+            color: #02478c;
+            text-decoration: none;
+            margin-right: 15px;
+            margin-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+        
+        .contact-email:hover, .contact-phone:hover {
+            color: #0360c7;
+            text-decoration: underline;
+        }
+        
+        .timeline {
+            background: linear-gradient(135deg, #ffc107 0%, #ffb300 100%);
+            color: #000;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-align: center;
+            box-shadow: 0 3px 8px rgba(255,193,7,0.3);
+            margin-top: 10px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .escalation-title {
+                font-size: 1.8rem;
+            }
+            
+            .escalation-subtitle {
+                font-size: 1rem;
+            }
+            
+            .escalation-level {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .level-number {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+            
+            .level-title {
+                font-size: 1.2rem;
+            }
+            
+            .matrix-container {
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -348,140 +528,117 @@
 
     <script>
         AOS.init();
-
-        // Enhanced dropdown with smooth animations and proper nested dropdown support
-$(document).ready(function() {
-    // Disable Bootstrap's default dropdown behavior
-    $('.navbar .dropdown-toggle').attr('data-bs-toggle', '').attr('data-toggle', '');
+    </script>
     
-    var closeTimers = {};
-    
-    // Handle main dropdown hover events
-    $('.navbar > .navbar-nav > .dropdown').hover(
-        function() {
-            var $dropdown = $(this);
-            var dropdownId = $dropdown.find('.dropdown-toggle').attr('id');
+    <script>
+    // Robust dropdown system - only one dropdown opens at a time
+    $(document).ready(function() {
+        // Completely disable Bootstrap's dropdown behavior
+        $('.navbar .dropdown-toggle').removeAttr('data-bs-toggle').removeAttr('data-toggle').removeAttr('role');
+        $('.navbar .dropdown').off('click.bs.dropdown');
+        $('.navbar .dropdown-menu').off('click.bs.dropdown');
+        
+        var openDropdownId = null;
+        var closeTimer = null;
+        
+        // Function to close all dropdowns
+        function closeAllDropdowns() {
+            $('.navbar .dropdown-menu').removeClass('show');
+            $('.navbar .dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
+            openDropdownId = null;
+        }
+        
+        // Function to open a specific dropdown
+        function openDropdown($dropdown, dropdownId) {
+            // First, close ALL dropdowns
+            closeAllDropdowns();
             
-            // Clear any pending close timers for this dropdown and its children
-            if (closeTimers[dropdownId]) {
-                clearTimeout(closeTimers[dropdownId]);
-                delete closeTimers[dropdownId];
-            }
+            // Then open this one
+            $dropdown.find('> .dropdown-menu').first().addClass('show');
+            $dropdown.find('> .dropdown-toggle').first().addClass('show').attr('aria-expanded', 'true');
+            openDropdownId = dropdownId;
+        }
+        
+        // Desktop: Hover to open/close
+        if ($(window).width() > 992) {
+            $('.navbar > .navbar-nav > .dropdown').hover(
+                function() {
+                    var $dropdown = $(this);
+                    var dropdownId = $dropdown.find('.dropdown-toggle').attr('id');
+                    
+                    // Clear any pending close timer
+                    if (closeTimer) {
+                        clearTimeout(closeTimer);
+                        closeTimer = null;
+                    }
+                    
+                    // Open this dropdown (will automatically close others)
+                    openDropdown($dropdown, dropdownId);
+                },
+                function() {
+                    var $dropdown = $(this);
+                    
+                    // Delay closing to allow moving to dropdown menu
+                    closeTimer = setTimeout(function() {
+                        if (!$dropdown.is(':hover')) {
+                            closeAllDropdowns();
+                        }
+                    }, 300);
+                }
+            );
             
-            // Close all other top-level dropdowns
-            $('.navbar > .navbar-nav > .dropdown').not($dropdown).each(function() {
-                var otherId = $(this).find('.dropdown-toggle').attr('id');
-                $(this).find('.dropdown-menu').removeClass('show');
-                $(this).find('.dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
-                // Close all nested dropdowns
-                $(this).find('.dropend .dropdown-menu').removeClass('show');
-                if (closeTimers[otherId]) {
-                    clearTimeout(closeTimers[otherId]);
-                    delete closeTimers[otherId];
+            // Keep dropdown open when hovering over the menu itself
+            $('.navbar .dropdown-menu').hover(
+                function() {
+                    if (closeTimer) {
+                        clearTimeout(closeTimer);
+                        closeTimer = null;
+                    }
+                },
+                function() {
+                    closeTimer = setTimeout(function() {
+                        closeAllDropdowns();
+                    }, 300);
+                }
+            );
+        }
+        
+        // Mobile/tablet: Click to toggle
+        if ($(window).width() <= 992) {
+            $('.navbar .dropdown-toggle').on('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                var $toggle = $(this);
+                var $dropdown = $toggle.closest('.dropdown');
+                var dropdownId = $toggle.attr('id');
+                var isOpen = $dropdown.find('.dropdown-menu').hasClass('show');
+                
+                if (isOpen) {
+                    closeAllDropdowns();
+                } else {
+                    openDropdown($dropdown, dropdownId);
                 }
             });
-            
-            // Open this dropdown
-            $dropdown.find('.dropdown-menu').addClass('show');
-            $dropdown.find('.dropdown-toggle').addClass('show').attr('aria-expanded', 'true');
-        },
-        function() {
-            var $dropdown = $(this);
-            var dropdownId = $dropdown.find('.dropdown-toggle').attr('id');
-            
-            // Close after delay if not hovering over nested menu
-            closeTimers[dropdownId] = setTimeout(function() {
-                if (!$dropdown.is(':hover') && !$dropdown.find('.dropdown-menu').is(':hover')) {
-                    $dropdown.find('.dropdown-menu').removeClass('show');
-                    $dropdown.find('.dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
-                    // Close all nested dropdowns
-                    $dropdown.find('.dropend .dropdown-menu').removeClass('show');
-                }
-                delete closeTimers[dropdownId];
-            }, 250);
         }
-    );
-    
-    // Handle nested dropdown (dropend) hover events
-    $('.navbar .dropend').hover(
-        function() {
-            var $dropend = $(this);
-            var dropendId = $dropend.find('.dropdown-toggle').attr('id') || $dropend.index();
-            
-            // Clear close timer
-            if (closeTimers['dropend_' + dropendId]) {
-                clearTimeout(closeTimers['dropend_' + dropendId]);
-                delete closeTimers['dropend_' + dropendId];
+        
+        // Close dropdown when clicking outside
+        $(document).on('click', function(e) {
+            if (!$(e.target).closest('.navbar .dropdown').length) {
+                closeAllDropdowns();
             }
-            
-            // Close siblings but keep parent open
-            $dropend.siblings('.dropend').find('.dropdown-menu').removeClass('show');
-            
-            // Open this nested dropdown
-            $dropend.find('.dropdown-menu').addClass('show');
-            $dropend.find('.dropdown-toggle').addClass('show').attr('aria-expanded', 'true');
-        },
-        function() {
-            var $dropend = $(this);
-            var dropendId = $dropend.find('.dropdown-toggle').attr('id') || $dropend.index();
-            
-            // Close after delay
-            closeTimers['dropend_' + dropendId] = setTimeout(function() {
-                if (!$dropend.is(':hover') && !$dropend.find('.dropdown-menu').is(':hover')) {
-                    $dropend.find('.dropdown-menu').removeClass('show');
-                    $dropend.find('.dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
-                }
-                delete closeTimers['dropend_' + dropendId];
-            }, 200);
-        }
-    );
-    
-    // Keep parent dropdown open when hovering over nested menus
-    $('.navbar .dropdown-menu').hover(
-        function() {
-            var $menu = $(this);
-            // Find parent dropdown and keep it open
-            var $parentDropdown = $menu.closest('.dropdown');
-            if ($parentDropdown.length) {
-                $parentDropdown.find('.dropdown-menu').addClass('show');
-                $parentDropdown.find('.dropdown-toggle').addClass('show').attr('aria-expanded', 'true');
-            }
-        },
-        function() {}
-    );
-    
-    // Close dropdown when clicking outside
-    $(document).on('click', function(e) {
-        if (!$(e.target).closest('.navbar .dropdown, .navbar .dropend').length) {
-            $('.navbar .dropdown-menu').removeClass('show');
-            $('.navbar .dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
-        }
-    });
-    
+        });
+        
         // Prevent dropdown from closing when clicking inside
-    $('.navbar .dropdown-menu, .navbar .dropend').on('click', function(e) {
-        e.stopPropagation();
+        $('.navbar .dropdown-menu').on('click', function(e) {
+            e.stopPropagation();
+        });
+        
+        // Close dropdowns on window resize
+        $(window).on('resize', function() {
+            closeAllDropdowns();
+        });
     });
-    
-        // Mobile/tablet: Toggle on click instead of hover
-    if ($(window).width() <= 992) {
-        $('.navbar .dropdown-toggle, .navbar .dropend .dropdown-toggle').on('click', function(e) {
-            e.preventDefault();
-            var $toggle = $(this);
-            var $dropdown = $toggle.closest('.dropdown, .dropend');
-            var isOpen = $dropdown.find('.dropdown-menu').hasClass('show');
-            
-            // Close all other dropdowns
-            $('.navbar .dropdown-menu').removeClass('show');
-            $('.navbar .dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
-            
-            // Toggle this dropdown
-            if (!isOpen) {
-                $dropdown.find('.dropdown-menu').addClass('show');
-                $toggle.addClass('show').attr('aria-expanded', 'true');
-            }        });
-    }
-});
-</script>
+    </script>
 </body>
 </html>
