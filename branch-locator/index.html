@@ -40,10 +40,12 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="/img/favicon.png">
     
-    <!-- Leaflet.js for interactive map -->
+    <!-- Leaflet.js for interactive map - Latest version -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
      crossorigin=""/>
+    <!-- Leaflet plugins for better map rendering -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@1.13.0/dist/Control.Geocoder.css" />
     
     
 
@@ -422,10 +424,12 @@
 <script src="/js/slider.js"></script>
 <script src="/js/scripts.js"></script>
 
-<!-- Leaflet.js -->
+<!-- Leaflet.js - Latest version -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
  crossorigin=""></script>
+<!-- Leaflet plugins for enhanced functionality -->
+<script src="https://unpkg.com/leaflet-control-geocoder@1.13.0/dist/Control.Geocoder.js"></script>
 
 <script>
 // Initialize AOS
@@ -690,11 +694,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Initialize Leaflet Map
-    // Updated to reflect current Indian map with all states and union territories
-    // Including Jammu & Kashmir, Ladakh, and complete territorial extent
+    // Updated to reflect latest Indian map with all 28 states and 8 union territories
+    // Including Jammu & Kashmir, Ladakh (as separate UTs), and complete territorial extent
+    // Latest boundaries as of 2024
     const indiaCenter = [22.5937, 78.9629];
     const indiaBounds = [
-        [6.5, 68.1],      // Southwest corner (includes Nicobar Islands)
+        [6.5, 68.1],      // Southwest corner (includes Andaman & Nicobar Islands)
         [37.5, 97.5]      // Northeast corner (includes J&K, Ladakh, Arunachal Pradesh)
     ];
     
@@ -705,18 +710,36 @@ document.addEventListener('DOMContentLoaded', function() {
         zoomControl: true,
         maxBounds: indiaBounds,
         maxBoundsViscosity: 1.0,
-        minZoom: 4.5,     // Slightly lower to show full extent including northern territories
-        maxZoom: 18
+        minZoom: 4.5,     // Show full extent including all territories
+        maxZoom: 19        // Increased for better detail with new tile provider
     });
     
-    // Add OpenStreetMap tiles - displays current Indian boundaries
-    // including all 28 states and 8 union territories (J&K, Ladakh, etc.)
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        maxZoom: 18,
+    // Add latest India map tiles with current boundaries
+    // Using CartoDB Positron for cleaner, more accurate map rendering
+    // This shows the latest Indian boundaries including all states and union territories
+    const baseMap = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 19,
         minZoom: 4.5,
         bounds: indiaBounds
     }).addTo(map);
+    
+    // Alternative: OpenStreetMap with better rendering (fallback option)
+    const osmMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 19,
+        minZoom: 4.5,
+        bounds: indiaBounds
+    });
+    
+    // Add map layer control to switch between different map styles
+    const baseMaps = {
+        "Light Map (Recommended)": baseMap,
+        "OpenStreetMap": osmMap
+    };
+    
+    L.control.layers(baseMaps).addTo(map);
     
     // Custom pin icon
     const branchIcon = L.icon({
@@ -769,13 +792,25 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Add Jammu & Kashmir label on the map (standard text style, two lines, repositioned)
+    // Add labels for Jammu & Kashmir and Ladakh (separate union territories as of 2019)
+    // Updated to reflect current administrative divisions
     const jkLabel = L.marker([33.5, 75.0], {
         icon: L.divIcon({
             className: 'territory-label',
             html: '<div style="color: #333; font-size: 8px; font-weight: 600; text-align: center; line-height: 1.3; text-shadow: 1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;">Jammu &<br>Kashmir</div>',
             iconSize: [50, 24],
             iconAnchor: [25, 12]
+        }),
+        interactive: false,
+        keyboard: false
+    }).addTo(map);
+    
+    const ladakhLabel = L.marker([34.2, 77.5], {
+        icon: L.divIcon({
+            className: 'territory-label',
+            html: '<div style="color: #333; font-size: 8px; font-weight: 600; text-align: center; line-height: 1.3; text-shadow: 1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white;">Ladakh</div>',
+            iconSize: [40, 20],
+            iconAnchor: [20, 10]
         }),
         interactive: false,
         keyboard: false
