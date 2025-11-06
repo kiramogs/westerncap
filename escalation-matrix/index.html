@@ -234,122 +234,6 @@
             margin-top: 10px;
         }
         
-        /* Orange Card - Escalation & Ombudsman */
-        .escalation-ombudsman-card {
-            background: linear-gradient(135deg, #ff8c42 0%, #ff6b35 100%);
-            border-radius: 12px;
-            padding: 30px;
-            margin: 40px 0;
-            box-shadow: 0 6px 20px rgba(255, 140, 66, 0.3);
-            color: white;
-        }
-        
-        .escalation-ombudsman-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-        }
-        
-        .escalation-ombudsman-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #8B4513;
-            margin: 0;
-            flex: 1;
-        }
-        
-        .escalation-ombudsman-icon {
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-        }
-        
-        .escalation-ombudsman-links {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        
-        .escalation-ombudsman-links li {
-            margin: 0;
-            width: 100%;
-        }
-        
-        .escalation-ombudsman-links a {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: #fff;
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 500;
-            padding: 14px 16px;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            width: 100%;
-            min-height: 50px;
-        }
-        
-        .escalation-ombudsman-links a:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateX(5px);
-            text-decoration: none;
-        }
-        
-        .escalation-ombudsman-links li:first-child a::before {
-            content: '📋';
-            font-size: 1.3rem;
-            flex-shrink: 0;
-            width: 28px;
-            height: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .escalation-ombudsman-links li:nth-child(2) a::before {
-            content: '🏛️';
-            font-size: 1.3rem;
-            flex-shrink: 0;
-            width: 28px;
-            height: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .escalation-ombudsman-links li:nth-child(3) a::before {
-            content: '🏛️';
-            font-size: 1.3rem;
-            flex-shrink: 0;
-            width: 28px;
-            height: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .escalation-ombudsman-description {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.3);
-            font-size: 0.95rem;
-            color: rgba(255, 255, 255, 0.9);
-            font-style: italic;
-        }
-        
         /* Responsive Design */
         @media (max-width: 768px) {
             .escalation-title {
@@ -377,14 +261,6 @@
             
             .matrix-container {
                 padding: 20px;
-            }
-            
-            .escalation-ombudsman-card {
-                padding: 20px;
-            }
-            
-            .escalation-ombudsman-title {
-                font-size: 1.5rem;
             }
         }
     </style>
@@ -548,29 +424,6 @@
                         <div class="level-details">
                             <div class="timeline">Resolution: 30 Days</div>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Escalation & Ombudsman Card -->
-                <div class="escalation-ombudsman-card">
-                    <div class="escalation-ombudsman-header">
-                        <div class="escalation-ombudsman-icon">📧</div>
-                        <div class="escalation-ombudsman-icon">⚖️</div>
-                        <h3 class="escalation-ombudsman-title">Escalation & Ombudsman</h3>
-                    </div>
-                    <ul class="escalation-ombudsman-links">
-                        <li>
-                            <a href="/escalation-matrix/" target="_self">Grievance Escalation Matrix</a>
-                        </li>
-                        <li>
-                            <a href="https://rbi.org.in/Scripts/Complaints.aspx" target="_blank">Banking Ombudsman Scheme</a>
-                        </li>
-                        <li>
-                            <a href="https://sachet.rbi.org.in/" target="_blank">RBI Sachet Portal</a>
-                        </li>
-                    </ul>
-                    <div class="escalation-ombudsman-description">
-                        For complaints and escalation procedures
                     </div>
                 </div>
 
