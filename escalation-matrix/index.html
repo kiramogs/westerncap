@@ -302,15 +302,21 @@
             text-decoration: none;
         }
         
-        .escalation-ombudsman-links a::before {
-            content: '';
-            width: 24px;
-            height: 24px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .escalation-ombudsman-links li:first-child a::before {
+            content: '📋';
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .escalation-ombudsman-links li:nth-child(2) a::before {
+            content: '🏛️';
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .escalation-ombudsman-links li:nth-child(3) a::before {
+            content: '🏛️';
+            font-size: 1.2rem;
             flex-shrink: 0;
         }
         
