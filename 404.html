@@ -357,6 +357,267 @@
         </div>
     </div>
 </footer>
+
+<script src="https://code.jquery.com/jquery-1.12.4.js">
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://code.jquery.com/jquery-migrate-3.3.2.min.js" integrity="sha256-Ap4KLoCf1rXb52q+i3p0k2vjBsmownyBTE1EqlRiMwA=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/1.1.6/waypoints.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/vendor/slick/slick.min.js"></script>
+<script src="/js/app.js"></script>
+<script src="/js/slider.js"></script>
+<script src="/js/scripts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
+
+
+<script src="https://www.google.com/recaptcha/api.js"></script>
+
+
+    
+    
+    <script>
+    // Robust dropdown system with nested dropdown support
+    $(document).ready(function() {
+        // Completely disable Bootstrap's dropdown behavior
+        $('.navbar .dropdown-toggle').removeAttr('data-bs-toggle').removeAttr('data-toggle').removeAttr('role');
+        $('.navbar .dropend .dropdown-toggle').removeAttr('data-bs-toggle').removeAttr('data-toggle').removeAttr('role');
+        $('.navbar .dropdown').off('click.bs.dropdown');
+        $('.navbar .dropdown-menu').off('click.bs.dropdown');
+        
+        var openDropdownId = null;
+        var closeTimer = null;
+        var nestedCloseTimers = {};
+        
+        // Function to close all dropdowns
+        function closeAllDropdowns() {
+            $('.navbar .dropdown-menu').removeClass('show');
+            $('.navbar .dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
+            $('.navbar .dropend .dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
+            openDropdownId = null;
+            nestedCloseTimers = {};
+        }
+        
+        // Function to open a specific dropdown
+        function openDropdown($dropdown, dropdownId) {
+            // Close other top-level dropdowns but keep this one open
+            $('.navbar > .navbar-nav > .dropdown').not($dropdown).each(function() {
+                $(this).find('.dropdown-menu').removeClass('show');
+                $(this).find('.dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
+            });
+            
+            // Open this dropdown
+            $dropdown.find('> .dropdown-menu').first().addClass('show');
+            $dropdown.find('> .dropdown-toggle').first().addClass('show').attr('aria-expanded', 'true');
+            openDropdownId = dropdownId;
+        }
+        
+        // Desktop: Hover to open/close
+        if ($(window).width() > 992) {
+            // Top-level dropdowns
+            $('.navbar > .navbar-nav > .dropdown').hover(
+                function() {
+                    var $dropdown = $(this);
+                    var dropdownId = $dropdown.find('.dropdown-toggle').attr('id');
+                    
+                    // Clear any pending close timer
+                    if (closeTimer) {
+                        clearTimeout(closeTimer);
+                        closeTimer = null;
+                    }
+                    
+                    // Open this dropdown (will automatically close others)
+                    openDropdown($dropdown, dropdownId);
+                },
+                function() {
+                    var $dropdown = $(this);
+                    
+                    // Delay closing to allow moving to dropdown menu
+                    closeTimer = setTimeout(function() {
+                        if (!$dropdown.is(':hover') && !$dropdown.find('.dropdown-menu').is(':hover')) {
+                            closeAllDropdowns();
+                        }
+                    }, 300);
+                }
+            );
+            
+            
+            
+            
+            // Nested dropdowns (dropend) - Progressive reveal on hover
+            $('.navbar .dropend').hover(
+                function() {
+                    var $dropend = $(this);
+                    var dropendId = $dropend.find('.dropdown-toggle').attr('id');
+                    
+                    // Clear any pending close timer for this nested dropdown
+                    if (nestedCloseTimers[dropendId]) {
+                        clearTimeout(nestedCloseTimers[dropendId]);
+                        delete nestedCloseTimers[dropendId];
+                    }
+                    
+                    // Keep parent dropdown open (keep all parent levels open)
+                    var $parentDropdown = $dropend.closest('.dropdown-menu').closest('.dropdown, .dropend');
+                    if ($parentDropdown.length) {
+                        $parentDropdown.find('> .dropdown-menu').first().addClass('show');
+                        $parentDropdown.find('> .dropdown-toggle').first().addClass('show').attr('aria-expanded', 'true');
+                        // Keep grandparent open too
+                        var $grandparent = $parentDropdown.closest('.dropdown-menu').closest('.dropdown, .dropend');
+                        if ($grandparent.length) {
+                            $grandparent.find('> .dropdown-menu').first().addClass('show');
+                            $grandparent.find('> .dropdown-toggle').first().addClass('show').attr('aria-expanded', 'true');
+                        }
+                    }
+                    
+                    // Close sibling nested dropdowns at the same level
+                    $dropend.siblings('.dropend').each(function() {
+                        var $sibling = $(this);
+                        $sibling.find('.dropdown-menu').removeClass('show');
+                        $sibling.find('.dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
+                    });
+                    
+                    // Close all child nested dropdowns (progressive reveal - only show direct children)
+                    $dropend.find('.dropend .dropdown-menu').removeClass('show');
+                    $dropend.find('.dropend .dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
+                    
+                    // Open only this nested dropdown (direct child) - similar to Bootstrap submenu
+                    var $nestedMenu = $dropend.find('> .dropdown-menu').first();
+                    $nestedMenu.addClass('show');
+                    $dropend.find('> .dropdown-toggle').first().addClass('show').attr('aria-expanded', 'true');
+                },
+                function() {
+                    var $dropend = $(this);
+                    var dropendId = $dropend.find('.dropdown-toggle').attr('id');
+                    
+                    // Delay closing nested dropdown and all its children
+                    nestedCloseTimers[dropendId] = setTimeout(function() {
+                        if (!$dropend.is(':hover') && !$dropend.find('.dropdown-menu').is(':hover')) {
+                            // Close this dropdown and all its nested children
+                            $dropend.find('.dropdown-menu').removeClass('show');
+                            $dropend.find('.dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
+                        }
+                        delete nestedCloseTimers[dropendId];
+                    }, 200);
+                }
+            );
+            
+            
+            // Keep dropdown open when hovering over the menu itself
+            $('.navbar .dropdown-menu').hover(
+                function() {
+                    // Clear any pending close timer
+                    if (closeTimer) {
+                        clearTimeout(closeTimer);
+                        closeTimer = null;
+                    }
+                    
+                    // Keep parent dropdown open (all parent levels)
+                    var $parentDropdown = $(this).closest('.dropdown, .dropend');
+                    if ($parentDropdown.length) {
+                        $parentDropdown.find('> .dropdown-menu').first().addClass('show');
+                        // Keep grandparent open too
+                        var $grandparent = $parentDropdown.closest('.dropdown-menu').closest('.dropdown, .dropend');
+                        if ($grandparent.length) {
+                            $grandparent.find('> .dropdown-menu').first().addClass('show');
+                        }
+                    }
+                    
+                    // Don't auto-open child dropdowns - only show on hover of parent item
+                    // This ensures progressive reveal - child menus only open when their parent is hovered
+                },
+                function() {
+                    var $menu = $(this);
+                    // Delay closing to allow moving to nested menus
+                    closeTimer = setTimeout(function() {
+                        // Only close if not hovering over any dropdown item or nested menu
+                        if (!$menu.is(':hover') && !$menu.find('.dropend').is(':hover')) {
+                            // Check if we're still hovering over any parent dropdown
+                            var $parent = $menu.closest('.dropdown, .dropend');
+                            if (!$parent.is(':hover')) {
+                                closeAllDropdowns();
+                            }
+                        }
+                    }, 300);
+                }
+            );
+                    if ($parentDropdown.length) {
+                        $parentDropdown.find('> .dropdown-menu').first().addClass('show');
+                        // Keep grandparent open too
+                        var $grandparent = $parentDropdown.closest('.dropdown-menu').closest('.dropdown, .dropend');
+                        if ($grandparent.length) {
+                            $grandparent.find('> .dropdown-menu').first().addClass('show');
+                        }
+                    }
+                    
+                    // Don't auto-open child dropdowns - only show on hover of parent item
+                    // This ensures progressive reveal - child menus only open when their parent is hovered
+                },
+                function() {
+                    var $menu = $(this);
+                    // Delay closing to allow moving to nested menus
+                    closeTimer = setTimeout(function() {
+                        // Only close if not hovering over any dropdown item or nested menu
+                        if (!$menu.is(':hover') && !$menu.find('.dropend').is(':hover')) {
+                            // Check if we're still hovering over any parent dropdown
+                            var $parent = $menu.closest('.dropdown, .dropend');
+                            if (!$parent.is(':hover')) {
+                                closeAllDropdowns();
+                            }
+                        }
+                    }, 300);
+                }
+            );
+        }
+        
+        // Mobile/tablet: Click to toggle
+        if ($(window).width() <= 992) {
+            $('.navbar .dropdown-toggle, .navbar .dropend .dropdown-toggle').on('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                var $toggle = $(this);
+                var $dropdown = $toggle.closest('.dropdown, .dropend');
+                var dropdownId = $toggle.attr('id');
+                var isOpen = $dropdown.find('> .dropdown-menu').first().hasClass('show');
+                
+                if (isOpen) {
+                    $dropdown.find('.dropdown-menu').removeClass('show');
+                    $toggle.removeClass('show').attr('aria-expanded', 'false');
+                } else {
+                    // Close other dropdowns at same level
+                    if ($dropdown.hasClass('dropend')) {
+                        $dropdown.siblings('.dropend').find('.dropdown-menu').removeClass('show');
+                    } else {
+                        $('.navbar > .navbar-nav > .dropdown').not($dropdown).find('.dropdown-menu').removeClass('show');
+                    }
+                    
+                    $dropdown.find('> .dropdown-menu').first().addClass('show');
+                    $toggle.addClass('show').attr('aria-expanded', 'true');
+                }
+            });
+        }
+        
+        // Close dropdown when clicking outside
+        $(document).on('click', function(e) {
+            if (!$(e.target).closest('.navbar .dropdown, .navbar .dropend').length) {
+                closeAllDropdowns();
+            }
+        });
+        
+        // Prevent dropdown from closing when clicking inside
+        $('.navbar .dropdown-menu, .navbar .dropend').on('click', function(e) {
+            e.stopPropagation();
+        });
+        
+        // Close dropdowns on window resize
+        $(window).on('resize', function() {
+            closeAllDropdowns();
+        });
+    });
+    </script>
+
 </body>
 </html>
 

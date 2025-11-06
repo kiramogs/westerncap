@@ -157,14 +157,19 @@
         }
     </style>
 </head><body>
-        <div id="content"><nav class="navbar navbar-expand-lg border-bottom scrolled-down header-2">
+        <div id="content"><nav class="navbar navbar-expand-lg  header-1">
     <div class="container justify-content-start justify-content-md-between">
-        <img alt="" src="/img/bars-invert.png" class="navbar-toggler bg-transparent"  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse">
-        <a class="navbar-brand  " href="/"><img alt="" src="/img/onscroll.png" class="logo"></a>
+        <img alt="" src="/img/bars-invert.png" class="navbar-toggler bg-transparent d-none blue" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse">
+        <img alt="" src="/img/bars.png" class="navbar-toggler bg-transparent white" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse">
+
+        <a class="navbar-brand scrolltop" href="/"><img alt="" src="/img/LOGO1.png" class="logo"></a>
+        <a class="navbar-brand scrolldown" href="/"><img alt="" src="/img/onscroll.png" class="logo"></a>
+
+
         <div class="collapse navbar-collapse justify-content-md-end" id="navbarSupportedContent">
-                        <ul class="navbar-nav text-capitalize mb-2 mb-lg-0">
+            <ul class="navbar-nav text-capitalize mb-2 mb-lg-0">
                 <li class="nav-item ">
-                    <a aria-current="page" class="nav-link " href="/">Home</a>
+                    <a aria-current="page" class="nav-link active" href="/">Home</a>
                 </li>
                 
                 <li class="nav-item dropdown">
@@ -174,13 +179,13 @@
                             <a class="dropdown-item" href="/#prabhaav-loans">Prabhaav Loans</a>
                         </li>
                         <li class="dropend">
-                            <a aria-expanded="false" aria-haspopup="true" class="dropdown-item dropdown-toggle" href="#" id="retailPartnershipDropdown" role="button" disabled role="button" disabled>Retail Partnership Loans</a>
+                            <a aria-expanded="false" aria-haspopup="true" class="dropdown-item dropdown-toggle" href="#" id="retailPartnershipDropdown" role="button" disabled>Retail Partnership Loans</a>
                             <ul class="dropdown-menu px-2">
                                 <li class="">
                                     <a class="dropdown-item" href="/partners">Our Partners</a>
                                 </li>
                                 <li class="dropend">
-                                    <a aria-expanded="false" aria-haspopup="true" class="dropdown-item dropdown-toggle" href="#" id="productsDropdown" role="button" disabled role="button" disabled>Products</a>
+                                    <a aria-expanded="false" aria-haspopup="true" class="dropdown-item dropdown-toggle" href="#" id="productsDropdown" role="button" disabled>Products</a>
                                     <ul class="dropdown-menu px-2">
                                         <li class="">
                                             <a class="dropdown-item" href="/#education-loan">Education Loan</a>
@@ -217,7 +222,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item nav-item-contact">
                     <a class="nav-link" href="/contactus">contact us</a>
                 </li>
                 <li class="nav-item dropdown dropdown-investor-relations">
@@ -242,13 +247,10 @@
                 </li>
                 
             </ul>
-                </li>
-                
-                
-            </ul>
         </div>
     </div>
-</nav><div class="regulatory ">
+</nav>
+<div class="regulatory ">
 
     <div class="position-relative regulatory-banner">
         <img src="/img/regulatory-banner.png" alt="banner" class="d-block w-100 geo-image">
@@ -618,6 +620,7 @@
         </div>
     </div>
 </footer>
+
 <script src="https://code.jquery.com/jquery-1.12.4.js">
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -762,124 +765,6 @@
                     }, 200);
                 }
             );
-                        delete nestedCloseTimers[dropendId];
-                    }
-                    
-                    // Keep parent dropdown open (keep all parent levels open)
-                    var $parentDropdown = $dropend.closest('.dropdown-menu').closest('.dropdown, .dropend');
-                    if ($parentDropdown.length) {
-                        $parentDropdown.find('> .dropdown-menu').first().addClass('show');
-                        // Keep grandparent open too
-                        var $grandparent = $parentDropdown.closest('.dropdown-menu').closest('.dropdown, .dropend');
-                        if ($grandparent.length) {
-                            $grandparent.find('> .dropdown-menu').first().addClass('show');
-                        }
-                    }
-                    
-                    // Close sibling nested dropdowns at the same level
-                    $dropend.siblings('.dropend').each(function() {
-                        var $sibling = $(this);
-                        $sibling.find('.dropdown-menu').removeClass('show');
-                        $sibling.find('.dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
-                    });
-                    
-                    // Close all child nested dropdowns (progressive reveal - only show direct children)
-                    $dropend.find('.dropend .dropdown-menu').removeClass('show');
-                    $dropend.find('.dropend .dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
-                    
-                    // Open only this nested dropdown (direct child)
-                    $dropend.find('> .dropdown-menu').first().addClass('show');
-                    $dropend.find('> .dropdown-toggle').first().addClass('show').attr('aria-expanded', 'true');
-                },
-                function() {
-                    var $dropend = $(this);
-                    var dropendId = $dropend.find('.dropdown-toggle').attr('id');
-                    
-                    // Delay closing nested dropdown and all its children
-                    nestedCloseTimers[dropendId] = setTimeout(function() {
-                        if (!$dropend.is(':hover') && !$dropend.find('.dropdown-menu').is(':hover')) {
-                            // Close this dropdown and all its nested children
-                            $dropend.find('.dropdown-menu').removeClass('show');
-                            $dropend.find('.dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
-                        }
-                        delete nestedCloseTimers[dropendId];
-                    }, 200);
-                }
-            );
-                        delete nestedCloseTimers[dropendId];
-                    }
-                    
-                    // Keep parent dropdown open (keep all parent levels open)
-                    var $parentDropdown = $dropend.closest('.dropdown-menu').closest('.dropdown, .dropend');
-                    if ($parentDropdown.length) {
-                        $parentDropdown.find('> .dropdown-menu').first().addClass('show');
-                        // Keep grandparent open too
-                        var $grandparent = $parentDropdown.closest('.dropdown-menu').closest('.dropdown, .dropend');
-                        if ($grandparent.length) {
-                            $grandparent.find('> .dropdown-menu').first().addClass('show');
-                        }
-                    }
-                    
-                    // Close sibling nested dropdowns at the same level
-                    $dropend.siblings('.dropend').each(function() {
-                        var $sibling = $(this);
-                        $sibling.find('.dropdown-menu').removeClass('show');
-                        $sibling.find('.dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
-                    });
-                    
-                    // Close all child nested dropdowns (progressive reveal - only show direct children)
-                    $dropend.find('.dropend .dropdown-menu').removeClass('show');
-                    $dropend.find('.dropend .dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
-                    
-                    // Open only this nested dropdown (direct child)
-                    $dropend.find('> .dropdown-menu').first().addClass('show');
-                    $dropend.find('> .dropdown-toggle').first().addClass('show').attr('aria-expanded', 'true');
-                },
-                function() {
-                    var $dropend = $(this);
-                    var dropendId = $dropend.find('.dropdown-toggle').attr('id');
-                    
-                    // Delay closing nested dropdown and all its children
-                    nestedCloseTimers[dropendId] = setTimeout(function() {
-                        if (!$dropend.is(':hover') && !$dropend.find('.dropdown-menu').is(':hover')) {
-                            // Close this dropdown and all its nested children
-                            $dropend.find('.dropdown-menu').removeClass('show');
-                            $dropend.find('.dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
-                        }
-                        delete nestedCloseTimers[dropendId];
-                    }, 200);
-                }
-            );
-                        delete nestedCloseTimers[dropendId];
-                    }
-                    
-                    // Keep parent dropdown open
-                    var $parentDropdown = $dropend.closest('.dropdown-menu').closest('.dropdown, .dropend');
-                    if ($parentDropdown.length) {
-                        $parentDropdown.find('> .dropdown-menu').first().addClass('show');
-                    }
-                    
-                    // Close sibling nested dropdowns
-                    $dropend.siblings('.dropend').find('.dropdown-menu').removeClass('show');
-                    
-                    // Open this nested dropdown
-                    $dropend.find('> .dropdown-menu').first().addClass('show');
-                    $dropend.find('> .dropdown-toggle').first().addClass('show').attr('aria-expanded', 'true');
-                },
-                function() {
-                    var $dropend = $(this);
-                    var dropendId = $dropend.find('.dropdown-toggle').attr('id');
-                    
-                    // Delay closing nested dropdown
-                    nestedCloseTimers[dropendId] = setTimeout(function() {
-                        if (!$dropend.is(':hover') && !$dropend.find('.dropdown-menu').is(':hover')) {
-                            $dropend.find('.dropdown-menu').removeClass('show');
-                            $dropend.find('.dropdown-toggle').removeClass('show').attr('aria-expanded', 'false');
-                        }
-                        delete nestedCloseTimers[dropendId];
-                    }, 200);
-                }
-            );
             
             
             // Keep dropdown open when hovering over the menu itself
@@ -922,11 +807,28 @@
             );
                     if ($parentDropdown.length) {
                         $parentDropdown.find('> .dropdown-menu').first().addClass('show');
+                        // Keep grandparent open too
+                        var $grandparent = $parentDropdown.closest('.dropdown-menu').closest('.dropdown, .dropend');
+                        if ($grandparent.length) {
+                            $grandparent.find('> .dropdown-menu').first().addClass('show');
+                        }
                     }
+                    
+                    // Don't auto-open child dropdowns - only show on hover of parent item
+                    // This ensures progressive reveal - child menus only open when their parent is hovered
                 },
                 function() {
+                    var $menu = $(this);
+                    // Delay closing to allow moving to nested menus
                     closeTimer = setTimeout(function() {
-                        closeAllDropdowns();
+                        // Only close if not hovering over any dropdown item or nested menu
+                        if (!$menu.is(':hover') && !$menu.find('.dropend').is(':hover')) {
+                            // Check if we're still hovering over any parent dropdown
+                            var $parent = $menu.closest('.dropdown, .dropend');
+                            if (!$parent.is(':hover')) {
+                                closeAllDropdowns();
+                            }
+                        }
                     }, 300);
                 }
             );
@@ -978,8 +880,6 @@
         });
     });
     </script>
-
-
 
 </body>
 </html>
